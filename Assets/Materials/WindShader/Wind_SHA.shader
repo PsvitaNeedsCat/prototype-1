@@ -4,8 +4,9 @@ Shader "Unlit/Wind Shader"
 {
 	Properties
 	{
-		_Color("Color", Color) = (0, 0, 0, 1)
+		//_Color("Color", Color) = (0, 0, 0, 1)
 		_MainTex("Albedo (RGB)", 2D) = "white" {}
+		//_DiffuseTex("Diff", 2D) = "white" {}
 		_Strength("Strength", Range(0, 2)) = 1
 		_Speed("Speed", Range(-200, 200)) = 100
 	}
@@ -24,8 +25,10 @@ Shader "Unlit/Wind Shader"
 		{
 
 			CGPROGRAM
-			#pragma vertex vertexFunc
-			#pragma fragment fragmentFunc
+			#pragma vertex vert
+			#pragma fragment frag
+
+			#include "UnityCG.cginc"
 
 			float _Strength;
 			float _Speed;
@@ -52,15 +55,19 @@ Shader "Unlit/Wind Shader"
 				float4 vertex : SV_POSITION; // clip space position
 			};
 
+			sampler2D _MainTex;
+			float4 _MainTex_ST;
+
+
 			v2f vert(appdata v)
 			{
 				v2f o;
 				o.vertex = UnityObjectToClipPos(v.vertex);
-				o.uv = v.uv;
+				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 				return o;
 			}
 
-			vertexOutput vertexFunc(vertexInput IN)
+			vertexOutput vert(vertexInput IN)
 			{
 				vertexOutput o;
 				float4 worldPos = mul(unity_ObjectToWorld, IN.vertex);
@@ -71,12 +78,9 @@ Shader "Unlit/Wind Shader"
 
 			}
 
-			sampler2D _MainTex;
-			float4 _Color;
-
-			float4 fragmentFunc(v2f i) : SV_Target
+			half4 frag(v2f i) : SV_Target
 			{
-				float4 col = tex2D(_MainTex, i.uv) * _Color;
+				half4 col = tex2D(_MainTex, i.uv);
 				return col;
 			}
 			ENDCG

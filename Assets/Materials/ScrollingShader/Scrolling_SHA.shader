@@ -41,7 +41,7 @@ Shader "Unlit/Scrolling Texture"
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
 				half4 color : COLOR;
-				half2 patternUV : TEXCOOR1;
+				half2 patternUV : TEXCOORD1;
             };
 
             sampler2D _MainTex;
