@@ -29,6 +29,7 @@ Shader "Unlit/Scrolling Texture"
 
             #include "UnityCG.cginc"
 
+
             struct appdata
             {
                 float4 vertex : POSITION;
