@@ -24,7 +24,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""id"": ""945027eb-dd9f-49c2-9a24-3da27ccbbb47"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(behavior=2)""
                 },
                 {
                     ""name"": ""Turning"",
@@ -32,7 +32,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""id"": ""f08a9c74-195d-4e2e-8383-b4fb0d3cd689"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(behavior=2)""
                 },
                 {
                     ""name"": ""Horn"",

@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class SimpleCarController : MonoBehaviour
 {
-    private float horizontalInput;
-    private float verticalInput;
     private float steeringAngle;
 
     public WheelCollider frontLeftWheel, frontRightWheel, backLeftWheel, backRightWheel;
@@ -22,6 +21,9 @@ public class SimpleCarController : MonoBehaviour
     private bool chargingUp = true;
 
     public AudioSource honkAudioSource;
+    private InputMaster controls;
+
+    public float impulseAmount = 1.0f;
 
     private float ChargeAmount
     {
@@ -43,22 +45,16 @@ public class SimpleCarController : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody>();
         ChargeAmount = 0.0f;
+        controls = new InputMaster();
+
+        controls.Player1.Enable();
+        controls.Player1.Charge.performed += _ => ChargeInput();
+
+        controls.Player1.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
     }
 
     public void GetInput()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
-
-        if (Input.GetKeyDown(KeyCode.Space) && !isCharging)
-        {
-            StartCharging();
-        }
-
-        if (Input.GetKeyUp(KeyCode.Space) && isCharging)
-        {
-            StopCharging();
-        }
 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.DownArrow))
         {
@@ -66,11 +62,10 @@ public class SimpleCarController : MonoBehaviour
         }
     }
 
-    private void Steer()
+    private void Steer(float horInput)
     {
-        steeringAngle = maxSteerAngle * horizontalInput;
-        frontLeftWheel.steerAngle = steeringAngle;
-        frontRightWheel.steerAngle = steeringAngle;
+        steeringAngle = maxSteerAngle * horInput;
+        
     }
 
     private void Accelerate()
@@ -113,15 +108,29 @@ public class SimpleCarController : MonoBehaviour
         accelAmount = Mathf.Clamp(accelAmount - (Time.deltaTime / accelDecayTime), 0.0f, 1.0f);
         GetInput();
 
+        frontLeftWheel.steerAngle = steeringAngle;
+        frontRightWheel.steerAngle = steeringAngle;
+
         ChargingUpdate();
     }
 
     private void FixedUpdate()
     {
-        Steer();
         Accelerate();
         AddDownForce();
         UpdateWheelPoses();
+    }
+
+    private void ChargeInput()
+    {
+        if (isCharging)
+        {
+            StopCharging();
+        }
+        else
+        {
+            StartCharging();
+        }
     }
 
     private void StartCharging()
@@ -136,6 +145,7 @@ public class SimpleCarController : MonoBehaviour
         isCharging = false;
 
         accelAmount = chargeAmount;
+        rigidBody.AddForce(transform.forward * chargeAmount * impulseAmount, ForceMode.Impulse);
 
         ChargeAmount = 0.0f; 
     }
