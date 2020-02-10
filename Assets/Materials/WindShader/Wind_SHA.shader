@@ -12,7 +12,12 @@ Shader "Unlit/Wind Shader"
 
 		SubShader
 	{
-		Tags { "RenderType" = "Opaque" }
+		Tags
+		{
+			"Queue" = "Transparent"
+			"RenderType" = "Opaque"
+			"CanUseSpriteAtlas" = "True"
+		}
 		LOD 200
 
 		Pass

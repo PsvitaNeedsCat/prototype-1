@@ -1,4 +1,4 @@
-﻿//SHADER TUTORIAL FROM MANUELA MALASAÑA
+﻿//BASE SHADER TUTORIAL FROM MANUELA MALASAÑA
 Shader "Unlit/ToonShading"
 {
 	Properties
@@ -37,6 +37,7 @@ Shader "Unlit/ToonShading"
 			LOD 200								//Level of Detail = 200
 
 			CGPROGRAM
+			#include "ToonCommon.cginc"
 			#pragma surface surf Toon fullforwardshadows alpha
 			#pragma target 3.0
 
@@ -46,22 +47,6 @@ Shader "Unlit/ToonShading"
 			half _Gloss;
 			half3 _GlossColor;
 			half _GlossSmoothness;
-
-			half4 LightingToon(SurfaceOutput s, half3 lightDir, half3 viewDir, half atten)
-			{
-				half d = pow(dot(s.Normal, lightDir) * 0.5 + 0.5, _ShadowThresh);
-				half shadow = smoothstep(0.5, _ShadowSmooth, d);
-				half3 shadowColor = lerp(_ShadowColor, half3(1, 1, 1), shadow);
-				half4 c;
-				c.rgb = s.Albedo * _LightColor0.rgb * atten * shadowColor;
-				c.a = s.Alpha;
-
-				half3 halfDir = normalize(lightDir + viewDir);
-				half halfDot = pow(dot(s.Normal, halfDir), _Gloss);
-				half gloss = smoothstep(0.5, max(0.5, _GlossSmoothness), halfDot) * s.Specular;
-				c.rgb = lerp(c.rgb, _GlossColor * _LightColor0.rgb, gloss);
-				return c;
-			}
 
 			sampler2D _MainTex;			//sample diffuse
 			sampler2D _BumpMap;			//sample normal map
@@ -83,6 +68,7 @@ Shader "Unlit/ToonShading"
 
 			void surf(Input IN, inout SurfaceOutput o)
 			{
+				InitLightingToon(_ShadowThresh, _ShadowSmooth, _ShadowColor, _Gloss, _GlossSmoothness, _GlossColor);
 				o.Albedo = tex2D(_MainTex, IN.uv_MainTex).rgb * _Color;		//Albedo = (diffuse, diffuse UVs) colour * colour chosen in inspector
 				o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_MainTex));	//normal = unpack normal channels(normal map, diffuse UVs)
 				o.Normal.z /= _NormalStrength;								//normal zAxis = normal zAxis / normal strength chosen in inspector, divide to invert
