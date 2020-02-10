@@ -3,23 +3,33 @@ Shader "Unlit/ToonShading"
 {
 	Properties
 	{
+		[Header(DIFFUSE)]
 		_Color("Color", Color) = (1,1,1,1)
 		_MainTex("Albedo (RGB)", 2D) = "white" {}
-		_AlphaMap("Alpha Map", Color) = (1, 1, 1, 1)
+		[Space]
+		[Header(NORMAL)]
 		_BumpMap("Normal", 2D) = "bump" {}
 		_NormalStrength("Normal Strength", Range(0, 2)) = 1
-		[HDR]_EmissionColor("Emmission Color", Color) = (0, 0, 0, 1)
-		_EmissionMap("Emission Map", 2D) = "white" {}
+		[Space]
+		[Header(RIM LIGHTING)]
 		[HDR]_RimColor("Rim Color", Color) = (1, 1, 1, 1)
 		_RimPower("Rim Fill", Range(0, 2)) = 0.1
 		_RimSmoothing("Rim Smoothing", Range(0.5, 1)) = 1
+		[Space]
+		[Header(SHADOWS)]
 		_ShadowThresh("Shadow Threshold", Range(0, 2)) = 1
 		_ShadowSmooth("Shadow Smoothness", Range(0.5, 1)) = 0.6
 		[HDR]_ShadowColor("Shadow Color", Color) = (0, 0, 0, 1)
+		[Space]
+		[Header(SPECULAR)]
 		_SpecMap("Specular Map", 2D) = "white" {}
 		_Gloss("Glossiness", Range(0, 20)) = 10
 		_GlossSmoothness("Gloss Smoothness", Range(0, 2)) = 1
 		[HDR]_GlossColor("Gloss Color", Color) = (1, 1, 1, 1)
+		[Space]
+		[Header(EMISSION)]
+		[HDR]_EmissionColor("Emmission Color", Color) = (0, 0, 0, 1)
+		_EmissionMap("Emission Map", 2D) = "white" {}
 	}
 		SubShader
 		{
