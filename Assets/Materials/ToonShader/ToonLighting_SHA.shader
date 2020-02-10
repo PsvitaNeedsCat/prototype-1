@@ -16,6 +16,10 @@ Shader "Unlit/ToonShading"
 		_ShadowThresh("Shadow Threshold", Range(0, 2)) = 1
 		_ShadowSmooth("Shadow Smoothness", Range(0.5, 1)) = 0.6
 		[HDR]_ShadowColor("Shadow Color", Color) = (0, 0, 0, 1)
+		_SpecMap("Specular Map", 2D) = "white" {}
+		_Gloss("Glossiness", Range(0, 20)) = 10
+		_GlossSmoothness("Gloss Smoothness", Range(0, 2)) = 1
+		[HDR]_GlossColor("Gloss Color", Color) = (1, 1, 1, 1)
 	}
 		SubShader
 		{
@@ -29,8 +33,11 @@ Shader "Unlit/ToonShading"
 			half _ShadowThresh;
 			half _ShadowSmooth;
 			half3 _ShadowColor;
+			half _Gloss;
+			half3 _GlossColor;
+			half _GlossSmoothness;
 
-			half4 LightingToon(SurfaceOutput s, half3 lightDir, half atten)
+			half4 LightingToon(SurfaceOutput s, half3 lightDir, half3 viewDir, half atten)
 			{
 				half d = pow(dot(s.Normal, lightDir) * 0.5 + 0.5, _ShadowThresh);
 				half shadow = smoothstep(0.5, _ShadowSmooth, d);
@@ -38,12 +45,18 @@ Shader "Unlit/ToonShading"
 				half4 c;
 				c.rgb = s.Albedo * _LightColor0.rgb * atten * shadowColor;
 				c.a = s.Alpha;
+
+				half3 halfDir = normalize(lightDir + viewDir);
+				half halfDot = pow(dot(s.Normal, halfDir), _Gloss);
+				half gloss = smoothstep(0.5, max(0.5, _GlossSmoothness), halfDot) * s.Specular;
+				c.rgb = lerp(c.rgb, _GlossColor * _LightColor0.rgb, gloss);
 				return c;
 			}
 
 			sampler2D _MainTex;			//sample diffuse
 			sampler2D _BumpMap;			//sample normal map
 			sampler2D _EmissionMap;		//sample emission map
+			sampler2D _SpecMap;			//sample specular map
 
 			struct Input
 			{
@@ -67,6 +80,7 @@ Shader "Unlit/ToonShading"
 				o.Emission = _EmissionColor * tex2D(_EmissionMap, IN.uv_MainTex) * o.Albedo;
 				half d = 1 - pow(dot(o.Normal, IN.viewDir), _RimPower);		//Create dot texture * rim power
 				o.Emission += _RimColor * smoothstep(0.5, max(0.5, _RimSmoothing), d);			//Apply emission to dot texture
+				o.Specular = tex2D(_SpecMap, IN.uv_MainTex).r;
 			}
 			ENDCG
 		}

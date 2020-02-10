@@ -31,15 +31,22 @@ Material:
         m_Texture: {fileID: 2800000, guid: 5171fdc1d993e1b4586318d2a169e8b0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SpecMap:
+        m_Texture: {fileID: 2800000, guid: 42d6d85356b6994448d9afab38de4574, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _Gloss: 10
+    - _GlossSmoothness: 0.54
     - _NormalStrength: 0.49
     - _RimPower: 1.32
-    - _RimSmoothing: 0.927
-    - _ShadowSmooth: 0.517
+    - _RimSmoothing: 0.5
+    - _ShadowSmooth: 0.507
     - _ShadowThresh: 1.27
     m_Colors:
     - _AlphaMap: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GlossColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 0.7830189, g: 0.60464996, b: 0, a: 1}
     - _ShadowColor: {r: 0.5176471, g: 0, b: 2, a: 1}
