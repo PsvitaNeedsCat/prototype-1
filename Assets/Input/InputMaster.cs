@@ -19,12 +19,20 @@ public class @InputMaster : IInputActionCollection, IDisposable
             ""id"": ""ea62288e-3cba-44a1-806d-83fd5dd12565"",
             ""actions"": [
                 {
-                    ""name"": ""Charge"",
+                    ""name"": ""Charge Press"",
                     ""type"": ""Button"",
                     ""id"": ""945027eb-dd9f-49c2-9a24-3da27ccbbb47"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""Charge Release"",
+                    ""type"": ""Button"",
+                    ""id"": ""fed07bc1-71a5-4d53-bc47-14497e542dea"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""Turning"",
@@ -35,9 +43,17 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""interactions"": ""Press(behavior=2)""
                 },
                 {
-                    ""name"": ""Horn"",
+                    ""name"": ""Horn Press"",
                     ""type"": ""Button"",
                     ""id"": ""0770a0b6-8535-4e2b-b32e-6065388e9b05"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Horn Release"",
+                    ""type"": ""Button"",
+                    ""id"": ""7fe8a4a9-a194-4474-b9d0-f5dd6d8bf732"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
@@ -48,10 +64,10 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""cc67c6e2-1426-409f-a6f3-e043da17e331"",
                     ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Charge"",
+                    ""action"": ""Charge Press"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -59,10 +75,10 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""da0e76fd-7dbc-4954-8b90-e3b98c710fca"",
                     ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Charge"",
+                    ""action"": ""Charge Press"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -136,21 +152,65 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""463b5e89-30fa-4a33-89ae-c5f1290ad532"",
                     ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Horn"",
+                    ""action"": ""Horn Press"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""007ef950-931e-4d27-ba43-07ea727b35ec"",
-                    ""path"": ""<XInputController>/buttonSouth"",
-                    ""interactions"": """",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Horn"",
+                    ""action"": ""Horn Press"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7e0c9e8f-4b2c-4269-aaf3-ea72b654a3f6"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Charge Release"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""72f117b2-7ba2-4b59-9d97-d0b060ef545a"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Charge Release"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e2f13c6-585e-489c-aac0-9f0ada65b290"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Horn Release"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""716f067e-0865-492b-82a7-4887e81c6b2f"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Horn Release"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -158,12 +218,20 @@ public class @InputMaster : IInputActionCollection, IDisposable
         },
         {
             ""name"": ""Player 2"",
-            ""id"": ""135a9718-8011-4a3d-9441-c2a005939d58"",
+            ""id"": ""ccc3d2d6-0df9-4ddc-a436-abb9cc6c039e"",
             ""actions"": [
                 {
-                    ""name"": ""Charge"",
+                    ""name"": ""Charge Press"",
                     ""type"": ""Button"",
-                    ""id"": ""96deea62-d1b7-4626-959d-79e308a93542"",
+                    ""id"": ""2a3a8539-bd80-431b-9f31-2040051b6973"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""Charge Release"",
+                    ""type"": ""Button"",
+                    ""id"": ""f30483f3-5ca4-4f25-b064-05253a6f1635"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
@@ -171,15 +239,23 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": ""Turning"",
                     ""type"": ""Button"",
-                    ""id"": ""2e0fa546-4da4-4555-a3c3-831a87042c0e"",
+                    ""id"": ""7937e464-ef7a-41fe-9874-6c9c8f0e9e80"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""Horn Press"",
+                    ""type"": ""Button"",
+                    ""id"": ""4d31aee6-0b62-40b4-844c-0eac7e0862e9"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Horn"",
+                    ""name"": ""Horn Release"",
                     ""type"": ""Button"",
-                    ""id"": ""9511b0b7-3c3d-4f19-b123-5e0495e495e0"",
+                    ""id"": ""2f93a7ff-7b5e-4577-ae33-3987a024ad5f"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
@@ -188,29 +264,29 @@ public class @InputMaster : IInputActionCollection, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""a849b292-7bce-47d9-bb90-200a3fa8c216"",
-                    ""path"": ""<Keyboard>/k"",
-                    ""interactions"": """",
+                    ""id"": ""c2eec967-b95f-4ea9-85c0-69bb165732b6"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Charge"",
+                    ""action"": ""Charge Press"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f96f1af8-a3be-43b8-b9b6-7fed8f430fae"",
+                    ""id"": ""400664ae-5347-444a-acab-d49018049b77"",
                     ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Charge"",
+                    ""action"": ""Charge Press"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""JLkeys"",
-                    ""id"": ""563b61e8-9bd3-4732-b782-2f18c73b4da7"",
+                    ""name"": ""ADkeys"",
+                    ""id"": ""1cbfc4bb-d82d-42dd-8fa2-5eb4ca808ecf"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -221,8 +297,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""negative"",
-                    ""id"": ""f553a21c-ebaa-46a1-8eec-83715d2cd5c2"",
-                    ""path"": ""<Keyboard>/j"",
+                    ""id"": ""399d5494-df6a-4f49-8134-257e840ef956"",
+                    ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -232,8 +308,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""positive"",
-                    ""id"": ""8ed6c2e9-846c-47ac-9fec-efbdaae6ffe3"",
-                    ""path"": ""<Keyboard>/l"",
+                    ""id"": ""0fc0fae2-a46f-44b8-b426-e4c8bd2a47ae"",
+                    ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -243,7 +319,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""LAnalogStick"",
-                    ""id"": ""e4af533c-b219-4935-b5df-b3bb2597b6a0"",
+                    ""id"": ""a5f31671-77fd-4ac6-992d-2ce941ae69e8"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -254,7 +330,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""negative"",
-                    ""id"": ""eaa043e0-2ae1-441e-8b6e-bc34a4443f23"",
+                    ""id"": ""09467955-9210-4892-9b7b-7c7fd6d07263"",
                     ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -265,7 +341,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""positive"",
-                    ""id"": ""467d681e-89ba-4b5b-a91d-34bd5d06a566"",
+                    ""id"": ""b6dcc73d-1407-44fa-bf59-3ed0c3ee0c86"",
                     ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -276,23 +352,67 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""fb9cd1fb-a6cb-47b2-8f3a-bca29baf7bb9"",
-                    ""path"": ""<Keyboard>/i"",
-                    ""interactions"": """",
+                    ""id"": ""69b44743-cf3e-4030-acce-f83477526278"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Horn"",
+                    ""action"": ""Horn Press"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""73b1c80d-b12f-4d06-9dda-1a19676c2881"",
-                    ""path"": ""<XInputController>/buttonSouth"",
-                    ""interactions"": """",
+                    ""id"": ""d63bfce2-023f-4d26-a76d-2547c1fab0df"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Horn"",
+                    ""action"": ""Horn Press"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""185b9a8c-fd21-41b8-9a71-9046f12a0e4a"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Charge Release"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""82ae8871-f67f-4f8b-bc49-ca75fd7c1ba1"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Charge Release"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8455f6e1-0e61-480d-8dff-e4c0c627c19c"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Horn Release"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f6be23c8-5864-45bd-a726-51b027c65d12"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Horn Release"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -326,14 +446,18 @@ public class @InputMaster : IInputActionCollection, IDisposable
 }");
         // Player 1
         m_Player1 = asset.FindActionMap("Player 1", throwIfNotFound: true);
-        m_Player1_Charge = m_Player1.FindAction("Charge", throwIfNotFound: true);
+        m_Player1_ChargePress = m_Player1.FindAction("Charge Press", throwIfNotFound: true);
+        m_Player1_ChargeRelease = m_Player1.FindAction("Charge Release", throwIfNotFound: true);
         m_Player1_Turning = m_Player1.FindAction("Turning", throwIfNotFound: true);
-        m_Player1_Horn = m_Player1.FindAction("Horn", throwIfNotFound: true);
+        m_Player1_HornPress = m_Player1.FindAction("Horn Press", throwIfNotFound: true);
+        m_Player1_HornRelease = m_Player1.FindAction("Horn Release", throwIfNotFound: true);
         // Player 2
         m_Player2 = asset.FindActionMap("Player 2", throwIfNotFound: true);
-        m_Player2_Charge = m_Player2.FindAction("Charge", throwIfNotFound: true);
+        m_Player2_ChargePress = m_Player2.FindAction("Charge Press", throwIfNotFound: true);
+        m_Player2_ChargeRelease = m_Player2.FindAction("Charge Release", throwIfNotFound: true);
         m_Player2_Turning = m_Player2.FindAction("Turning", throwIfNotFound: true);
-        m_Player2_Horn = m_Player2.FindAction("Horn", throwIfNotFound: true);
+        m_Player2_HornPress = m_Player2.FindAction("Horn Press", throwIfNotFound: true);
+        m_Player2_HornRelease = m_Player2.FindAction("Horn Release", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -383,16 +507,20 @@ public class @InputMaster : IInputActionCollection, IDisposable
     // Player 1
     private readonly InputActionMap m_Player1;
     private IPlayer1Actions m_Player1ActionsCallbackInterface;
-    private readonly InputAction m_Player1_Charge;
+    private readonly InputAction m_Player1_ChargePress;
+    private readonly InputAction m_Player1_ChargeRelease;
     private readonly InputAction m_Player1_Turning;
-    private readonly InputAction m_Player1_Horn;
+    private readonly InputAction m_Player1_HornPress;
+    private readonly InputAction m_Player1_HornRelease;
     public struct Player1Actions
     {
         private @InputMaster m_Wrapper;
         public Player1Actions(@InputMaster wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Charge => m_Wrapper.m_Player1_Charge;
+        public InputAction @ChargePress => m_Wrapper.m_Player1_ChargePress;
+        public InputAction @ChargeRelease => m_Wrapper.m_Player1_ChargeRelease;
         public InputAction @Turning => m_Wrapper.m_Player1_Turning;
-        public InputAction @Horn => m_Wrapper.m_Player1_Horn;
+        public InputAction @HornPress => m_Wrapper.m_Player1_HornPress;
+        public InputAction @HornRelease => m_Wrapper.m_Player1_HornRelease;
         public InputActionMap Get() { return m_Wrapper.m_Player1; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -402,28 +530,40 @@ public class @InputMaster : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_Player1ActionsCallbackInterface != null)
             {
-                @Charge.started -= m_Wrapper.m_Player1ActionsCallbackInterface.OnCharge;
-                @Charge.performed -= m_Wrapper.m_Player1ActionsCallbackInterface.OnCharge;
-                @Charge.canceled -= m_Wrapper.m_Player1ActionsCallbackInterface.OnCharge;
+                @ChargePress.started -= m_Wrapper.m_Player1ActionsCallbackInterface.OnChargePress;
+                @ChargePress.performed -= m_Wrapper.m_Player1ActionsCallbackInterface.OnChargePress;
+                @ChargePress.canceled -= m_Wrapper.m_Player1ActionsCallbackInterface.OnChargePress;
+                @ChargeRelease.started -= m_Wrapper.m_Player1ActionsCallbackInterface.OnChargeRelease;
+                @ChargeRelease.performed -= m_Wrapper.m_Player1ActionsCallbackInterface.OnChargeRelease;
+                @ChargeRelease.canceled -= m_Wrapper.m_Player1ActionsCallbackInterface.OnChargeRelease;
                 @Turning.started -= m_Wrapper.m_Player1ActionsCallbackInterface.OnTurning;
                 @Turning.performed -= m_Wrapper.m_Player1ActionsCallbackInterface.OnTurning;
                 @Turning.canceled -= m_Wrapper.m_Player1ActionsCallbackInterface.OnTurning;
-                @Horn.started -= m_Wrapper.m_Player1ActionsCallbackInterface.OnHorn;
-                @Horn.performed -= m_Wrapper.m_Player1ActionsCallbackInterface.OnHorn;
-                @Horn.canceled -= m_Wrapper.m_Player1ActionsCallbackInterface.OnHorn;
+                @HornPress.started -= m_Wrapper.m_Player1ActionsCallbackInterface.OnHornPress;
+                @HornPress.performed -= m_Wrapper.m_Player1ActionsCallbackInterface.OnHornPress;
+                @HornPress.canceled -= m_Wrapper.m_Player1ActionsCallbackInterface.OnHornPress;
+                @HornRelease.started -= m_Wrapper.m_Player1ActionsCallbackInterface.OnHornRelease;
+                @HornRelease.performed -= m_Wrapper.m_Player1ActionsCallbackInterface.OnHornRelease;
+                @HornRelease.canceled -= m_Wrapper.m_Player1ActionsCallbackInterface.OnHornRelease;
             }
             m_Wrapper.m_Player1ActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Charge.started += instance.OnCharge;
-                @Charge.performed += instance.OnCharge;
-                @Charge.canceled += instance.OnCharge;
+                @ChargePress.started += instance.OnChargePress;
+                @ChargePress.performed += instance.OnChargePress;
+                @ChargePress.canceled += instance.OnChargePress;
+                @ChargeRelease.started += instance.OnChargeRelease;
+                @ChargeRelease.performed += instance.OnChargeRelease;
+                @ChargeRelease.canceled += instance.OnChargeRelease;
                 @Turning.started += instance.OnTurning;
                 @Turning.performed += instance.OnTurning;
                 @Turning.canceled += instance.OnTurning;
-                @Horn.started += instance.OnHorn;
-                @Horn.performed += instance.OnHorn;
-                @Horn.canceled += instance.OnHorn;
+                @HornPress.started += instance.OnHornPress;
+                @HornPress.performed += instance.OnHornPress;
+                @HornPress.canceled += instance.OnHornPress;
+                @HornRelease.started += instance.OnHornRelease;
+                @HornRelease.performed += instance.OnHornRelease;
+                @HornRelease.canceled += instance.OnHornRelease;
             }
         }
     }
@@ -432,16 +572,20 @@ public class @InputMaster : IInputActionCollection, IDisposable
     // Player 2
     private readonly InputActionMap m_Player2;
     private IPlayer2Actions m_Player2ActionsCallbackInterface;
-    private readonly InputAction m_Player2_Charge;
+    private readonly InputAction m_Player2_ChargePress;
+    private readonly InputAction m_Player2_ChargeRelease;
     private readonly InputAction m_Player2_Turning;
-    private readonly InputAction m_Player2_Horn;
+    private readonly InputAction m_Player2_HornPress;
+    private readonly InputAction m_Player2_HornRelease;
     public struct Player2Actions
     {
         private @InputMaster m_Wrapper;
         public Player2Actions(@InputMaster wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Charge => m_Wrapper.m_Player2_Charge;
+        public InputAction @ChargePress => m_Wrapper.m_Player2_ChargePress;
+        public InputAction @ChargeRelease => m_Wrapper.m_Player2_ChargeRelease;
         public InputAction @Turning => m_Wrapper.m_Player2_Turning;
-        public InputAction @Horn => m_Wrapper.m_Player2_Horn;
+        public InputAction @HornPress => m_Wrapper.m_Player2_HornPress;
+        public InputAction @HornRelease => m_Wrapper.m_Player2_HornRelease;
         public InputActionMap Get() { return m_Wrapper.m_Player2; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -451,28 +595,40 @@ public class @InputMaster : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_Player2ActionsCallbackInterface != null)
             {
-                @Charge.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnCharge;
-                @Charge.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnCharge;
-                @Charge.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnCharge;
+                @ChargePress.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnChargePress;
+                @ChargePress.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnChargePress;
+                @ChargePress.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnChargePress;
+                @ChargeRelease.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnChargeRelease;
+                @ChargeRelease.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnChargeRelease;
+                @ChargeRelease.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnChargeRelease;
                 @Turning.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnTurning;
                 @Turning.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnTurning;
                 @Turning.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnTurning;
-                @Horn.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnHorn;
-                @Horn.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnHorn;
-                @Horn.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnHorn;
+                @HornPress.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnHornPress;
+                @HornPress.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnHornPress;
+                @HornPress.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnHornPress;
+                @HornRelease.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnHornRelease;
+                @HornRelease.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnHornRelease;
+                @HornRelease.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnHornRelease;
             }
             m_Wrapper.m_Player2ActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Charge.started += instance.OnCharge;
-                @Charge.performed += instance.OnCharge;
-                @Charge.canceled += instance.OnCharge;
+                @ChargePress.started += instance.OnChargePress;
+                @ChargePress.performed += instance.OnChargePress;
+                @ChargePress.canceled += instance.OnChargePress;
+                @ChargeRelease.started += instance.OnChargeRelease;
+                @ChargeRelease.performed += instance.OnChargeRelease;
+                @ChargeRelease.canceled += instance.OnChargeRelease;
                 @Turning.started += instance.OnTurning;
                 @Turning.performed += instance.OnTurning;
                 @Turning.canceled += instance.OnTurning;
-                @Horn.started += instance.OnHorn;
-                @Horn.performed += instance.OnHorn;
-                @Horn.canceled += instance.OnHorn;
+                @HornPress.started += instance.OnHornPress;
+                @HornPress.performed += instance.OnHornPress;
+                @HornPress.canceled += instance.OnHornPress;
+                @HornRelease.started += instance.OnHornRelease;
+                @HornRelease.performed += instance.OnHornRelease;
+                @HornRelease.canceled += instance.OnHornRelease;
             }
         }
     }
@@ -497,14 +653,18 @@ public class @InputMaster : IInputActionCollection, IDisposable
     }
     public interface IPlayer1Actions
     {
-        void OnCharge(InputAction.CallbackContext context);
+        void OnChargePress(InputAction.CallbackContext context);
+        void OnChargeRelease(InputAction.CallbackContext context);
         void OnTurning(InputAction.CallbackContext context);
-        void OnHorn(InputAction.CallbackContext context);
+        void OnHornPress(InputAction.CallbackContext context);
+        void OnHornRelease(InputAction.CallbackContext context);
     }
     public interface IPlayer2Actions
     {
-        void OnCharge(InputAction.CallbackContext context);
+        void OnChargePress(InputAction.CallbackContext context);
+        void OnChargeRelease(InputAction.CallbackContext context);
         void OnTurning(InputAction.CallbackContext context);
-        void OnHorn(InputAction.CallbackContext context);
+        void OnHornPress(InputAction.CallbackContext context);
+        void OnHornRelease(InputAction.CallbackContext context);
     }
 }
