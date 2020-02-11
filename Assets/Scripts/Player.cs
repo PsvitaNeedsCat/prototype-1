@@ -24,6 +24,8 @@ public class Player : MonoBehaviour
     [Tooltip("How long the player's 'wind-back' acceleration will decay over")]
     [SerializeField] private float accelDecayTime = 2.0f;
 
+    [SerializeField] [Range(0.1f, 10.0f)] private float turningSensitivity = 1.0f;
+
     private float chargeAmount = 0.0f;
     private bool isCharging = false;
     private bool chargingUp = true; // Indicates direction of charging - after being fully charged, the bar will deplete
@@ -65,7 +67,16 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        carController.Move(steeringInput, accelAmount);
+        if (isCharging)
+        {
+            transform.Rotate(Vector3.up, steeringInput * turningSensitivity);
+            carController.Move(0.0f, accelAmount);
+        }
+        else
+        {
+            carController.Move(steeringInput, accelAmount);
+        }
+
     }
 
     private void ChargeInput()
