@@ -21,7 +21,7 @@ public class ControlTest : MonoBehaviour
         controls = new InputMaster();
 
         // Charge will now be called when 'Charge' button is pressed
-        controls.Player1.Charge.performed += _ => Charge();
+        controls.Player1.ChargePress.performed += _ => Charge();
 
         // Turn will now be called when 'Turning' buttons are pressed (Either one)
         // Will pass in float value from -1 to 1

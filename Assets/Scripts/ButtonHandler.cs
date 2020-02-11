@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class ButtonHandler : MonoBehaviour
 {
-    PlayersJoined numPlayers;
-
-    [SerializeField] GameObject[] playerButtons;
-    [SerializeField] GameObject[] buttonText;
+    PlayersJoined playerCount;
 
     private void Awake()
     {
-        numPlayers = GameObject.Find("PlayersJoined").GetComponent<PlayersJoined>();
+        playerCount = GameObject.Find("PlayersJoined").GetComponent<PlayersJoined>();
     }
 
     public void Play()
@@ -27,41 +25,10 @@ public class ButtonHandler : MonoBehaviour
         Application.Quit();
     }
 
-    public void AddPlayer()
+    public void ChangePlayerCount()
     {
-        uint playersJoined = numPlayers.playerCount;
+        playerCount.playerCount = (playerCount.playerCount >= playerCount.maxNumPlayers) ? 1 : playerCount.playerCount + 1;
 
-        switch (playersJoined)
-        {
-            case 0:
-                {
-                    // Display player 2 button, then add to player count
-                    if (playerButtons[1])
-                    {
-                        playerButtons[1].SetActive(true);
-                    }
-
-                    buttonText[0].GetComponent<TextMesh>().text = "Joined";
-
-                    break;
-                }
-
-            case 1:
-                {
-                    // Add a player
-                    break;
-                }
-
-            case 2:
-                {
-                    // Max number of players, do nothing
-                    return;
-                }
-
-            default:
-                break;
-        }
-
-        numPlayers.playerCount++;
+        this.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Players: " + playerCount.playerCount;
     }
 }

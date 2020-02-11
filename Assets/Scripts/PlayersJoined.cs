@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayersJoined : MonoBehaviour
 {
-    public uint playerCount = 0;
+    public uint playerCount = 1;
+    public uint maxNumPlayers = 2;
 
     private void Awake()
     {
