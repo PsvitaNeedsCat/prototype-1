@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RaceTrack_SHA
+  m_Name: RaceTrackEdge_SHA
   m_Shader: {fileID: 4800000, guid: b0288402d50a1ed4691771d59fc59129, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -28,8 +28,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 4e34a7aba21bac441833fcac35ea731e, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 305aef8dcfaa5b84bbb688a98d94263a, type: 3}
+        m_Scale: {x: 2, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecMap:
         m_Texture: {fileID: 2800000, guid: 42d6d85356b6994448d9afab38de4574, type: 3}
@@ -45,7 +45,7 @@ Material:
     - _ShadowSmooth: 0.783
     - _ShadowThresh: 1
     m_Colors:
-    - _Color: {r: 0.9339623, g: 0.8791281, b: 0.64760596, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GlossColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
