@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 internal enum CarDriveType
 {
@@ -37,6 +38,7 @@ public class CarController : MonoBehaviour
     private float currentTorque;
     private Quaternion[] wheelMeshLocalRotations;
     private Rigidbody rigidBody;
+    private Transform lastGroundedTransform;
 
     private void Start()
     {
@@ -147,6 +149,9 @@ public class CarController : MonoBehaviour
             if (wheelHit.normal == Vector3.zero) { return; } // If wheels aren't on the ground, don't help with steering
         }
 
+        // If all wheels are on ground, update last grounded transform
+        lastGroundedTransform = this.transform;
+
         // Avoid gimbal lock problems that will cause a sudden shift in direction
         if (Mathf.Abs(oldRotation - transform.eulerAngles.y) < 10.0f)
         {
@@ -226,6 +231,16 @@ public class CarController : MonoBehaviour
         {
             wheelColliders[i].motorTorque = 0.0f;
         }
+    }
+
+    public void RespawnCar()
+    {
+        float dur = (this.transform.position - lastGroundedTransform.position).magnitude / 10.0f;
+
+        Debug.Log(dur);
+
+        transform.DOMove(lastGroundedTransform.position, dur);
+        transform.DOLocalRotate(Vector3.zero, dur);
     }
 
     private void OnDrawGizmosSelected()

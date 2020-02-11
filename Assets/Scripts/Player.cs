@@ -155,5 +155,8 @@ public class Player : MonoBehaviour
         steeringInput = horInput;
     }
 
-    
+    public void Respawn()
+    {
+        carController.RespawnCar();
+    }
 }
