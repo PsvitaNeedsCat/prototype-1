@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sprinkles_MAT
+  m_Name: sprinklesRedVelvet_MAT
   m_Shader: {fileID: 4800000, guid: b0288402d50a1ed4691771d59fc59129, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -40,7 +40,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: dbe7f7ca9a5dd8241aa7fe157887b38e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 95a6db771e6ddf0489db67361470038c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -88,4 +88,4 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GlossColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 0.99197686, b: 0, a: 1}
-    - _ShadowColor: {r: 0.630785, g: 0.6697945, b: 0.764151, a: 1}
+    - _ShadowColor: {r: 0.8679245, g: 0.41349235, b: 0.47160235, a: 1}
