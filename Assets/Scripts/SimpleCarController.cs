@@ -25,6 +25,11 @@ public class SimpleCarController : MonoBehaviour
 
     public float impulseAmount = 1.0f;
 
+    public float maxVelocityToStartCharge = 1.0f;
+
+    [Range(0, 1)] [SerializeField] private float steerHelper; // 0 is raw physics, 1 the car will grip in the direction it is facing
+    private float oldRotation;
+
     private float ChargeAmount
     {
         get { return chargeAmount; }
@@ -118,16 +123,24 @@ public class SimpleCarController : MonoBehaviour
     {
         Accelerate();
         AddDownForce();
+        SteerHelper();
         UpdateWheelPoses();
     }
 
     private void ChargeInput()
     {
+        bool canCharge = false;
+
+        if (rigidBody.velocity.magnitude < maxVelocityToStartCharge)
+        {
+            canCharge = true;
+        }
+
         if (isCharging)
         {
             StopCharging();
         }
-        else
+        else if (!isCharging && canCharge)
         {
             StartCharging();
         }
@@ -135,6 +148,7 @@ public class SimpleCarController : MonoBehaviour
 
     private void StartCharging()
     {
+        rigidBody.velocity = Vector3.zero;
         isCharging = true;
         chargingUp = true;
         ChargeAmount = 0.0f;
@@ -179,4 +193,33 @@ public class SimpleCarController : MonoBehaviour
 
         }
     }
+
+    private void SteerHelper()
+    {
+        WheelHit wheelHit;
+
+        frontLeftWheel.GetGroundHit(out wheelHit);
+
+        // Wheels aren't on the ground so don't realign rigidbody velocity
+        if (wheelHit.normal == Vector3.zero) { return; }
+
+        frontRightWheel.GetGroundHit(out wheelHit);
+        if (wheelHit.normal == Vector3.zero) { return; }
+
+        backLeftWheel.GetGroundHit(out wheelHit);
+        if (wheelHit.normal == Vector3.zero) { return; }
+
+        backRightWheel.GetGroundHit(out wheelHit);
+        if (wheelHit.normal == Vector3.zero) { return; }
+
+        if (Mathf.Abs(oldRotation - transform.eulerAngles.y) < 10.0f)
+        {
+            var turnAdjust = (transform.eulerAngles.y - oldRotation) * steerHelper;
+            Quaternion velRotation = Quaternion.AngleAxis(turnAdjust, Vector3.up);
+            rigidBody.velocity = velRotation * rigidBody.velocity;
+        }
+
+        oldRotation = transform.eulerAngles.y;
+    }
+
 }
