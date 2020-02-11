@@ -19,6 +19,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BaseTex:
+        m_Texture: {fileID: 2800000, guid: 63069df8bf76bd84fbde7f4155d65154, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: bdc6f7021ad1ca749895327399281ede, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -36,11 +40,11 @@ Material:
         m_Scale: {x: 10, y: 10}
         m_Offset: {x: 0, y: 0}
     - _ScrollTexOne:
-        m_Texture: {fileID: 2800000, guid: faff4180214960148b3f2884105b50f5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0af6de3e1b428444593be4d5743ed63a, type: 3}
         m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _ScrollTexTwo:
-        m_Texture: {fileID: 2800000, guid: dfce5d674e734c54c91228944e706bf7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 029bc5437c7e29645b7f7d620d08a703, type: 3}
         m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _SpecMap:
@@ -48,6 +52,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _Alpha: 0.04
+    - _AlphaOne: 0.04
+    - _AlphaTwo: 0.16
     - _Gloss: 10
     - _GlossSmoothness: 1
     - _NormalStrength: 1
@@ -62,6 +69,7 @@ Material:
     - _SpeedYOne: 0.1
     - _SpeedYTwo: 0.1
     m_Colors:
+    - _BaseColor: {r: 0, g: 1.0039216, b: 2, a: 0.14901961}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GlossColor: {r: 1, g: 1, b: 1, a: 1}
