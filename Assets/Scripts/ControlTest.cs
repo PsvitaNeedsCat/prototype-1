@@ -10,6 +10,13 @@ public class ControlTest : MonoBehaviour
 
     private void Awake()
     {
+        // Create 2 separate controls for the different gamepads
+        //controls1 = new InputMaster();
+        //controls2 = new InputMaster();
+
+        //controls1.devices = new[] { Gamepad.all[0] };
+        //controls2.devices = new[] { Gamepad.all[1] };
+
         // Create new input master ref
         controls = new InputMaster();
 
