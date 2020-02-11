@@ -17,6 +17,10 @@ Shader "Unlit/Water Texture"
 		_SpeedXTwo("Horizontal Speed", Range(-1, 1)) = 0
 		_SpeedYTwo("VerticalSpeed", Range(-1, 1)) = 0
 		_AlphaTwo("SeaFoam Alpha", Range(0, 1)) = 1
+		[Space]
+		[Header(WAVES)]
+		_Strength("Wave Strength", Range(0, 2)) = 1
+		_Speed("Wave Speed", Range(0, 100)) = 50
 		
 	}
 		SubShader
@@ -37,6 +41,18 @@ Shader "Unlit/Water Texture"
 
 				#include "UnityCG.cginc"
 
+				float _Strength;
+				float _Speed;
+
+				struct vertexInput
+				{
+					float4 vertex : POSITION;
+				};
+
+				struct vertexOutput
+				{
+					float4 pos : SV_POSITION;
+				};
 
 				struct appdata
 				{
@@ -68,6 +84,7 @@ Shader "Unlit/Water Texture"
 					o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 					o.patternUV1 = TRANSFORM_TEX(v.uv, _ScrollTexOne);
 					o.patternUV2 = TRANSFORM_TEX(v.uv, _ScrollTexTwo);
+
 					o.color = v.color;
 					return o;
 				}
@@ -79,6 +96,7 @@ Shader "Unlit/Water Texture"
 				half _AlphaOne;
 				half _AlphaTwo;
 				half4 _BaseColor;
+
 
 				half4 frag(v2f i) : SV_Target
 				{
@@ -93,6 +111,7 @@ Shader "Unlit/Water Texture"
 					half4 patternOne = tex2D(_ScrollTexOne, i.patternUV1 + offsetOne);		//Unpack scroll texture
 					half4 patternTwo = tex2D(_ScrollTexTwo, i.patternUV2 + offsetTwo);
 					float4 foam = (alphOne * patternOne) + (alphTwo * patternTwo);
+
 					return col * i.color * foam + (main * _BaseColor);
 				}
 				ENDCG
