@@ -63,11 +63,11 @@ Material:
     - _ShadowSmooth: 0.5
     - _ShadowThresh: 0.17
     - _SpeedX: 0.2
-    - _SpeedXOne: 0.1
-    - _SpeedXTwo: -0.1
+    - _SpeedXOne: 0.05
+    - _SpeedXTwo: -0.05
     - _SpeedY: 0.2
-    - _SpeedYOne: 0.1
-    - _SpeedYTwo: 0.1
+    - _SpeedYOne: 0.05
+    - _SpeedYTwo: 0.05
     m_Colors:
     - _BaseColor: {r: 0, g: 1.0039216, b: 2, a: 0.14901961}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
