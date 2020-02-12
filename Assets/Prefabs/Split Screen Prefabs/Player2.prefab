@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 3820364364456944734, guid: 2e5af39986b7b954cb735e75515acdd2,
         type: 3}
       propertyPath: m_Name
-      value: Car
+      value: Player2
       objectReference: {fileID: 0}
     - target: {fileID: 3820364364456944735, guid: 2e5af39986b7b954cb735e75515acdd2,
         type: 3}
@@ -66,6 +66,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7311931163419750519, guid: 2e5af39986b7b954cb735e75515acdd2,
+        type: 3}
+      propertyPath: playerNumber
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e5af39986b7b954cb735e75515acdd2, type: 3}
