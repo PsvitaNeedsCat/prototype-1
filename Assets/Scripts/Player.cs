@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Image chargeBar;
+    [SerializeField] private Image chargeBarBG;
     [SerializeField] private TextMeshProUGUI currentLapText;
     [SerializeField] private TextMeshProUGUI totalLapsText;
 
@@ -90,6 +91,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        ChargeBarUpdate();
         AccelerationUpdate();
         ChargingUpdate();
     }
@@ -157,6 +159,24 @@ public class Player : MonoBehaviour
             {
                 chargingUp = true;
             }
+        }
+    }
+
+    private void ChargeBarUpdate()
+    {
+        if (isCharging)
+        {
+            chargeBarBG.color = Color.white;
+            return;
+        }
+
+        if (rigidBody.velocity.magnitude < maxVelocityToStartCharging)
+        {
+            chargeBarBG.color = Color.white;
+        }
+        else
+        {
+            chargeBarBG.color = Color.grey;
         }
     }
 
