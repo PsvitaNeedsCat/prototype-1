@@ -95,7 +95,16 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator EndRace()
     {
-        GameObject.FindGameObjectWithTag("WinnerText").GetComponent<TextMeshProUGUI>().text = "Player " + winner + " won!";
+        // Single player
+        if (GameObject.Find("PlayersJoined").GetComponent<PlayersJoined>().playerCount == 1)
+        {
+            GameObject.FindGameObjectWithTag("WinnerText").GetComponent<TextMeshProUGUI>().text = "Victory!";
+        }
+        // Mulitplayer
+        else
+        {
+            GameObject.FindGameObjectWithTag("WinnerText").GetComponent<TextMeshProUGUI>().text = "Player " + winner + " won!";
+        }
 
         gameState = GameState.postRace;
 
