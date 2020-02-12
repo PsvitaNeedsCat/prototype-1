@@ -14,10 +14,16 @@ public class SplitScreenManager : MonoBehaviour
     private const float chargeBarHeight = 612.0f; //84.0f;
     // Viewport rect Y value if in split screen
     private const float rectYVal = 0.5f;
+    private const float player2LapsCounterHeight = -653.0f;
 
     private void Awake()
     {
-        uint playerCount = GameObject.Find("PlayersJoined").GetComponent<PlayersJoined>().playerCount;
+        // Get player count. Default to 1
+        uint playerCount = 1;
+        if (GameObject.Find("PlayersJoined"))
+        {
+            playerCount = GameObject.Find("PlayersJoined").GetComponent<PlayersJoined>().playerCount;
+        }
 
         // Check for number of players
         if (playerCount == 1) return;
@@ -40,6 +46,16 @@ public class SplitScreenManager : MonoBehaviour
                 if (playerCanvas[0].transform.GetChild(i).tag != "LapsCounter")
                 {
                     playerCanvas[0].transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector3(0.0f, chargeBarHeight, 0.0f);
+                }
+            }
+
+            // Move player 2 laps counter
+            for (int i = 0; i < playerCanvas[1].transform.childCount; i++)
+            {
+                if (playerCanvas[1].transform.GetChild(i).tag == "LapsCounter")
+                {
+                    Vector3 curPos = playerCanvas[1].transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition;
+                    playerCanvas[1].transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector3(curPos.x, player2LapsCounterHeight, curPos.z);
                 }
             }
         }

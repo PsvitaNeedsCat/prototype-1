@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
 
                     controls.Player1.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
 
-                    controls.devices = new[] { Gamepad.all[0] };
+                    controls.devices = new[] { Gamepad.all[0], Keyboard.all[0] };
 
                     break;
                 }
@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
 
                     controls.Player2.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
 
-                    controls.devices = new[] { Gamepad.all[1] };
+                    controls.devices = new[] { Gamepad.all[1], Keyboard.all[0] };
 
                     break;
                 }
