@@ -41,11 +41,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ScrollTexOne:
         m_Texture: {fileID: 2800000, guid: 0af6de3e1b428444593be4d5743ed63a, type: 3}
-        m_Scale: {x: 5, y: 5}
+        m_Scale: {x: 6, y: 6}
         m_Offset: {x: 0, y: 0}
     - _ScrollTexTwo:
         m_Texture: {fileID: 2800000, guid: 029bc5437c7e29645b7f7d620d08a703, type: 3}
-        m_Scale: {x: 5, y: 5}
+        m_Scale: {x: 6, y: 6}
         m_Offset: {x: 0, y: 0}
     - _SpecMap:
         m_Texture: {fileID: 2800000, guid: 63069df8bf76bd84fbde7f4155d65154, type: 3}
@@ -62,12 +62,14 @@ Material:
     - _RimSmoothing: 0.5
     - _ShadowSmooth: 0.5
     - _ShadowThresh: 0.17
+    - _Speed: 50
     - _SpeedX: 0.2
     - _SpeedXOne: 0.05
     - _SpeedXTwo: -0.05
     - _SpeedY: 0.2
     - _SpeedYOne: 0.05
     - _SpeedYTwo: 0.05
+    - _Strength: 1
     m_Colors:
     - _BaseColor: {r: 0, g: 1.0039216, b: 2, a: 0.14901961}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
