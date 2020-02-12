@@ -410,73 +410,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1 &3820364362947543002
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3820364362947543003}
-  - component: {fileID: 3820364362947543012}
-  m_Layer: 0
-  m_Name: CarCam
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3820364362947543003
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3820364362947543002}
-  m_LocalRotation: {x: 0.1571437, y: -0, z: -0, w: 0.98757577}
-  m_LocalPosition: {x: 0, y: 2.387, z: -4.679}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 3820364364150307167}
-  m_Father: {fileID: 3820364364456944735}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 18.082, y: 0, z: 0}
---- !u!114 &3820364362947543012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3820364362947543002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ExcludedPropertiesInInspector:
-  - m_Script
-  m_LockStageInInspector: 
-  m_StreamingVersion: 20170927
-  m_Priority: 10
-  m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
-  m_Lens:
-    FieldOfView: 60
-    OrthographicSize: 5
-    NearClipPlane: 0.3
-    FarClipPlane: 1000
-    Dutch: 0
-    LensShift: {x: 0, y: 0}
-  m_Transitions:
-    m_BlendHint: 0
-    m_InheritPosition: 0
-    m_OnCameraLive:
-      m_PersistentCalls:
-        m_Calls: []
-  m_LegacyBlendHint: 0
-  m_ComponentOwner: {fileID: 3820364364150307167}
 --- !u!1 &3820364363059440617
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,100 +444,6 @@ Transform:
   m_Father: {fileID: 3820364364456944735}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3820364364150307166
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3820364364150307167}
-  - component: {fileID: 3820364364150307162}
-  - component: {fileID: 3820364364150307161}
-  - component: {fileID: 3820364364150307160}
-  m_Layer: 0
-  m_Name: cm
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3820364364150307167
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3820364364150307166}
-  m_LocalRotation: {x: -0.12907961, y: 0.66439503, z: -0.11802634, w: 0.7266275}
-  m_LocalPosition: {x: 0.21350873, y: -1.282477, z: 4.4188924}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3820364362947543003}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3820364364150307162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3820364364150307166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3820364364150307161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3820364364150307166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
-  m_LookaheadTime: 0
-  m_LookaheadSmoothing: 10
-  m_LookaheadIgnoreY: 0
-  m_HorizontalDamping: 0.5
-  m_VerticalDamping: 0.5
-  m_ScreenX: 0.5
-  m_ScreenY: 0.5
-  m_DeadZoneWidth: 0
-  m_DeadZoneHeight: 0
-  m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.8
-  m_BiasX: 0
-  m_BiasY: 0
-  m_CenterOnActivate: 1
---- !u!114 &3820364364150307160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3820364364150307166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 2.3680005, z: -14.641999}
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
-  m_AngularDampingMode: 0
-  m_PitchDamping: 0
-  m_YawDamping: 0
-  m_RollDamping: 0
-  m_AngularDamping: 0
 --- !u!1 &3820364364456944734
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,7 +479,6 @@ Transform:
   - {fileID: 6676069769028195109}
   - {fileID: 3820364364544918423}
   - {fileID: 3820364363059440618}
-  - {fileID: 3820364362947543003}
   - {fileID: 432610625395939684}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -794,13 +632,14 @@ MonoBehaviour:
   - {fileID: 5772487923391385597}
   driveType: 0
   centerOfMassOffset: {x: 0, y: 0.3, z: 0}
-  maxSteerAngle: 25
-  steerHelper: 0.644
+  maxSteerAngle: 2
+  steerHelper: 1
   tractionControl: 1
   downForce: 100
   maxSpeed: 200
   totalTorque: 2500
   slipLimit: 0.3
+  fallRespawnTime: 2
 --- !u!114 &7311931163419750519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -814,11 +653,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chargeBar: {fileID: 0}
+  chargeBarBG: {fileID: 0}
+  currentLapText: {fileID: 0}
+  totalLapsText: {fileID: 0}
   chargeTime: 1
   releaseImpulseAmount: 20000
-  maxVelocityToStartCharging: 5
+  maxVelocityToStartCharging: 999999
   accelDecayTime: 2
-  turningSensitivity: 3.39
+  turningSensitivity: 2
+  playerNumber: 1
 --- !u!1 &3820364364544918422
 GameObject:
   m_ObjectHideFlags: 0
@@ -1359,7 +1202,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 58ab28a4218194942b385606f5dc7d25,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 58ab28a4218194942b385606f5dc7d25,
         type: 3}

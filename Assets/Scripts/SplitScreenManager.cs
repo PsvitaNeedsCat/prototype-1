@@ -8,7 +8,6 @@ public class SplitScreenManager : MonoBehaviour
     [SerializeField] GameObject[] playerCameras;
     [SerializeField] GameObject[] playerCanvas;
     [SerializeField] GameObject[] players;
-    [SerializeField] GameObject lapsCounter;
 
     // Height for charge bar to snap to if in split screen
     private const float chargeBarHeight = 612.0f; //84.0f;

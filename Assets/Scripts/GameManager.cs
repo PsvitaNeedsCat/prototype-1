@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public float preRaceDuration = 5.0f;
     public float raceCountdownDuration = 3.0f;
     public float postRaceDuration = 5.0f;
-    public bool raceComplete = false;
+    [HideInInspector] public bool raceComplete = false;
 
     private List<Player> players = new List<Player>();
 
