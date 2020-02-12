@@ -32,7 +32,10 @@ public class Player : MonoBehaviour
 
     [SerializeField] int playerNumber = 1;
 
-    private float chargeAmount = 0.0f;
+    public AnimationCurve chargeUpCurve;
+
+    private float chargeAmount = 0.0f; // How full the charge bar is
+    private float normalisedTimeCharged = 0.0f; // Amount of time spent charging
     private bool isCharging = false;
     private bool chargingUp = true; // Indicates direction of charging - after being fully charged, the bar will deplete
     private float accelAmount = 0.0f;
@@ -153,6 +156,7 @@ public class Player : MonoBehaviour
         isCharging = true;
         chargingUp = true;
         ChargeAmount = 0.0f;
+        normalisedTimeCharged = 0.0f;
     }
 
     private void StopCharging()
@@ -175,20 +179,23 @@ public class Player : MonoBehaviour
 
         if (chargingUp)
         {
-            ChargeAmount = Mathf.Clamp(chargeAmount + deltaCharge, 0.0f, 1.0f);
+            normalisedTimeCharged = Mathf.Clamp(normalisedTimeCharged + deltaCharge, 0.0f, 1.0f);
+            ChargeAmount = chargeUpCurve.Evaluate(normalisedTimeCharged);
+            // ChargeAmount = Mathf.Clamp(chargeAmount + deltaCharge, 0.0f, 1.0f);
 
             // If fully charged, start uncharging
-            if (chargeAmount > 0.999f)
+            if (normalisedTimeCharged > 0.999f)
             {
                 chargingUp = false;
             }
         }
         else
         {
-            ChargeAmount = Mathf.Clamp(chargeAmount - deltaCharge, 0.0f, 1.0f);
+            normalisedTimeCharged = Mathf.Clamp(normalisedTimeCharged - deltaCharge, 0.0f, 1.0f);
+            ChargeAmount = chargeUpCurve.Evaluate(normalisedTimeCharged);
 
             // If empty charge, start charging up again
-            if (chargeAmount < 0.001f)
+            if (normalisedTimeCharged < 0.001f)
             {
                 chargingUp = true;
             }
