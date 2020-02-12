@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public enum GameState
 {
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour
     public float raceCountdownDuration = 3.0f;
     public float postRaceDuration = 5.0f;
     [HideInInspector] public bool raceComplete = false;
+    [HideInInspector] public int winner = 1;
 
     private List<Player> players = new List<Player>();
 
@@ -92,6 +95,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator EndRace()
     {
+        GameObject.FindGameObjectWithTag("WinnerText").GetComponent<TextMeshProUGUI>().text = "Player " + winner + " won!";
+
         gameState = GameState.postRace;
 
         SetPlayersInputControl(false);

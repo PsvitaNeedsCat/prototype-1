@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - LapsCounter
+  - WinnerText
   layers:
   - Default
   - TransparentFX

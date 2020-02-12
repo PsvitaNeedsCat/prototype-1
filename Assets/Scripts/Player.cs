@@ -239,6 +239,7 @@ public class Player : MonoBehaviour
                 if (CurrentLapNumber == GameManager.Instance.numLaps)
                 {
                     GameManager.Instance.raceComplete = true;
+                    GameManager.Instance.winner = playerNumber;
                     return;
                 }
 
