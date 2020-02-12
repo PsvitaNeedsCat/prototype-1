@@ -74,10 +74,10 @@ Material:
     - _NormalStrength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RimPower: 0.1
-    - _RimSmoothing: 1
+    - _RimPower: 0.27
+    - _RimSmoothing: 0.683
     - _ShadowSmooth: 0.5
-    - _ShadowThresh: 1
+    - _ShadowThresh: 0.97
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -86,6 +86,6 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GlossColor: {r: 1.5088999, g: 1.5807672, b: 1.8490566, a: 1}
-    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GlossColor: {r: 1.6392539, g: 0.7579915, b: 2.3289015, a: 1}
+    - _RimColor: {r: 0, g: 1, b: 0.81877446, a: 1}
+    - _ShadowColor: {r: 0.22739409, g: 0.5867035, b: 0.6603774, a: 1}
