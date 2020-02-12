@@ -11,7 +11,17 @@ public class KillBox : MonoBehaviour
 
         if (player)
         {
-            player.Respawn();
+            if (player.IsRespawning) { return; }
+            player.SetInputControl(false);
+            float respawnTime = player.Respawn();
+            StartCoroutine(EnablePlayerInput(respawnTime, player, true));
         }
+    }
+
+    private IEnumerator EnablePlayerInput(float afterSeconds, Player player, bool canInput)
+    {
+        yield return new WaitForSeconds(afterSeconds);
+
+        player.SetInputControl(canInput);
     }
 }
