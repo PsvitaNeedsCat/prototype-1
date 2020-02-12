@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] [Range(0.1f, 10.0f)] private float turningSensitivity = 1.0f;
 
+    [SerializeField] int playerNumber = 1;
+
     private float chargeAmount = 0.0f;
     private bool isCharging = false;
     private bool chargingUp = true; // Indicates direction of charging - after being fully charged, the bar will deplete
@@ -53,12 +55,37 @@ public class Player : MonoBehaviour
         ChargeAmount = 0.0f;
         controls = new InputMaster();
 
-        controls.Player1.Enable();
+        // Made a switch for future proofing
+        switch (playerNumber)
+        {
+            case 1:
+                {
+                    controls.Player1.Enable();
 
-        controls.Player1.ChargePress.performed += _ => StartCharging();
-        controls.Player1.ChargeRelease.performed += _ => StopCharging();
+                    controls.Player1.ChargePress.performed += _ => StartCharging();
+                    controls.Player1.ChargeRelease.performed += _ => StopCharging();
 
-        controls.Player1.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
+                    controls.Player1.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
+
+                    break;
+                }
+
+            case 2:
+                {
+                    controls.Player2.Enable();
+
+                    controls.Player2.ChargePress.performed += _ => StartCharging();
+                    controls.Player2.ChargeRelease.performed += _ => StopCharging();
+
+                    controls.Player2.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
+
+                    break;
+                }
+
+            default:
+                break;
+        }
+        
     }
 
     private void Update()
