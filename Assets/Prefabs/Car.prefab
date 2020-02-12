@@ -75,12 +75,12 @@ WheelCollider:
   m_Radius: 0.24
   m_SuspensionSpring:
     spring: 70000
-    damper: 7000
-    targetPosition: 0.96
-  m_SuspensionDistance: 0.23
-  m_ForceAppPointDistance: 0
-  m_Mass: 50
-  m_WheelDampingRate: 1
+    damper: 3500
+    targetPosition: 0.1
+  m_SuspensionDistance: 0.2
+  m_ForceAppPointDistance: 0.1
+  m_Mass: 20
+  m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
@@ -152,7 +152,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2573733167556495074, guid: 061713a49fae7054e9c3d7625008f5b5, type: 3}
+  - {fileID: 2100000, guid: 1e6e7ed3e3964be43b00bcec5a9c7abd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -310,7 +310,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2573733167556495074, guid: 061713a49fae7054e9c3d7625008f5b5, type: 3}
+  - {fileID: 2100000, guid: f947a663f195d4c4db6fcf0e0c945317, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -389,7 +389,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2573733167556495074, guid: 061713a49fae7054e9c3d7625008f5b5, type: 3}
+  - {fileID: 2100000, guid: 1e6e7ed3e3964be43b00bcec5a9c7abd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -633,17 +633,18 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3820364364456944734}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.70710677}
-  m_LocalPosition: {x: 80.39939, y: 7, z: -26.399405}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6676069769028195109}
   - {fileID: 3820364364544918423}
   - {fileID: 3820364363059440618}
   - {fileID: 3820364362947543003}
+  - {fileID: 432610625395939684}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &3820364364456944728
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -653,7 +654,7 @@ Rigidbody:
   m_GameObject: {fileID: 3820364364456944734}
   serializedVersion: 2
   m_Mass: 1000
-  m_Drag: 0
+  m_Drag: 0.1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -793,9 +794,9 @@ MonoBehaviour:
   - {fileID: 5772487923391385597}
   driveType: 0
   centerOfMassOffset: {x: 0, y: 0.3, z: 0}
-  maxSteerAngle: 30
-  steerHelper: 0.522
-  tractionControl: 0
+  maxSteerAngle: 25
+  steerHelper: 0.644
+  tractionControl: 1
   downForce: 100
   maxSpeed: 200
   totalTorque: 2500
@@ -910,7 +911,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2573733167556495074, guid: 061713a49fae7054e9c3d7625008f5b5, type: 3}
+  - {fileID: 2100000, guid: 1e6e7ed3e3964be43b00bcec5a9c7abd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -989,7 +990,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2573733167556495074, guid: 061713a49fae7054e9c3d7625008f5b5, type: 3}
+  - {fileID: 2100000, guid: 1e6e7ed3e3964be43b00bcec5a9c7abd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1052,12 +1053,12 @@ WheelCollider:
   m_Radius: 0.24
   m_SuspensionSpring:
     spring: 70000
-    damper: 7000
-    targetPosition: 0.96
-  m_SuspensionDistance: 0.23
-  m_ForceAppPointDistance: 0
-  m_Mass: 50
-  m_WheelDampingRate: 1
+    damper: 3500
+    targetPosition: 0.1
+  m_SuspensionDistance: 0.2
+  m_ForceAppPointDistance: 0.1
+  m_Mass: 20
+  m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
@@ -1129,7 +1130,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2573733167556495074, guid: 061713a49fae7054e9c3d7625008f5b5, type: 3}
+  - {fileID: 2100000, guid: 1e6e7ed3e3964be43b00bcec5a9c7abd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1223,12 +1224,12 @@ WheelCollider:
   m_Radius: 0.24
   m_SuspensionSpring:
     spring: 70000
-    damper: 7000
-    targetPosition: 0.96
-  m_SuspensionDistance: 0.23
-  m_ForceAppPointDistance: 0
-  m_Mass: 50
-  m_WheelDampingRate: 1
+    damper: 3500
+    targetPosition: 0.1
+  m_SuspensionDistance: 0.2
+  m_ForceAppPointDistance: 0.1
+  m_Mass: 20
+  m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
@@ -1284,12 +1285,12 @@ WheelCollider:
   m_Radius: 0.24
   m_SuspensionSpring:
     spring: 70000
-    damper: 7000
-    targetPosition: 0.96
-  m_SuspensionDistance: 0.23
-  m_ForceAppPointDistance: 0
-  m_Mass: 50
-  m_WheelDampingRate: 1
+    damper: 3500
+    targetPosition: 0.1
+  m_SuspensionDistance: 0.2
+  m_ForceAppPointDistance: 0.1
+  m_Mass: 20
+  m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
@@ -1303,3 +1304,118 @@ WheelCollider:
     m_AsymptoteValue: 0.75
     m_Stiffness: 1
   m_Enabled: 1
+--- !u!1001 &4862275562608095870
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3820364364456944735}
+    m_Modifications:
+    - target: {fileID: -7709741150428316126, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4b21928c666d16747a62cb271521f89d, type: 2}
+    - target: {fileID: -5931394691712237996, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4b21928c666d16747a62cb271521f89d, type: 2}
+    - target: {fileID: -4216859302048453862, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.162
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3423504196660387956, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a12127f05170b104eb0dab75404b582e, type: 2}
+    - target: {fileID: -927199367670048503, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_Name
+      value: Sprinkles_MESH
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834438804567023789, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4b21928c666d16747a62cb271521f89d, type: 2}
+    - target: {fileID: 4031648505800593362, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4b21928c666d16747a62cb271521f89d, type: 2}
+    - target: {fileID: 5410089004415000936, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a12127f05170b104eb0dab75404b582e, type: 2}
+    - target: {fileID: 6301270792157527365, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4b21928c666d16747a62cb271521f89d, type: 2}
+    - target: {fileID: 7509538903142272322, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4b21928c666d16747a62cb271521f89d, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 58ab28a4218194942b385606f5dc7d25, type: 3}
+--- !u!4 &432610625395939684 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 58ab28a4218194942b385606f5dc7d25,
+    type: 3}
+  m_PrefabInstance: {fileID: 4862275562608095870}
+  m_PrefabAsset: {fileID: 0}
