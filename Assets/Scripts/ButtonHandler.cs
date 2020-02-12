@@ -17,7 +17,7 @@ public class ButtonHandler : MonoBehaviour
     public void Play()
     {
         // Load game scene
-        SceneManager.LoadScene("CarTest");
+        SceneManager.LoadScene("TestDrive");
     }
 
     public void Quit()
