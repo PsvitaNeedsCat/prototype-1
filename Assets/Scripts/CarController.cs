@@ -33,12 +33,21 @@ public class CarController : MonoBehaviour
     [SerializeField] private float totalTorque = 2500.0f; // Controls acceleration of car
     [SerializeField] private float slipLimit = 0.3f;
 
+    [SerializeField] private float fallRespawnTime = 2.0f;
+
+    private bool isRespawning = false;
     private float steerAngle = 0.0f;
     private float oldRotation;
     private float currentTorque;
     private Quaternion[] wheelMeshLocalRotations;
     private Rigidbody rigidBody;
-    private Transform lastGroundedTransform;
+    private List<Vector3> lastGroundedFrames = new List<Vector3>();
+    private int numGroundedFrames = 30;
+
+    public bool IsRespawning
+    {
+        get { return isRespawning; }
+    }
 
     private void Start()
     {
@@ -150,7 +159,12 @@ public class CarController : MonoBehaviour
         }
 
         // If all wheels are on ground, update last grounded transform
-        lastGroundedTransform = this.transform;
+
+        lastGroundedFrames.Add(this.transform.position);
+        if (lastGroundedFrames.Count > numGroundedFrames)
+        {
+            lastGroundedFrames.RemoveAt(0);
+        }
 
         // Avoid gimbal lock problems that will cause a sudden shift in direction
         if (Mathf.Abs(oldRotation - transform.eulerAngles.y) < 10.0f)
@@ -233,19 +247,50 @@ public class CarController : MonoBehaviour
         }
     }
 
-    public void RespawnCar()
+    public float RespawnCar()
     {
-        float dur = (this.transform.position - lastGroundedTransform.position).magnitude / 10.0f;
+        StartCoroutine(RespawnSetKinematic());
+        StartCoroutine(RespawnSetIsRespawning());
 
-        Debug.Log(dur);
+        transform.DOMove(lastGroundedFrames[0], fallRespawnTime);
+        transform.DOLocalRotate(Vector3.zero, fallRespawnTime);
 
-        transform.DOMove(lastGroundedTransform.position, dur);
-        transform.DOLocalRotate(Vector3.zero, dur);
+        return fallRespawnTime;
+    }
+
+    private IEnumerator RespawnSetKinematic()
+    {
+        rigidBody.isKinematic = true;
+
+        yield return new WaitForSeconds(fallRespawnTime);
+
+        rigidBody.isKinematic = false;
+    }
+
+    private IEnumerator RespawnSetIsRespawning()
+    {
+        isRespawning = true;
+
+        yield return new WaitForSeconds(fallRespawnTime);
+
+        isRespawning = false;
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position +  transform.rotation * centerOfMassOffset, 0.1f);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!Application.isPlaying) { return; }
+
+        Gizmos.color = Color.red;
+
+        for (int i = 0; i < lastGroundedFrames.Count; i++)
+        {
+            Gizmos.DrawWireSphere(lastGroundedFrames[i], 1.0f);
+        }
     }
 }

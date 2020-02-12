@@ -44,6 +44,11 @@ public class Player : MonoBehaviour
     private int lastCheckpointPassed = 0;
     private int numCheckpoints;
 
+    public bool IsRespawning
+    {
+        get { return carController.IsRespawning; }
+    }
+
     private float ChargeAmount
     {
         get { return chargeAmount; }
@@ -192,9 +197,9 @@ public class Player : MonoBehaviour
         steeringInput = horInput;
     }
 
-    public void Respawn()
+    public float Respawn()
     {
-        carController.RespawnCar();
+        return carController.RespawnCar();
     }
 
     public void PassedCheckpoint(int checkpointNum)
