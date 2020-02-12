@@ -54,7 +54,9 @@ public class Player : MonoBehaviour
         controls = new InputMaster();
 
         controls.Player1.Enable();
-        controls.Player1.Charge.performed += _ => ChargeInput();
+
+        controls.Player1.ChargePress.performed += _ => StartCharging();
+        controls.Player1.ChargeRelease.performed += _ => StopCharging();
 
         controls.Player1.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
     }
@@ -79,27 +81,31 @@ public class Player : MonoBehaviour
 
     }
 
-    private void ChargeInput()
-    {
-        bool canCharge = false;
+    //private void ChargeInput()
+    //{
+    //    bool canCharge = false;
 
-        if (rigidBody.velocity.magnitude < maxVelocityToStartCharging)
-        {
-            canCharge = true;
-        }
+    //    if (rigidBody.velocity.magnitude < maxVelocityToStartCharging)
+    //    {
+    //        canCharge = true;
+    //    }
 
-        if (isCharging)
-        {
-            StopCharging();
-        }
-        else if (!isCharging && canCharge)
-        {
-            StartCharging();
-        }
-    }
+    //    if (isCharging)
+    //    {
+    //        StopCharging();
+    //    }
+    //    else if (!isCharging && canCharge)
+    //    {
+    //        StartCharging();
+    //    }
+    //}
 
     private void StartCharging()
     {
+        if (rigidBody.velocity.magnitude > maxVelocityToStartCharging) { return; }
+
+        Debug.Log("Starting charging");
+
         carController.StopAllWheels();
         rigidBody.velocity = Vector3.zero;
         isCharging = true;
@@ -109,6 +115,10 @@ public class Player : MonoBehaviour
 
     private void StopCharging()
     {
+        if (!isCharging) { return; }
+
+        Debug.Log("Stopping Charging");
+
         isCharging = false;
 
         accelAmount = chargeAmount;
