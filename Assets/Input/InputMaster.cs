@@ -226,7 +226,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""id"": ""2a3a8539-bd80-431b-9f31-2040051b6973"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Press(behavior=2)""
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Charge Release"",
@@ -234,7 +234,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""id"": ""f30483f3-5ca4-4f25-b064-05253a6f1635"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(behavior=1)""
                 },
                 {
                     ""name"": ""Turning"",
@@ -250,7 +250,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""id"": ""4d31aee6-0b62-40b4-844c-0eac7e0862e9"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Horn Release"",
@@ -258,7 +258,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""id"": ""2f93a7ff-7b5e-4577-ae33-3987a024ad5f"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(behavior=1)""
                 }
             ],
             ""bindings"": [
@@ -266,7 +266,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""c2eec967-b95f-4ea9-85c0-69bb165732b6"",
                     ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Charge Press"",
@@ -277,7 +277,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""400664ae-5347-444a-acab-d49018049b77"",
                     ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Charge Press"",
@@ -354,7 +354,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""69b44743-cf3e-4030-acce-f83477526278"",
                     ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Horn Press"",
@@ -365,7 +365,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""d63bfce2-023f-4d26-a76d-2547c1fab0df"",
                     ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Horn Press"",
@@ -376,7 +376,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""185b9a8c-fd21-41b8-9a71-9046f12a0e4a"",
                     ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": ""Press(behavior=1)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Charge Release"",
@@ -387,7 +387,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""82ae8871-f67f-4f8b-bc49-ca75fd7c1ba1"",
                     ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": ""Press(behavior=1)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Charge Release"",
@@ -398,7 +398,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""8455f6e1-0e61-480d-8dff-e4c0c627c19c"",
                     ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": ""Press(behavior=1)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Horn Release"",
@@ -409,7 +409,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""f6be23c8-5864-45bd-a726-51b027c65d12"",
                     ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": ""Press(behavior=1)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Horn Release"",
