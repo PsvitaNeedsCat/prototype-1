@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
 
 [RequireComponent(typeof(CarController))]
 public class Player : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Image chargeBar;
+    [SerializeField] private TextMeshProUGUI currentLapText;
+    [SerializeField] private TextMeshProUGUI totalLapsText;
 
     [Header("Player Settings")]
 
@@ -37,6 +40,9 @@ public class Player : MonoBehaviour
     private InputMaster controls;
     private Rigidbody rigidBody;
     private CarController carController;
+    private int lapNum = 1;
+    private int lastCheckpointPassed = 0;
+    private int numCheckpoints;
 
     private float ChargeAmount
     {
@@ -45,6 +51,16 @@ public class Player : MonoBehaviour
         {
             chargeAmount = value;
             chargeBar.fillAmount = chargeAmount;
+        }
+    }
+
+    private int CurrentLapNumber
+    {
+        get { return lapNum; }
+        set
+        {
+            lapNum = value;
+            currentLapText.text = lapNum.ToString();
         }
     }
 
@@ -88,6 +104,12 @@ public class Player : MonoBehaviour
         
     }
 
+    private void Start()
+    {
+        totalLapsText.text = GameManager.Instance.numLaps.ToString();
+        numCheckpoints = GameManager.Instance.numCheckpoints;
+    }
+
     private void Update()
     {
         AccelerationUpdate();
@@ -108,33 +130,13 @@ public class Player : MonoBehaviour
 
     }
 
-    //private void ChargeInput()
-    //{
-    //    bool canCharge = false;
-
-    //    if (rigidBody.velocity.magnitude < maxVelocityToStartCharging)
-    //    {
-    //        canCharge = true;
-    //    }
-
-    //    if (isCharging)
-    //    {
-    //        StopCharging();
-    //    }
-    //    else if (!isCharging && canCharge)
-    //    {
-    //        StartCharging();
-    //    }
-    //}
-
     private void StartCharging()
     {
         if (rigidBody.velocity.magnitude > maxVelocityToStartCharging) { return; }
 
-        Debug.Log("Starting charging");
-
         carController.StopAllWheels();
         rigidBody.velocity = Vector3.zero;
+        rigidBody.isKinematic = true;
         isCharging = true;
         chargingUp = true;
         ChargeAmount = 0.0f;
@@ -144,10 +146,8 @@ public class Player : MonoBehaviour
     {
         if (!isCharging) { return; }
 
-        Debug.Log("Stopping Charging");
-
         isCharging = false;
-
+        rigidBody.isKinematic = false;
         accelAmount = chargeAmount;
         carController.ApplyForwardImpulse(releaseImpulseAmount * chargeAmount);
 
@@ -195,5 +195,42 @@ public class Player : MonoBehaviour
     public void Respawn()
     {
         carController.RespawnCar();
+    }
+
+    public void PassedCheckpoint(int checkpointNum)
+    {
+        // Check if in order
+        if (checkpointNum == lastCheckpointPassed + 1)
+        {
+            // Check if lap complete
+            if (checkpointNum == numCheckpoints)
+            {
+                if (CurrentLapNumber == GameManager.Instance.numLaps)
+                {
+                    GameManager.Instance.raceComplete = true;
+                    return;
+                }
+
+                CurrentLapNumber++;
+                lastCheckpointPassed = 0;
+            }
+            else
+            {
+                lastCheckpointPassed = checkpointNum;
+            }
+
+        }
+    }
+
+    public void SetInputControl(bool canInput)
+    {
+        if (canInput)
+        {
+            controls.Enable();
+        }
+        else
+        {
+            controls.Disable();
+        }
     }
 }
