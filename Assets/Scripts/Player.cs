@@ -84,34 +84,34 @@ public class Player : MonoBehaviour
         switch (playerNumber)
         {
             case 1:
-                {
-                    controls.Player1.Enable();
+            {
+                controls.Player1.Enable();
 
-                    controls.Player1.ChargePress.performed += _ => StartCharging();
-                    controls.Player1.ChargeRelease.performed += _ => StopCharging();
+                controls.Player1.ChargePress.performed += _ => StartCharging();
+                controls.Player1.ChargeRelease.performed += _ => StopCharging();
 
-                    controls.Player1.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
+                controls.Player1.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
 
-                    // controls.devices = new[] { Gamepad.all[0], Keyboard.all[0] };
-                    controls.devices = new[] { Keyboard.all[0] };
+                // controls.devices = new[] { Gamepad.all[0], Keyboard.all[0] };
+                controls.devices = new[] { Keyboard.all[0] };
 
-                    break;
-                }
+                break;
+            }
 
             case 2:
-                {
-                    controls.Player2.Enable();
+            {
+                controls.Player2.Enable();
 
-                    controls.Player2.ChargePress.performed += _ => StartCharging();
-                    controls.Player2.ChargeRelease.performed += _ => StopCharging();
+                controls.Player2.ChargePress.performed += _ => StartCharging();
+                controls.Player2.ChargeRelease.performed += _ => StopCharging();
 
-                    controls.Player2.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
+                controls.Player2.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
 
-                    // controls.devices = new[] { Gamepad.all[1], Keyboard.all[0] };
-                    controls.devices = new[] { Keyboard.all[0] };
+                // controls.devices = new[] { Gamepad.all[1], Keyboard.all[0] };
+                controls.devices = new[] { Keyboard.all[0] };
 
-                    break;
-                }
+                break;
+            }
 
             default:
                 break;
@@ -149,6 +149,7 @@ public class Player : MonoBehaviour
     private void StartCharging()
     {
         if (rigidBody.velocity.magnitude > maxVelocityToStartCharging) { return; }
+        if (!carController.IsGrounded) { return; }
 
         carController.StopAllWheels();
         rigidBody.velocity = Vector3.zero;
@@ -181,7 +182,6 @@ public class Player : MonoBehaviour
         {
             normalisedTimeCharged = Mathf.Clamp(normalisedTimeCharged + deltaCharge, 0.0f, 1.0f);
             ChargeAmount = chargeUpCurve.Evaluate(normalisedTimeCharged);
-            // ChargeAmount = Mathf.Clamp(chargeAmount + deltaCharge, 0.0f, 1.0f);
 
             // If fully charged, start uncharging
             if (normalisedTimeCharged > 0.999f)
@@ -270,6 +270,11 @@ public class Player : MonoBehaviour
         else
         {
             controls.Disable();
+
+            if (isCharging)
+            {
+                StopCharging();
+            }
         }
     }
 }

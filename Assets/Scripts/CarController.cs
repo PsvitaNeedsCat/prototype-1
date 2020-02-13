@@ -43,10 +43,16 @@ public class CarController : MonoBehaviour
     private Rigidbody rigidBody;
     private List<Vector3> lastGroundedFrames = new List<Vector3>();
     private int numGroundedFrames = 30;
+    private bool isGrounded = false;
 
     public bool IsRespawning
     {
         get { return isRespawning; }
+    }
+
+    public bool IsGrounded
+    {
+        get { return isGrounded; }
     }
 
     private void Start()
@@ -155,11 +161,16 @@ public class CarController : MonoBehaviour
             WheelHit wheelHit;
             wheelColliders[i].GetGroundHit(out wheelHit);
 
-            if (wheelHit.normal == Vector3.zero) { return; } // If wheels aren't on the ground, don't help with steering
+            if (wheelHit.normal == Vector3.zero)
+            {
+                isGrounded = false;
+                return;
+            } // If wheels aren't on the ground, don't help with steering
         }
 
-        // If all wheels are on ground, update last grounded transform
+        isGrounded = true;
 
+        // If all wheels are on ground, update last grounded transform
         lastGroundedFrames.Add(this.transform.position);
         if (lastGroundedFrames.Count > numGroundedFrames)
         {
