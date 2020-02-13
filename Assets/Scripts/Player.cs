@@ -22,11 +22,11 @@ public class Player : MonoBehaviour
     [Tooltip("Amount of force to apply when the player releases their charge (scaled by charge amount)")]
     [SerializeField] private float releaseImpulseAmount = 1.0f;
 
-    [Tooltip("How low the player's velocity must be before they can start a new charge")]
-    [SerializeField] private float maxVelocityToStartCharging = 1.0f;
-
     [Tooltip("How long the player's 'wind-back' acceleration will decay over")]
     [SerializeField] private float accelDecayTime = 2.0f;
+
+    [Tooltip("Cooldown for a fullycharged release - scales down based on how much you charged up")]
+    [SerializeField] private float chargeCooldown = 2.0f;
 
     [SerializeField] [Range(0.1f, 10.0f)] private float turningSensitivity = 1.0f;
 
@@ -41,6 +41,8 @@ public class Player : MonoBehaviour
     private bool chargingUp = true; // Indicates direction of charging - after being fully charged, the bar will deplete
     private float accelAmount = 0.0f;
     private float steeringInput = 0.0f;
+
+    private float cooldownTimer = 0.0f;
 
     private InputMaster controls;
     private Rigidbody rigidBody;
@@ -149,7 +151,7 @@ public class Player : MonoBehaviour
 
     private void StartCharging()
     {
-        if (rigidBody.velocity.magnitude > maxVelocityToStartCharging) { return; }
+        if (cooldownTimer > 0.001f) { return; }
         if (!carController.IsGrounded) { return; }
 
         carController.StopAllWheels();
@@ -172,6 +174,7 @@ public class Player : MonoBehaviour
         accelAmount = chargeAmount;
         carController.CanSteer = true;
         carController.WheelCollidersFriction(true);
+        cooldownTimer = chargeCooldown * chargeAmount;
 
         float longChargeBonus = Mathf.Clamp(bonusChargeCurve.Evaluate(normalisedTimeCharged), 0.0f, 999.0f);
         carController.ApplyForwardImpulse(releaseImpulseAmount * (chargeAmount + longChargeBonus));
@@ -181,6 +184,8 @@ public class Player : MonoBehaviour
 
     private void ChargingUpdate()
     {
+        cooldownTimer = Mathf.Clamp(cooldownTimer - Time.deltaTime, 0.0f, chargeCooldown);
+
         if (!isCharging) { return; }
 
         float deltaCharge = Time.deltaTime / chargeTime;
@@ -211,19 +216,15 @@ public class Player : MonoBehaviour
 
     private void ChargeBarUpdate()
     {
-        if (isCharging)
+        if (cooldownTimer > 0.001f)
         {
-            chargeBarBG.color = Color.white;
-            return;
-        }
-
-        if (rigidBody.velocity.magnitude < maxVelocityToStartCharging)
-        {
-            chargeBarBG.color = Color.white;
+            chargeBar.transform.localScale = Vector3.zero;
+            chargeBarBG.transform.localScale = Vector3.zero;
         }
         else
         {
-            chargeBarBG.color = Color.grey;
+            chargeBar.transform.localScale = Vector3.one;
+            chargeBarBG.transform.localScale = Vector3.one;
         }
     }
 

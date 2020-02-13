@@ -36,6 +36,7 @@ public class CarController : MonoBehaviour
     [Header("References")]
     [SerializeField] private WheelCollider[] wheelColliders = new WheelCollider[4];
     [SerializeField] private GameObject[] wheelMeshes = new GameObject[4];
+    [SerializeField] private GameObject carMesh;
 
     [Header("Car Movement Settings")]
     [SerializeField] private CarDriveType driveType;
@@ -54,6 +55,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private float slipLimit = 0.3f;
 
     [SerializeField] private float fallRespawnTime = 2.0f;
+    [SerializeField] private float meshTurnAngle = 25.0f;
 
     private bool isRespawning = false;
     private float steerAngle = 0.0f;
@@ -110,6 +112,8 @@ public class CarController : MonoBehaviour
         accel = Mathf.Clamp(accel, 0.0f, 1.0f);
 
         if (!canSteer) { steering = 0.0f; }
+
+        carMesh.transform.localRotation = Quaternion.Euler(0.0f, steering * meshTurnAngle, 0.0f);
 
         // Set steering on the front wheels (wheels 0 and 1 must be front wheels)
         steerAngle = steering * maxSteerAngle;
@@ -352,7 +356,7 @@ public class CarController : MonoBehaviour
                 sidewaysCurve.asymptoteValue = originalInfo.sidewaysAsymptoteValue;
 
                 // tractionControl = 0.25f;
-                steerHelper = 1.0f;
+                steerHelper = 0.5f;
             }
             // Set frictions to minimum
             else
