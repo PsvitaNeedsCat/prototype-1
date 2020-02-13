@@ -48,7 +48,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""id"": ""0770a0b6-8535-4e2b-b32e-6065388e9b05"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Horn Release"",
@@ -56,7 +56,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""id"": ""7fe8a4a9-a194-4474-b9d0-f5dd6d8bf732"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(behavior=1)""
                 }
             ],
             ""bindings"": [
@@ -152,7 +152,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""463b5e89-30fa-4a33-89ae-c5f1290ad532"",
                     ""path"": ""<Keyboard>/w"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Horn Press"",
@@ -196,7 +196,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""3e2f13c6-585e-489c-aac0-9f0ada65b290"",
                     ""path"": ""<Keyboard>/w"",
-                    ""interactions"": ""Press(behavior=1)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Horn Release"",

@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
     private InputMaster controls;
     private Rigidbody rigidBody;
     private CarController carController;
+    private HornScript hornScript;
     private int lapNum = 1;
     private int lastCheckpointPassed = 0;
     private int numCheckpoints;
@@ -77,6 +78,7 @@ public class Player : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody>();
         carController = GetComponent<CarController>();
+        hornScript = GetComponent<HornScript>();
         ChargeAmount = 0.0f;
         controls = new InputMaster();
 
@@ -89,6 +91,9 @@ public class Player : MonoBehaviour
 
                     controls.Player1.ChargePress.performed += _ => StartCharging();
                     controls.Player1.ChargeRelease.performed += _ => StopCharging();
+
+                    controls.Player1.HornPress.performed += _ => PressHorn();
+                    controls.Player1.HornRelease.performed += _ => ReleaseHorn();
 
                     controls.Player1.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
 
@@ -104,6 +109,9 @@ public class Player : MonoBehaviour
 
                     controls.Player2.ChargePress.performed += _ => StartCharging();
                     controls.Player2.ChargeRelease.performed += _ => StopCharging();
+
+                    controls.Player2.HornPress.performed += _ => PressHorn();
+                    controls.Player2.HornRelease.performed += _ => ReleaseHorn();
 
                     controls.Player2.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
 
@@ -169,6 +177,16 @@ public class Player : MonoBehaviour
         carController.ApplyForwardImpulse(releaseImpulseAmount * chargeAmount);
 
         ChargeAmount = 0.0f;
+    }
+
+    void PressHorn()
+    {
+        hornScript.PlayHorn();
+    }
+
+    void ReleaseHorn()
+    {
+        hornScript.StopHorn();
     }
 
     private void ChargingUpdate()
