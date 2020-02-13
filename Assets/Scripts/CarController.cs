@@ -129,6 +129,16 @@ public class CarController : MonoBehaviour
         rigidBody.AddForce(transform.forward * forceSize, ForceMode.Impulse);
     }
 
+    public void ApplyImpulse(Vector3 impulse)
+    {
+        rigidBody.AddForce(impulse, ForceMode.Impulse);
+    }
+
+    public void ApplyForce(Vector3 force)
+    {
+        rigidBody.AddForce(force, ForceMode.Force);
+    }
+
     private void UpdateWheelMeshes()
     {
         for (int i = 0; i < 4; i++)

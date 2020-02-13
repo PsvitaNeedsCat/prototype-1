@@ -268,6 +268,7 @@ public class Player : MonoBehaviour
         }
     }
 
+
     public void SetInputControl(bool canInput)
     {
         if (canInput)
@@ -283,5 +284,15 @@ public class Player : MonoBehaviour
                 StopCharging();
             }
         }
+    }
+
+    public void ApplyImpulse(Vector3 impulse)
+    {
+        carController.ApplyImpulse(impulse);
+    }
+
+    public void ApplyForce(Vector3 force)
+    {
+        carController.ApplyForce(force);
     }
 }
