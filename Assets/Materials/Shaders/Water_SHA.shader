@@ -1,4 +1,6 @@
-﻿//BASE SHADER TUTORIAL FROM MANUELA MALASAÑA
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+//BASE SHADER TUTORIAL FROM MANUELA MALASAÑA
 Shader "Unlit/Water Texture"
 {
 	Properties
@@ -75,7 +77,7 @@ Shader "Unlit/Water Texture"
 				sampler2D _ScrollTexOne;
 				float4 _ScrollTexOne_ST;
 				sampler2D _ScrollTexTwo;
-				float4 _ScrollTexTwo_ST;
+				float4 _ScrollTexTwo_ST;		
 
 				v2f vert(appdata v)
 				{
@@ -96,7 +98,15 @@ Shader "Unlit/Water Texture"
 				half _AlphaOne;
 				half _AlphaTwo;
 				half4 _BaseColor;
+				//half _Strength
 
+				/*vertexOutput vert(vertexInput v)
+				{
+					vertexOutput o = (vertexOutput)0;
+					v.vertex.y += 10;
+					o.pos = UnityObjectToClipPos(v.vertex);
+					return o;
+				}*/
 
 				half4 frag(v2f i) : SV_Target
 				{
