@@ -10,6 +10,26 @@ internal enum CarDriveType
     fourWheelDrive
 }
 
+internal struct WheelColliderFrictionInfo
+{
+    public float forwardExtremumValue;
+    public float forwardAsymptoteValue;
+    public float sidewaysExtremumValue;
+    public float sidewaysAsymptoteValue;
+
+    public WheelColliderFrictionInfo(WheelCollider collider)
+    {
+        WheelFrictionCurve forwardCurve = collider.forwardFriction;
+        WheelFrictionCurve sidewaysCurve = collider.sidewaysFriction;
+
+        forwardExtremumValue = forwardCurve.extremumValue;
+        forwardAsymptoteValue = forwardCurve.asymptoteValue;
+
+        sidewaysExtremumValue = sidewaysCurve.extremumValue;
+        sidewaysAsymptoteValue = sidewaysCurve.asymptoteValue;
+    }
+}
+
 [RequireComponent(typeof(Rigidbody))]
 public class CarController : MonoBehaviour
 {
@@ -44,6 +64,9 @@ public class CarController : MonoBehaviour
     private List<Vector3> lastGroundedFrames = new List<Vector3>();
     private int numGroundedFrames = 30;
     private bool isGrounded = false;
+    private bool canSteer = true;
+
+    private WheelColliderFrictionInfo[] wheelColliderFrictionInfos;
 
     public bool IsRespawning
     {
@@ -55,13 +78,21 @@ public class CarController : MonoBehaviour
         get { return isGrounded; }
     }
 
+    public bool CanSteer
+    {
+        get { return canSteer; }
+        set { canSteer = value; }
+    }
+
     private void Start()
     {
         wheelMeshLocalRotations = new Quaternion[4];
+        wheelColliderFrictionInfos = new WheelColliderFrictionInfo[4];
 
         for (int i = 0; i < 4; i++)
         {
             wheelMeshLocalRotations[i] = wheelMeshes[i].transform.localRotation;
+            wheelColliderFrictionInfos[i] = new WheelColliderFrictionInfo(wheelColliders[i]);
         }
 
         rigidBody = GetComponent<Rigidbody>();
@@ -77,6 +108,8 @@ public class CarController : MonoBehaviour
         // Clamp input values
         steering = Mathf.Clamp(steering, -1.0f, 1.0f);
         accel = Mathf.Clamp(accel, 0.0f, 1.0f);
+
+        if (!canSteer) { steering = 0.0f; }
 
         // Set steering on the front wheels (wheels 0 and 1 must be front wheels)
         steerAngle = steering * maxSteerAngle;
@@ -285,6 +318,48 @@ public class CarController : MonoBehaviour
         yield return new WaitForSeconds(fallRespawnTime);
 
         isRespawning = false;
+    }
+
+    // Either set all wheel colliders to zero friction, or reset them to defaults
+    public void WheelCollidersFriction(bool wantFriction)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            WheelCollider wheelCollider = wheelColliders[i];
+
+            WheelFrictionCurve forwardCurve = wheelCollider.forwardFriction;
+            WheelFrictionCurve sidewaysCurve = wheelCollider.sidewaysFriction;
+
+            // Return to original values
+            if (wantFriction)
+            {
+                WheelColliderFrictionInfo originalInfo = wheelColliderFrictionInfos[i];
+
+                forwardCurve.extremumValue = originalInfo.forwardExtremumValue;
+                forwardCurve.asymptoteValue = originalInfo.forwardAsymptoteValue;
+
+                sidewaysCurve.extremumValue = originalInfo.sidewaysExtremumValue;
+                sidewaysCurve.asymptoteValue = originalInfo.sidewaysAsymptoteValue;
+
+                // tractionControl = 0.25f;
+                steerHelper = 1.0f;
+            }
+            // Set frictions to minimum
+            else
+            {
+                forwardCurve.extremumValue = 0.0f;
+                forwardCurve.asymptoteValue = 0.0f;
+
+                sidewaysCurve.extremumValue = 0.0f;
+                sidewaysCurve.asymptoteValue = 0.0f;
+
+                tractionControl = 0.0f;
+                steerHelper = 0.0f;
+            }
+
+            wheelCollider.forwardFriction = forwardCurve;
+            wheelCollider.sidewaysFriction = sidewaysCurve;
+        }
     }
 
     private void OnDrawGizmosSelected()

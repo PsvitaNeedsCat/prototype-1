@@ -634,8 +634,8 @@ MonoBehaviour:
   centerOfMassOffset: {x: 0, y: 0.3, z: 0}
   maxSteerAngle: 2
   steerHelper: 1
-  tractionControl: 1
-  downForce: 100
+  tractionControl: 0
+  downForce: 1000
   maxSpeed: 200
   totalTorque: 2500
   slipLimit: 0.3
@@ -682,6 +682,57 @@ MonoBehaviour:
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  bonusChargeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 0
+      inSlope: 0.0077721
+      outSlope: 0.0077721
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.005845368
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9017757
+      value: 0.94464654
+      inSlope: 2.5266025
+      outSlope: 2.5266025
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.7456227
+    - serializedVersion: 3
+      time: 0.9499828
+      value: 1.0001401
+      inSlope: 0.0038371726
+      outSlope: 0.0038371726
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 1
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -0.025589533
+      outSlope: -0.025589533
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

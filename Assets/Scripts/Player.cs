@@ -32,7 +32,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] int playerNumber = 1;
 
-    public AnimationCurve chargeUpCurve;
+    public AnimationCurve chargeUpCurve; // Base charge up curve
+    public AnimationCurve bonusChargeCurve; // Curve representing how much bonus power you get from charging longer
 
     private float chargeAmount = 0.0f; // How full the charge bar is
     private float normalisedTimeCharged = 0.0f; // Amount of time spent charging
@@ -152,8 +153,10 @@ public class Player : MonoBehaviour
         if (!carController.IsGrounded) { return; }
 
         carController.StopAllWheels();
-        rigidBody.velocity = Vector3.zero;
-        rigidBody.isKinematic = true;
+        carController.WheelCollidersFriction(false);
+        carController.CanSteer = false;
+        // rigidBody.velocity = Vector3.zero;
+        // rigidBody.isKinematic = true;
         isCharging = true;
         chargingUp = true;
         ChargeAmount = 0.0f;
@@ -167,7 +170,11 @@ public class Player : MonoBehaviour
         isCharging = false;
         rigidBody.isKinematic = false;
         accelAmount = chargeAmount;
-        carController.ApplyForwardImpulse(releaseImpulseAmount * chargeAmount);
+        carController.CanSteer = true;
+        carController.WheelCollidersFriction(true);
+
+        float longChargeBonus = Mathf.Clamp(bonusChargeCurve.Evaluate(normalisedTimeCharged), 0.0f, 999.0f);
+        carController.ApplyForwardImpulse(releaseImpulseAmount * (chargeAmount + longChargeBonus));
 
         ChargeAmount = 0.0f;
     }
