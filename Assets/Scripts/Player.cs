@@ -97,8 +97,8 @@ public class Player : MonoBehaviour
 
                     controls.Player1.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
 
-                    // controls.devices = new[] { Gamepad.all[0], Keyboard.all[0] };
-                    controls.devices = new[] { Keyboard.all[0] };
+                    // Set up devices (Gamepad and keyboard if gamepad is plugged in, else just a keyboard
+                    controls.devices = (Gamepad.all.Count >= 1) ? new[] { Gamepad.all[0], Keyboard.all[0] } : controls.devices = new[] { Keyboard.all[0] };
 
                     break;
                 }
@@ -115,8 +115,8 @@ public class Player : MonoBehaviour
 
                     controls.Player2.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
 
-                    // controls.devices = new[] { Gamepad.all[1], Keyboard.all[0] };
-                    controls.devices = new[] { Keyboard.all[0] };
+                    // Set up devices (Gamepad and keyboard if gamepad is plugged in, else just a keyboard
+                    controls.devices = (Gamepad.all.Count >= 2) ? new[] { Gamepad.all[1], Keyboard.all[0] } : controls.devices = new[] { Keyboard.all[0] };
 
                     break;
                 }
