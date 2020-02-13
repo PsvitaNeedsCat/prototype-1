@@ -19,9 +19,9 @@ public class SplitScreenManager : MonoBehaviour
     {
         // Get player count. Default to 1
         uint playerCount = 1;
-        if (GameObject.Find("PlayersJoined"))
+        if (GameObject.Find("DontDestroyObj"))
         {
-            playerCount = GameObject.Find("PlayersJoined").GetComponent<PlayersJoined>().playerCount;
+            playerCount = GameObject.Find("DontDestroyObj").GetComponent<DontDestroyScript>().playerCount;
         }
 
         // Check for number of players

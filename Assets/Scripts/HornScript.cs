@@ -10,8 +10,9 @@ public class HornScript : MonoBehaviour
     public enum Sounds
     { 
         SQUEAK = 0,
-        CLASSIC
-    }
+        CLASSIC,
+        COUNT
+    };
 
     public Sounds hornIndex = Sounds.SQUEAK;
 
@@ -51,5 +52,20 @@ public class HornScript : MonoBehaviour
         {
             m_audioSource.clip = hornSounds[(int)_newSound];
         }
+    }
+
+    public void NextHorn()
+    {
+        // Increment horn index
+        hornIndex = (Sounds)(int)hornIndex + 1;
+
+        // If out of range
+        if ((int)hornIndex >= (int)Sounds.COUNT)
+        {
+            hornIndex = (Sounds)0;
+        }
+
+        // Set the audio source
+        m_audioSource.clip = hornSounds[(int)hornIndex];
     }
 }
