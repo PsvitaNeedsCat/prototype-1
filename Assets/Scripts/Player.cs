@@ -90,10 +90,10 @@ public class Player : MonoBehaviour
         {
             case 1:
             {
-                controls.Player1.Enable();
+                    controls.Player1.Enable();
 
-                controls.Player1.ChargePress.performed += _ => StartCharging();
-                controls.Player1.ChargeRelease.performed += _ => StopCharging();
+                    controls.Player1.ChargePress.performed += _ => StartCharging();
+                    controls.Player1.ChargeRelease.performed += _ => StopCharging();
 
                     controls.Player1.HornPress.performed += _ => PressHorn();
                     controls.Player1.HornRelease.performed += _ => ReleaseHorn();
@@ -103,15 +103,19 @@ public class Player : MonoBehaviour
                     // Set up devices (Gamepad and keyboard if gamepad is plugged in, else just a keyboard
                     controls.devices = (Gamepad.all.Count >= 1) ? new[] { Gamepad.all[0], Keyboard.all[0] } : controls.devices = new[] { Keyboard.all[0] };
 
-                break;
+                    // Give correct horn
+                    if (GameObject.Find("DontDestroyObj"))
+                        hornScript.ChangeHorn(GameObject.Find("DontDestroyObj").GetComponent<DontDestroyScript>().p1SelectedHorn);
+
+                    break;
             }
 
             case 2:
             {
-                controls.Player2.Enable();
+                    controls.Player2.Enable();
 
-                controls.Player2.ChargePress.performed += _ => StartCharging();
-                controls.Player2.ChargeRelease.performed += _ => StopCharging();
+                    controls.Player2.ChargePress.performed += _ => StartCharging();
+                    controls.Player2.ChargeRelease.performed += _ => StopCharging();
 
                     controls.Player2.HornPress.performed += _ => PressHorn();
                     controls.Player2.HornRelease.performed += _ => ReleaseHorn();
@@ -121,7 +125,11 @@ public class Player : MonoBehaviour
                     // Set up devices (Gamepad and keyboard if gamepad is plugged in, else just a keyboard
                     controls.devices = (Gamepad.all.Count >= 2) ? new[] { Gamepad.all[1], Keyboard.all[0] } : controls.devices = new[] { Keyboard.all[0] };
 
-                break;
+                    // Give player the correct horn sound
+                    if (GameObject.Find("DontDestroyObj"))
+                        hornScript.ChangeHorn(GameObject.Find("DontDestroyObj").GetComponent<DontDestroyScript>().p2SelectedHorn); ;
+
+                    break;
             }
 
             default:
