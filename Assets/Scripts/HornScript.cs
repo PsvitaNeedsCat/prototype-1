@@ -41,6 +41,8 @@ public class HornScript : MonoBehaviour
     {
         hornIndex = _newSound;
 
+        if (!m_audioSource) m_audioSource = GetComponent<AudioSource>();
+
         // If horn is playing, swap sound
         if (m_audioSource.isPlaying)
         {

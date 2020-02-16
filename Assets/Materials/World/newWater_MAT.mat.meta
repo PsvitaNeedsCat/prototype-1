@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Meshes/Props/Models.meta
+guid: 30cb33be2d9345d42be4d806e484a95a
+folderAsset: yes
+DefaultImporter:
+=======
 guid: 02ddfcc6e3efada4b8d7f0f3be4515a0
 NativeFormatImporter:
+>>>>>>> origin/sbebb:Assets/Materials/World/newWater_MAT.mat.meta
   externalObjects: {}
   mainObjectFileID: 0
   userData: 

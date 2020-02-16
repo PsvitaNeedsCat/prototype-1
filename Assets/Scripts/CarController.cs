@@ -56,6 +56,7 @@ public class CarController : MonoBehaviour
 
     [SerializeField] private float fallRespawnTime = 2.0f;
     [SerializeField] private float meshTurnAngle = 25.0f;
+    [SerializeField] private float notGroundedRespawnTime = 3.0f;
 
     private bool isRespawning = false;
     private float steerAngle = 0.0f;
@@ -67,6 +68,7 @@ public class CarController : MonoBehaviour
     private int numGroundedFrames = 30;
     private bool isGrounded = false;
     private bool canSteer = true;
+    private float notGroundedTime = 0.0f;
 
     private WheelColliderFrictionInfo[] wheelColliderFrictionInfos;
 
@@ -211,11 +213,19 @@ public class CarController : MonoBehaviour
             if (wheelHit.normal == Vector3.zero)
             {
                 isGrounded = false;
+                notGroundedTime += Time.fixedDeltaTime;
+
+                if (notGroundedTime > notGroundedRespawnTime)
+                {
+                    RespawnCar();
+                    Debug.Log("Respawning car");
+                }
                 return;
             } // If wheels aren't on the ground, don't help with steering
         }
 
         isGrounded = true;
+        notGroundedTime = 0.0f;
 
         // If all wheels are on ground, update last grounded transform
         lastGroundedFrames.Add(this.transform.position);
@@ -349,8 +359,8 @@ public class CarController : MonoBehaviour
             {
                 WheelColliderFrictionInfo originalInfo = wheelColliderFrictionInfos[i];
 
-                forwardCurve.extremumValue = originalInfo.forwardExtremumValue;
-                forwardCurve.asymptoteValue = originalInfo.forwardAsymptoteValue;
+                //forwardCurve.extremumValue = originalInfo.forwardExtremumValue;
+                //forwardCurve.asymptoteValue = originalInfo.forwardAsymptoteValue;
 
                 sidewaysCurve.extremumValue = originalInfo.sidewaysExtremumValue;
                 sidewaysCurve.asymptoteValue = originalInfo.sidewaysAsymptoteValue;
@@ -361,8 +371,8 @@ public class CarController : MonoBehaviour
             // Set frictions to minimum
             else
             {
-                forwardCurve.extremumValue = 0.0f;
-                forwardCurve.asymptoteValue = 0.0f;
+                //forwardCurve.extremumValue = 0.0f;
+                //forwardCurve.asymptoteValue = 0.0f;
 
                 sidewaysCurve.extremumValue = 0.0f;
                 sidewaysCurve.asymptoteValue = 0.0f;

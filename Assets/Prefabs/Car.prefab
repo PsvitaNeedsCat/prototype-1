@@ -493,8 +493,8 @@ Rigidbody:
   m_GameObject: {fileID: 3820364364456944734}
   serializedVersion: 2
   m_Mass: 1000
-  m_Drag: 0.1
-  m_AngularDrag: 0.05
+  m_Drag: 0.5
+  m_AngularDrag: 5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -621,15 +621,16 @@ MonoBehaviour:
   carMesh: {fileID: 7709445463735312694}
   driveType: 0
   centerOfMassOffset: {x: 0, y: 0.3, z: 0}
-  maxSteerAngle: 2
+  maxSteerAngle: 5
   steerHelper: 0.5
   tractionControl: 0
   downForce: 1000
-  maxSpeed: 200
+  maxSpeed: 999999
   totalTorque: 2500
   slipLimit: 0.3
   fallRespawnTime: 2
   meshTurnAngle: 25
+  notGroundedRespawnTime: 3
 --- !u!114 &7311931163419750519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,8 +650,8 @@ MonoBehaviour:
   chargeTime: 2
   releaseImpulseAmount: 20000
   accelDecayTime: 2
-  chargeCooldown: 2
-  turningSensitivity: 2
+  chargeCooldown: 0.01
+  turningSensitivity: 3
   playerNumber: 1
   chargeUpCurve:
     serializedVersion: 2
@@ -689,7 +690,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.5
+      time: 0.01
       value: 0
       inSlope: 0.0077721
       outSlope: 0.0077721
@@ -734,13 +735,13 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3820364364456944734}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d6c7c3cf613c8fa4e9ba6160eeb36d52, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.58
-  m_Height: 1.53
+  m_Enabled: 1
+  m_Radius: 0.6
+  m_Height: 1.47
   m_Direction: 2
-  m_Center: {x: 0, y: 0.42, z: 0}
+  m_Center: {x: 0, y: 0.47, z: 0}
 --- !u!65 &5290213181998458330
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -748,12 +749,12 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3820364364456944734}
-  m_Material: {fileID: 13400000, guid: 95116aed93c9d9d449293072913a0dc7, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.5454755, z: 1.3657371}
-  m_Center: {x: 0, y: 0.37018597, z: 0.0035193563}
+  m_Size: {x: 0.76, y: 0.0784955, z: 0.81}
+  m_Center: {x: 0, y: 0.13669598, z: 0}
 --- !u!114 &7699689902333935523
 MonoBehaviour:
   m_ObjectHideFlags: 0
