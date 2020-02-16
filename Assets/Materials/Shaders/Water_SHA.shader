@@ -7,7 +7,7 @@ Shader "Unlit/Water Texture"
 	{
 		[Header(DIFFUSE)]
 		 _MainTex("Texture", 2D) = "white" {}
-		[HDR]_BaseColor("Water Color", Color) = (1, 1, 1, 1)
+		_BaseColor("Water Color", Color) = (1, 1, 1, 1)
 		[Space]
 		[Header(SCROLLING)]
 		_ScrollTexOne("Scrolling Texture One", 2D) = "white" {}
@@ -122,7 +122,7 @@ Shader "Unlit/Water Texture"
 					half4 patternTwo = tex2D(_ScrollTexTwo, i.patternUV2 + offsetTwo);
 					float4 foam = (alphOne * patternOne) + (alphTwo * patternTwo);
 
-					return col * i.color * foam + (main * _BaseColor);
+					return col * i.color * foam + main * _BaseColor;
 				}
 				ENDCG
 			}
