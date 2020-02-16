@@ -106,5 +106,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7562b58e5c8326b49b7a0f22d5ed7949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostForce: 2500000
+  boostForce: 500000
   boostDir: {x: 0, y: 0, z: -1}
