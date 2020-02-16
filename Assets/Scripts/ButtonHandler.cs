@@ -19,7 +19,7 @@ public class ButtonHandler : MonoBehaviour
     public void Play()
     {
         // Load game scene
-        SceneManager.LoadScene("TestDrive");
+        SceneManager.LoadScene("TestDriveNew");
     }
 
     public void Quit()
