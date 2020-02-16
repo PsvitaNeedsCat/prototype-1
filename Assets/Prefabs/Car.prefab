@@ -493,7 +493,7 @@ Rigidbody:
   m_GameObject: {fileID: 3820364364456944734}
   serializedVersion: 2
   m_Mass: 1000
-  m_Drag: 0.1
+  m_Drag: 0.5
   m_AngularDrag: 5
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -625,7 +625,7 @@ MonoBehaviour:
   steerHelper: 0.5
   tractionControl: 0
   downForce: 1000
-  maxSpeed: 200
+  maxSpeed: 999999
   totalTorque: 2500
   slipLimit: 0.3
   fallRespawnTime: 2
@@ -650,10 +650,9 @@ MonoBehaviour:
   chargeTime: 2
   releaseImpulseAmount: 20000
   accelDecayTime: 2
-  chargeCooldown: 2
-  turningSensitivity: 2
+  chargeCooldown: 0.01
+  turningSensitivity: 3
   playerNumber: 1
-  velocityIndicatorDistance: 3
   chargeUpCurve:
     serializedVersion: 2
     m_Curve:
@@ -691,7 +690,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.5
+      time: 0.01
       value: 0
       inSlope: 0.0077721
       outSlope: 0.0077721

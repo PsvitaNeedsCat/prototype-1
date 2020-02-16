@@ -127,7 +127,7 @@ public class Player : MonoBehaviour
 
                     // Give player the correct horn sound
                     if (GameObject.Find("DontDestroyObj"))
-                        hornScript.ChangeHorn(GameObject.Find("DontDestroyObj").GetComponent<DontDestroyScript>().p2SelectedHorn); ;
+                        hornScript.ChangeHorn(GameObject.Find("DontDestroyObj").GetComponent<DontDestroyScript>().p2SelectedHorn);
 
                     break;
             }
@@ -187,6 +187,7 @@ public class Player : MonoBehaviour
 
         isCharging = false;
         rigidBody.isKinematic = false;
+        rigidBody.velocity = Vector3.zero;
         accelAmount = chargeAmount;
         carController.CanSteer = true;
         carController.WheelCollidersFriction(true);

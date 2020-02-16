@@ -218,6 +218,7 @@ public class CarController : MonoBehaviour
                 if (notGroundedTime > notGroundedRespawnTime)
                 {
                     RespawnCar();
+                    Debug.Log("Respawning car");
                 }
                 return;
             } // If wheels aren't on the ground, don't help with steering
@@ -358,8 +359,8 @@ public class CarController : MonoBehaviour
             {
                 WheelColliderFrictionInfo originalInfo = wheelColliderFrictionInfos[i];
 
-                forwardCurve.extremumValue = originalInfo.forwardExtremumValue;
-                forwardCurve.asymptoteValue = originalInfo.forwardAsymptoteValue;
+                //forwardCurve.extremumValue = originalInfo.forwardExtremumValue;
+                //forwardCurve.asymptoteValue = originalInfo.forwardAsymptoteValue;
 
                 sidewaysCurve.extremumValue = originalInfo.sidewaysExtremumValue;
                 sidewaysCurve.asymptoteValue = originalInfo.sidewaysAsymptoteValue;
@@ -370,8 +371,8 @@ public class CarController : MonoBehaviour
             // Set frictions to minimum
             else
             {
-                forwardCurve.extremumValue = 0.0f;
-                forwardCurve.asymptoteValue = 0.0f;
+                //forwardCurve.extremumValue = 0.0f;
+                //forwardCurve.asymptoteValue = 0.0f;
 
                 sidewaysCurve.extremumValue = 0.0f;
                 sidewaysCurve.asymptoteValue = 0.0f;
