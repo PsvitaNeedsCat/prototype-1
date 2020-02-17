@@ -55,6 +55,7 @@ public class Player : MonoBehaviour
     private int lapNum = 1;
     private int lastCheckpointPassed = 0;
     private int numCheckpoints;
+    [HideInInspector] public RespawnCheckpoint lastRespawnCheckpoint;
 
     public bool IsRespawning
     {
@@ -324,6 +325,11 @@ public class Player : MonoBehaviour
             }
 
         }
+    }
+
+    public void PassedRespawnCheckpoint(RespawnCheckpoint checkpoint)
+    {
+        lastRespawnCheckpoint = checkpoint;
     }
 
     public void SetInputControl(bool canInput)
