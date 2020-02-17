@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
     private int lastCheckpointPassed = 0;
     private int numCheckpoints;
     [HideInInspector] public RespawnCheckpoint lastRespawnCheckpoint;
+    private bool finished = false;
 
     public bool IsRespawning
     {
@@ -218,7 +219,12 @@ public class Player : MonoBehaviour
 
         ChargeAmount = 0.0f;
 
-        GameManager.Instance.playerStrokeCounters[playerNumber - 1] += 1;
+        GameObject.Find("Split Screen Manager").GetComponent<SplitScreenManager>().AddStroke(playerNumber);
+    }
+
+    private void StrokesCounterUpdate()
+    {
+
     }
 
     void PressHorn()
@@ -303,27 +309,31 @@ public class Player : MonoBehaviour
 
     public void PassedCheckpoint(int checkpointNum)
     {
-        // Check if in order
-        if (checkpointNum == lastCheckpointPassed + 1)
+        if (!finished)
         {
-            // Check if lap complete
-            if (checkpointNum == numCheckpoints)
+            // Check if in order
+            if (checkpointNum == lastCheckpointPassed + 1)
             {
-                if (CurrentLapNumber == GameManager.Instance.numLaps)
+                // Check if lap complete
+                if (checkpointNum == numCheckpoints)
                 {
-                    GameManager.Instance.raceComplete = true;
-                    GameManager.Instance.winner = playerNumber;
-                    return;
+                    if (CurrentLapNumber == GameManager.Instance.numLaps)
+                    {
+                        DisableControls();
+                        finished = true;
+                        GameManager.Instance.PlayerFinished(playerNumber);
+                        return;
+                    }
+
+                    CurrentLapNumber++;
+                    lastCheckpointPassed = 0;
+                }
+                else
+                {
+                    lastCheckpointPassed = checkpointNum;
                 }
 
-                CurrentLapNumber++;
-                lastCheckpointPassed = 0;
             }
-            else
-            {
-                lastCheckpointPassed = checkpointNum;
-            }
-
         }
     }
 
@@ -374,5 +384,26 @@ public class Player : MonoBehaviour
         float quotient = (deltaSpeed - 10.0f) / 20.0f;
 
         return (0.5f + (1.5f * quotient));
+    }
+
+    private void DisableControls()
+    {
+        switch (playerNumber)
+        {
+            case 1:
+                {
+                    controls.Player1.Disable();
+                    break;
+                }
+
+            case 2:
+                {
+                    controls.Player2.Disable();
+                    break;
+                }
+
+            default:
+                break;
+        }
     }
 }
