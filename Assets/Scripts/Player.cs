@@ -264,7 +264,8 @@ public class Player : MonoBehaviour
 
     private void Steer(float horInput)
     {
-        steeringInput = horInput;
+        // Inside the deadzone
+        steeringInput = (Mathf.Abs(horInput) <= 0.5f) ? 0.0f : steeringInput = horInput;
     }
 
     public float Respawn()
