@@ -51,8 +51,6 @@ public class Player : MonoBehaviour
     private int lapNum = 1;
     private int lastCheckpointPassed = 0;
     private int numCheckpoints;
-    private uint strokes = 0;
-    private uint place = 0;
 
     public bool IsRespawning
     {
@@ -199,9 +197,6 @@ public class Player : MonoBehaviour
         carController.ApplyForwardImpulse(releaseImpulseAmount * (chargeAmount + longChargeBonus));
 
         ChargeAmount = 0.0f;
-
-        // Add to strokes
-        GameManager.Instance.playerStrokesCounters[playerNumber - 1] += 1;
     }
 
     void PressHorn()
