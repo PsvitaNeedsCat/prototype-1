@@ -5483,6 +5483,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  lastRespawnCheckpoint: {fileID: 0}
 --- !u!136 &978877102454239671
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6094,6 +6095,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sprinkles_MESH
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 58ab28a4218194942b385606f5dc7d25,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3834438804567023789, guid: 58ab28a4218194942b385606f5dc7d25,
         type: 3}

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Cinemachine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get { return _instance; } }
 
     public int numLaps = 3;
+
+    public CinemachineVirtualCamera introCam;
 
     [HideInInspector] public int numCheckpoints;
     public GameState gameState = GameState.preRace;
@@ -67,6 +69,8 @@ public class GameManager : MonoBehaviour
         gameState = GameState.preRace;
 
         yield return new WaitForSeconds(preRaceDuration);
+
+        introCam.Priority = 9;
 
         StartCoroutine(StartCountdown());
     }
