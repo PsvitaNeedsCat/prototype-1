@@ -197,6 +197,8 @@ public class Player : MonoBehaviour
         carController.ApplyForwardImpulse(releaseImpulseAmount * (chargeAmount + longChargeBonus));
 
         ChargeAmount = 0.0f;
+
+        GameManager.Instance.playerStrokeCounters[playerNumber - 1] += 1;
     }
 
     void PressHorn()

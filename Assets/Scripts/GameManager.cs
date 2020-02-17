@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public float postRaceDuration = 5.0f;
     [HideInInspector] public bool raceComplete = false;
     [HideInInspector] public int winner = 1;
+    [HideInInspector] public int[] playerStrokeCounters = new int[2] { 0, 0 };
 
     private List<Player> players = new List<Player>();
 
