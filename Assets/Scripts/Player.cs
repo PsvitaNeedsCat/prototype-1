@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Image chargeBarBG;
     [SerializeField] private TextMeshProUGUI currentLapText;
     [SerializeField] private TextMeshProUGUI totalLapsText;
+    [SerializeField] private Animator playerAnimator;
     public GameObject stunnedIndicator; //Temp
 
     [Header("Player Settings")]
@@ -159,6 +160,8 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        playerAnimator.SetFloat("Speed", rigidBody.velocity.magnitude);
+
         // If not stun immune
         if (!(stunImmuneTimer > 0.01f))
         {

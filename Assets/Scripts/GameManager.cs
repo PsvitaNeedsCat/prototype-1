@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
 
     public CinemachineVirtualCamera introCam;
 
+    public GameObject[] playerCountdowns;
+
     [HideInInspector] public int numCheckpoints;
     public GameState gameState = GameState.preRace;
     public float preRaceDuration = 5.0f;
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool raceComplete = false;
     [HideInInspector] public int[] playerOrder = new int[2] { 0, 0 };
     [HideInInspector] public int[] playerStrokeCounters = new int[2] { 0, 0 };
+    
 
     private DontDestroyScript dontDestroy;
     private List<Player> players = new List<Player>();
@@ -44,7 +47,7 @@ public class GameManager : MonoBehaviour
 
         numCheckpoints = FindObjectsOfType<LapCheckpoint>().Length;
 
-        dontDestroy = GameObject.Find("DontDestroyObj").GetComponent<DontDestroyScript>();
+        dontDestroy = FindObjectOfType<DontDestroyScript>();
     }
 
     private void Start()
@@ -83,7 +86,14 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.countdown;
 
+        for (int i = 0; i < playerCountdowns.Length; i++)
+        {
+            playerCountdowns[i].SetActive(true);
+        }
+
         yield return new WaitForSeconds(raceCountdownDuration);
+
+        
 
         StartCoroutine(StartRace());
     }
@@ -93,6 +103,13 @@ public class GameManager : MonoBehaviour
         gameState = GameState.inRace;
 
         SetPlayersInputControl(true);
+
+        yield return new WaitForSeconds(1.0f);
+
+        for (int i = 0; i < playerCountdowns.Length; i++)
+        {
+            playerCountdowns[i].SetActive(false);
+        }
 
         while (raceComplete == false)
         {

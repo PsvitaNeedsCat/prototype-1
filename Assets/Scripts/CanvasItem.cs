@@ -8,7 +8,8 @@ public class CanvasItem : MonoBehaviour
     {
         LAPSCOUNTER,
         STROKES,
-        CHARGEBAR
+        CHARGEBAR,
+        COUNTDOWN
     }
 
     public CanvasItemTag itemTag;
