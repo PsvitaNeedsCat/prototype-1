@@ -30,11 +30,22 @@ public class GameManager : MonoBehaviour
     public float postRaceDuration = 5.0f;
     [HideInInspector] public bool raceComplete = false;
     [HideInInspector] public int winner = 1;
+    [HideInInspector] public int playersFinished = 0;
+    [SerializeField] GameObject leaderboard;
+    [SerializeField] Leaderboard[] playerInfo;
 
     private List<Player> players = new List<Player>();
+    private DontDestroyScript dontDestroy;
+    public int[] playerPositions; // 1st place is first in array
 
     private void Awake()
     {
+        dontDestroy = GameObject.FindObjectOfType<DontDestroyScript>();
+
+        // Fill player positions array
+        playerPositions = new int[dontDestroy.playerCount];
+        for (int i = 0; i < playerPositions.Length; i++) playerPositions[i] = 0;
+
         if (_instance != null && _instance != this) { Destroy(this.gameObject); }
         else { _instance = this; }
 
@@ -117,7 +128,7 @@ public class GameManager : MonoBehaviour
         // Mulitplayer
         else
         {
-            GameObject.FindGameObjectWithTag("WinnerText").GetComponent<TextMeshProUGUI>().text = "Player " + winner + " won!";
+            ActivateLeaderboard();
         }
 
         gameState = GameState.postRace;
@@ -134,4 +145,80 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void PlayerFinished(int playerNumber)
+    {
+        if (playersFinished == 0) winner = playerNumber;
+
+        playerPositions[playersFinished] = playerNumber;
+
+        ++playersFinished;
+
+        if (playersFinished >= dontDestroy.playerCount)
+        {
+            raceComplete = true;
+        }
+    }
+
+    private void ActivateLeaderboard()
+    {
+        // Activate leaderboard object which gets the backgrounds
+        leaderboard.SetActive(true);
+
+        // Get players for strokes
+        Player[] players = new Player[2] { GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>(), GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>() };
+
+        int[] scores = new int[dontDestroy.playerCount];
+        // Change positions
+        for (int i = 0; i < dontDestroy.playerCount; i++)
+        {
+            // Starts with first place
+            switch (playerPositions[i])
+            {
+                // Player 1 is in this position
+                case 1:
+                    {
+                        scores[0] = (int)(((i + 1) * 5) + players[0].strokes);
+                        break;
+                    }
+                // Player 2 is in this position
+                case 2:
+                    {
+                        scores[1] = (int)(((i + 1) * 5) + players[1].strokes);
+                        break;
+                    }
+
+                default:
+                    break;
+            }
+        }
+
+        int[] newPositions = playerPositions;
+
+        // Player 1 has higher score
+        if (scores[0] < scores[1]) { newPositions[0] = 1; newPositions[1] = 2; }
+        else if (scores[1] < scores[0]) { newPositions[0] = 2; newPositions[1] = 1; }
+
+        // Check each position
+        for (int place = 0; place < dontDestroy.playerCount; place++)
+        {
+            int modifier = place * 2;
+
+            switch (newPositions[place])
+            {
+                case 1:
+                    {
+                        playerInfo[0 + modifier].gameObject.SetActive(true);
+                        break;
+                    }
+                case 2:
+                    {
+                        playerInfo[1 + modifier].gameObject.SetActive(true);
+                        break;
+                    }
+
+                default:
+                    break;
+            }
+        }
+    }
 }

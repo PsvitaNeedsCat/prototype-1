@@ -44,6 +44,8 @@ public class Player : MonoBehaviour
     public AnimationCurve bonusChargeCurve; // Curve representing how much bonus power you get from charging longer
     public AnimationCurve speedFOVCurve; // Curve representing camera FOV change based on speed
 
+    [HideInInspector] public uint strokes = 0;
+
     private float chargeAmount = 0.0f; // How full the charge bar is
     private float normalisedTimeCharged = 0.0f; // Amount of time spent charging
     private bool isCharging = false;
@@ -64,6 +66,7 @@ public class Player : MonoBehaviour
     private int lapNum = 1;
     private int lastCheckpointPassed = 0;
     private int numCheckpoints;
+    private bool finished = false;
     [HideInInspector] public RespawnCheckpoint lastRespawnCheckpoint;
 
     public bool IsRespawning
@@ -172,6 +175,10 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // dev check
+        if (Input.GetKeyDown(KeyCode.J) && playerNumber == 1 && !finished) { GameManager.Instance.PlayerFinished(1); finished = true; Debug.Log("Player 1 finished"); }
+        else if (Input.GetKeyDown(KeyCode.K) && playerNumber == 2 && !finished) { GameManager.Instance.PlayerFinished(2); finished = true; Debug.Log("Player 2 finished"); }
+
         float playerSpeed = rigidBody.velocity.magnitude;
         float clampedSpeed = Mathf.Clamp(playerSpeed / 20.0f, 0.0f, 1.0f);
         playerAnimator.SetFloat("Speed", clampedSpeed);
@@ -248,6 +255,8 @@ public class Player : MonoBehaviour
         carController.ApplyForwardImpulse(releaseImpulseAmount * (chargeAmount + longChargeBonus));
 
         ChargeAmount = 0.0f;
+
+        strokes += 1;
 
         squashObject.transform.DOKill();
         squashObject.transform.DOScaleZ(1.0f, 0.75f).SetEase(Ease.OutElastic);
@@ -338,6 +347,8 @@ public class Player : MonoBehaviour
 
     public void PassedCheckpoint(int checkpointNum)
     {
+        if (finished) return;
+
         // Check if in order
         if (checkpointNum == lastCheckpointPassed + 1)
         {
@@ -346,8 +357,9 @@ public class Player : MonoBehaviour
             {
                 if (CurrentLapNumber == GameManager.Instance.numLaps)
                 {
-                    GameManager.Instance.raceComplete = true;
-                    GameManager.Instance.winner = playerNumber;
+                    GameManager.Instance.PlayerFinished(playerNumber);
+                    SetInputControl(false);
+                    finished = true;
                     return;
                 }
 
@@ -366,10 +378,42 @@ public class Player : MonoBehaviour
     {
         if (canInput)
         {
-            controls.Enable();
+            switch (playerNumber)
+            {
+                case 1:
+                    {
+                        controls.Player1.Enable();
+                        break;
+                    }
+                case 2:
+                    {
+                        controls.Player2.Enable();
+                        break;
+                    }
+
+                default:
+                    break;
+            }
         }
         else
         {
+            switch (playerNumber)
+            {
+                case 1:
+                    {
+                        controls.Player1.Disable();
+                        break;
+                    }
+                case 2:
+                    {
+                        controls.Player2.Disable();
+                        break;
+                    }
+
+                default:
+                    break;
+            }
+
             controls.Disable();
 
             if (isCharging)
