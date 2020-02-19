@@ -651,7 +651,7 @@ MonoBehaviour:
   playerAnimator: {fileID: 728370914173415552}
   collisionEffect: {fileID: 4499090367925894605, guid: 8b596d572b6b19641a4a4088db229092,
     type: 3}
-  stunnedIndicator: {fileID: 979619753572333257}
+  squashObject: {fileID: 7709445463735312694}
   chargeTime: 2
   releaseImpulseAmount: 20000
   accelDecayTime: 2
@@ -757,6 +757,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  lastRespawnCheckpoint: {fileID: 0}
 --- !u!136 &978877102454239671
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1492,9 +1493,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b57a1a18e8ea414183a4f9328afcb23, type: 3}
---- !u!1 &979619753572333257 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5202955782785766670, guid: 7b57a1a18e8ea414183a4f9328afcb23,
-    type: 3}
-  m_PrefabInstance: {fileID: 5020618917289190343}
-  m_PrefabAsset: {fileID: 0}

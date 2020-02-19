@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 using Cinemachine;
+using DG.Tweening;
 
 [RequireComponent(typeof(CarController))]
 public class Player : MonoBehaviour
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera followCam;
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private GameObject collisionEffect;
+    [SerializeField] private GameObject squashObject; // Object to be squashed and stretched during charging
 
     // public GameObject stunnedIndicator; // Temp
 
@@ -62,6 +64,7 @@ public class Player : MonoBehaviour
     private int lapNum = 1;
     private int lastCheckpointPassed = 0;
     private int numCheckpoints;
+    [HideInInspector] public RespawnCheckpoint lastRespawnCheckpoint;
 
     public bool IsRespawning
     {
@@ -157,6 +160,11 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Respawn();
+        }
+
         ChargeBarUpdate();
         AccelerationUpdate();
         ChargingUpdate();
@@ -176,13 +184,15 @@ public class Player : MonoBehaviour
 
         if (deltaSpeed > 10.0f)
         {
-            GameObject effect = Instantiate(collisionEffect, this.transform); //, Quaternion.identity, null);
-            GameObject.Destroy(effect, 5.0f);
+            
 
             if (!(stunImmuneTimer > 0.01f))
             {
                 stunnedTimer = StunDuration(deltaSpeed);
                 if (isCharging) { StopCharging(); }
+
+                GameObject effect = Instantiate(collisionEffect, this.transform); //, Quaternion.identity, null);
+                GameObject.Destroy(effect, 5.0f);
             }
         }
 
@@ -214,6 +224,10 @@ public class Player : MonoBehaviour
         chargingUp = true;
         ChargeAmount = 0.0f;
         normalisedTimeCharged = 0.0f;
+
+        squashObject.transform.DOKill();
+        squashObject.transform.DOScaleZ(1.25f, chargeTime).SetEase(Ease.OutElastic);
+        squashObject.transform.DOScaleX(0.85f, chargeTime).SetEase(Ease.OutElastic);
     }
 
     private void StopCharging()
@@ -234,6 +248,10 @@ public class Player : MonoBehaviour
         carController.ApplyForwardImpulse(releaseImpulseAmount * (chargeAmount + longChargeBonus));
 
         ChargeAmount = 0.0f;
+
+        squashObject.transform.DOKill();
+        squashObject.transform.DOScaleZ(1.0f, 0.75f).SetEase(Ease.OutElastic);
+        squashObject.transform.DOScaleX(1.0f, 0.75f).SetEase(Ease.OutElastic);
     }
 
     void PressHorn()
@@ -313,7 +331,9 @@ public class Player : MonoBehaviour
 
     public float Respawn()
     {
-        return carController.RespawnCar();
+        float respawnTime = carController.RespawnCar();
+        stunImmuneTimer = respawnTime;
+        return respawnTime;
     }
 
     public void PassedCheckpoint(int checkpointNum)
@@ -384,5 +404,10 @@ public class Player : MonoBehaviour
         float quotient = (deltaSpeed - 10.0f) / 20.0f;
 
         return (0.5f + (1.5f * quotient));
+    }
+
+    public void PassedRespawnCheckpoint(RespawnCheckpoint checkpoint)
+    {
+        lastRespawnCheckpoint = checkpoint;
     }
 }

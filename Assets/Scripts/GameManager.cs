@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
 
     public int numLaps = 3;
 
+    public GameObject[] countdownObjects;
+
     [HideInInspector] public int numCheckpoints;
     public GameState gameState = GameState.preRace;
     public float preRaceDuration = 5.0f;
@@ -74,6 +76,11 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.countdown;
 
+        for (int i = 0; i < countdownObjects.Length; i++)
+        {
+            countdownObjects[i].SetActive(true);
+        }
+
         yield return new WaitForSeconds(raceCountdownDuration);
 
         StartCoroutine(StartRace());
@@ -84,6 +91,13 @@ public class GameManager : MonoBehaviour
         gameState = GameState.inRace;
 
         SetPlayersInputControl(true);
+
+        yield return new WaitForSeconds(1.0f);
+
+        for (int i = 0; i < countdownObjects.Length; i++)
+        {
+            countdownObjects[i].SetActive(false);
+        }
 
         while (raceComplete == false)
         {
