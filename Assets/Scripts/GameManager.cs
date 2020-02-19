@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
 
     public int numLaps = 3;
 
+    public CinemachineVirtualCamera introCam;
+
+    public GameObject[] playerCountdowns;
+
     [HideInInspector] public int numCheckpoints;
     public GameState gameState = GameState.preRace;
     public float preRaceDuration = 5.0f;
@@ -28,6 +32,9 @@ public class GameManager : MonoBehaviour
     public float postRaceDuration = 5.0f;
     [HideInInspector] public bool raceComplete = false;
     [HideInInspector] public int winner = 1;
+    [HideInInspector] public int[] playerOrder = new int[2] { 0, 0 };
+    [HideInInspector] public int[] playerStrokeCounters = new int[2] { 0, 0 };
+    
 
     private List<Player> players = new List<Player>();
 
@@ -38,6 +45,7 @@ public class GameManager : MonoBehaviour
 
         numCheckpoints = FindObjectsOfType<LapCheckpoint>().Length;
 
+        dontDestroy = FindObjectOfType<DontDestroyScript>();
     }
 
     private void Start()
@@ -74,7 +82,14 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.countdown;
 
+        for (int i = 0; i < playerCountdowns.Length; i++)
+        {
+            playerCountdowns[i].SetActive(true);
+        }
+
         yield return new WaitForSeconds(raceCountdownDuration);
+
+        
 
         StartCoroutine(StartRace());
     }
@@ -84,6 +99,13 @@ public class GameManager : MonoBehaviour
         gameState = GameState.inRace;
 
         SetPlayersInputControl(true);
+
+        yield return new WaitForSeconds(1.0f);
+
+        for (int i = 0; i < playerCountdowns.Length; i++)
+        {
+            playerCountdowns[i].SetActive(false);
+        }
 
         while (raceComplete == false)
         {

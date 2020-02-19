@@ -11,6 +11,7 @@ public class SplitScreenManager : MonoBehaviour
 
     // Height for charge bar to snap to if in split screen
     private const float chargeBarHeight = 612.0f; //84.0f;
+    private const float countdownHeight = 810.0f;
     // Viewport rect Y value if in split screen
     private const float rectYVal = 0.5f;
     private const float player2LapsCounterHeight = -653.0f;
@@ -44,7 +45,20 @@ public class SplitScreenManager : MonoBehaviour
             {
                 if (playerCanvas[0].transform.GetChild(i).tag != "LapsCounter")
                 {
-                    playerCanvas[0].transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector3(0.0f, chargeBarHeight, 0.0f);
+                    case CanvasItem.CanvasItemTag.CHARGEBAR:
+                        {
+                            playerCanvas[0].transform.GetChild(index).GetComponent<RectTransform>().anchoredPosition = new Vector3(0.0f, chargeBarHeight, 0.0f);
+                            break;
+                        }
+
+                    case CanvasItem.CanvasItemTag.COUNTDOWN:
+                        {
+                            playerCanvas[0].transform.GetChild(index).GetComponent<RectTransform>().anchoredPosition = new Vector3(0.0f, countdownHeight, 0.0f);
+                            break;
+                        }
+
+                    default:
+                        break;
                 }
             }
 

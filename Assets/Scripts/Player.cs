@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     [SerializeField] private Image chargeBarBG;
     [SerializeField] private TextMeshProUGUI currentLapText;
     [SerializeField] private TextMeshProUGUI totalLapsText;
+    [SerializeField] private Animator playerAnimator;
+    public GameObject stunnedIndicator; //Temp
 
     [Header("Player Settings")]
 
@@ -153,6 +155,22 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        playerAnimator.SetFloat("Speed", Mathf.Clamp(rigidBody.velocity.magnitude / 20.0f, 0.0f, 1.0f));
+
+        // If not stun immune
+        if (!(stunImmuneTimer > 0.01f))
+        {
+            float deltaSpeed = lastFrameSpeed - rigidBody.velocity.magnitude;
+
+            if (deltaSpeed > 10.0f)
+            {
+                stunnedTimer = StunDuration(deltaSpeed);
+                if (isCharging) { StopCharging(); }
+                Debug.Log("Stunned player for" + stunnedTimer);
+            }
+            
+        }
+
         if (isCharging)
         {
             transform.Rotate(Vector3.up, steeringInput * turningSensitivity);
