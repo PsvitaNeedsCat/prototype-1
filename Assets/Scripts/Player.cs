@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using Cinemachine;
 
 [RequireComponent(typeof(CarController))]
 public class Player : MonoBehaviour
@@ -13,6 +14,11 @@ public class Player : MonoBehaviour
     [SerializeField] private Image chargeBarBG;
     [SerializeField] private TextMeshProUGUI currentLapText;
     [SerializeField] private TextMeshProUGUI totalLapsText;
+    [SerializeField] private CinemachineVirtualCamera followCam;
+    [SerializeField] private Animator playerAnimator;
+    [SerializeField] private GameObject collisionEffect;
+
+    // public GameObject stunnedIndicator; // Temp
 
     [Header("Player Settings")]
 
@@ -34,6 +40,7 @@ public class Player : MonoBehaviour
 
     public AnimationCurve chargeUpCurve; // Base charge up curve
     public AnimationCurve bonusChargeCurve; // Curve representing how much bonus power you get from charging longer
+    public AnimationCurve speedFOVCurve; // Curve representing camera FOV change based on speed
 
     private float chargeAmount = 0.0f; // How full the charge bar is
     private float normalisedTimeCharged = 0.0f; // Amount of time spent charging
@@ -41,8 +48,12 @@ public class Player : MonoBehaviour
     private bool chargingUp = true; // Indicates direction of charging - after being fully charged, the bar will deplete
     private float accelAmount = 0.0f;
     private float steeringInput = 0.0f;
+    private float targetFOV = 60.0f;
 
     private float cooldownTimer = 0.0f;
+    private float stunnedTimer = 0.0f;
+    private float stunImmuneTimer = 0.0f;
+    private float lastFrameSpeed;
 
     private InputMaster controls;
     private Rigidbody rigidBody;
@@ -153,6 +164,28 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        float playerSpeed = rigidBody.velocity.magnitude;
+        float clampedSpeed = Mathf.Clamp(playerSpeed / 20.0f, 0.0f, 1.0f);
+        playerAnimator.SetFloat("Speed", clampedSpeed);
+        targetFOV = speedFOVCurve.Evaluate(clampedSpeed);
+
+        float deltaFOV = targetFOV - followCam.m_Lens.FieldOfView;
+        followCam.m_Lens.FieldOfView += deltaFOV / 7.5f;
+
+        float deltaSpeed = lastFrameSpeed - rigidBody.velocity.magnitude;
+
+        if (deltaSpeed > 10.0f)
+        {
+            GameObject effect = Instantiate(collisionEffect, this.transform); //, Quaternion.identity, null);
+            GameObject.Destroy(effect, 5.0f);
+
+            if (!(stunImmuneTimer > 0.01f))
+            {
+                stunnedTimer = StunDuration(deltaSpeed);
+                if (isCharging) { StopCharging(); }
+            }
+        }
+
         if (isCharging)
         {
             transform.Rotate(Vector3.up, steeringInput * turningSensitivity);
@@ -163,18 +196,20 @@ public class Player : MonoBehaviour
             carController.Move(steeringInput, accelAmount);
         }
 
+        lastFrameSpeed = rigidBody.velocity.magnitude;
+
     }
 
     private void StartCharging()
     {
         if (cooldownTimer > 0.001f) { return; }
         if (!carController.IsGrounded) { return; }
+        if (stunnedTimer > 0.01f && stunImmuneTimer < 0.01f) { return; }
 
         carController.StopAllWheels();
         carController.WheelCollidersFriction(false);
         carController.CanSteer = false;
-        // rigidBody.velocity = Vector3.zero;
-        // rigidBody.isKinematic = true;
+
         isCharging = true;
         chargingUp = true;
         ChargeAmount = 0.0f;
@@ -192,6 +227,8 @@ public class Player : MonoBehaviour
         carController.CanSteer = true;
         carController.WheelCollidersFriction(true);
         cooldownTimer = chargeCooldown * chargeAmount;
+
+        stunImmuneTimer = 0.1f;
 
         float longChargeBonus = Mathf.Clamp(bonusChargeCurve.Evaluate(normalisedTimeCharged), 0.0f, 999.0f);
         carController.ApplyForwardImpulse(releaseImpulseAmount * (chargeAmount + longChargeBonus));
@@ -211,6 +248,12 @@ public class Player : MonoBehaviour
 
     private void ChargingUpdate()
     {
+        stunnedTimer = Mathf.Clamp(stunnedTimer - Time.deltaTime, 0.0f, 5.0f);
+        stunImmuneTimer = Mathf.Clamp(stunImmuneTimer - Time.deltaTime, 0.0f, 5.0f);
+
+        //if (stunnedTimer > 0.01f && stunImmuneTimer < 0.01f) { stunnedIndicator.SetActive(true); }
+        //else { stunnedIndicator.SetActive(false); }
+
         cooldownTimer = Mathf.Clamp(cooldownTimer - Time.deltaTime, 0.0f, chargeCooldown);
 
         if (!isCharging) { return; }
@@ -262,7 +305,10 @@ public class Player : MonoBehaviour
 
     private void Steer(float horInput)
     {
-        steeringInput = horInput;
+        if (stunnedTimer > 0.01f && stunImmuneTimer < 0.01f) { horInput = 0.0f; return; }
+
+        // Inside the deadzone
+        steeringInput = (Mathf.Abs(horInput) <= 0.5f) ? 0.0f : steeringInput = horInput;
     }
 
     public float Respawn()
@@ -292,7 +338,6 @@ public class Player : MonoBehaviour
             {
                 lastCheckpointPassed = checkpointNum;
             }
-
         }
     }
 
@@ -322,5 +367,22 @@ public class Player : MonoBehaviour
     public void ApplyForce(Vector3 force)
     {
         carController.ApplyForce(force);
+    }
+
+    float StunDuration(float deltaSpeed)
+    {
+        if (deltaSpeed < 10.0f)
+        {
+            return 0.0f;
+        }
+
+        if (deltaSpeed > 30.0f)
+        {
+            return 30.0f;
+        }
+
+        float quotient = (deltaSpeed - 10.0f) / 20.0f;
+
+        return (0.5f + (1.5f * quotient));
     }
 }

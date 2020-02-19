@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8530771888521673908}
   - component: {fileID: 8530771888521673907}
   - component: {fileID: 5587843378617416431}
+  - component: {fileID: -6243714073301296013}
   m_Layer: 10
   m_Name: Player2 Follow Cam
   m_TagString: Untagged
@@ -67,7 +68,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   m_LegacyBlendHint: 0
-  m_ComponentOwner: {fileID: 0}
+  m_ComponentOwner: {fileID: 8530771889536530677}
 --- !u!114 &5587843378617416431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,6 +84,36 @@ MonoBehaviour:
   m_FocusTracksTarget: 0
   m_FocusOffset: 0
   m_Profile: {fileID: 11400000, guid: 62d954e29ac226c4ab6c3a12e9e41668, type: 2}
+--- !u!114 &-6243714073301296013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8530771888521673906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 1
+  m_IgnoreTag: 
+  m_TransparentLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_MinimumDistanceFromTarget: 0.1
+  m_AvoidObstacles: 1
+  m_DistanceLimit: 0
+  m_MinimumOcclusionTime: 0
+  m_CameraRadius: 0.1
+  m_Strategy: 0
+  m_MaximumEffort: 4
+  m_SmoothingTime: 0
+  m_Damping: 0
+  m_DampingWhenOccluded: 0
+  m_OptimalTargetDistance: 0
 --- !u!1 &8530771889536530676
 GameObject:
   m_ObjectHideFlags: 0
