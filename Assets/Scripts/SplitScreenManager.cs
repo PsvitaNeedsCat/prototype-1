@@ -19,9 +19,9 @@ public class SplitScreenManager : MonoBehaviour
     {
         // Get player count. Default to 1
         uint playerCount = 1;
-        if (GameObject.Find("DontDestroyObj"))
+        if (GameObject.FindObjectOfType<DontDestroyScript>())
         {
-            playerCount = GameObject.Find("DontDestroyObj").GetComponent<DontDestroyScript>().playerCount;
+            playerCount = GameObject.FindObjectOfType<DontDestroyScript>().playerCount;
         }
 
         // Check for number of players
@@ -45,16 +45,6 @@ public class SplitScreenManager : MonoBehaviour
                 if (playerCanvas[0].transform.GetChild(i).tag != "LapsCounter")
                 {
                     playerCanvas[0].transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector3(0.0f, chargeBarHeight, 0.0f);
-                }
-            }
-
-            // Move player 2 laps counter
-            for (int i = 0; i < playerCanvas[1].transform.childCount; i++)
-            {
-                if (playerCanvas[1].transform.GetChild(i).tag == "LapsCounter")
-                {
-                    Vector3 curPos = playerCanvas[1].transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition;
-                    playerCanvas[1].transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector3(curPos.x, player2LapsCounterHeight, curPos.z);
                 }
             }
         }
