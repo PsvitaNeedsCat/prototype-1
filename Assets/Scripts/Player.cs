@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip crashSound;
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AudioSource engineSource;
+    [SerializeField] private AudioSource driftSource;
 
     // public GameObject stunnedIndicator; // Temp
 
@@ -48,6 +49,7 @@ public class Player : MonoBehaviour
     public AnimationCurve speedFOVCurve; // Curve representing camera FOV change based on speed
     public AnimationCurve enginePitchCurve; // Curve representing engine noise pitch change based on speed
     public AnimationCurve engineVolumeCurve; // Curve representing engine noise pitch change based on speed
+    public AnimationCurve driftVolumeCurve; // Curve representing drift noise volume change based on drift angle
 
     private float chargeAmount = 0.0f; // How full the charge bar is
     private float normalisedTimeCharged = 0.0f; // Amount of time spent charging
@@ -180,40 +182,9 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float playerSpeed = rigidBody.velocity.magnitude;
-        float clampedSpeed = Mathf.Clamp(playerSpeed / 20.0f, 0.0f, 1.0f);
-        playerAnimator.SetFloat("Speed", clampedSpeed);
-        targetFOV = speedFOVCurve.Evaluate(clampedSpeed);
-
-        float deltaFOV = targetFOV - followCam.m_Lens.FieldOfView;
-        followCam.m_Lens.FieldOfView += deltaFOV / 7.5f;
-
-        targetVolume = engineVolumeCurve.Evaluate(clampedSpeed);
-        targetPitch = enginePitchCurve.Evaluate(clampedSpeed);
-        
-        float deltaVolume = targetVolume - engineSource.volume;
-        engineSource.volume += deltaVolume / 5.0f;
-
-        float deltaPitch = targetPitch - engineSource.pitch;
-        engineSource.pitch += deltaPitch / 5.0f;
-
-        float deltaSpeed = lastFrameSpeed - rigidBody.velocity.magnitude;
-
-        if (deltaSpeed > 10.0f)
-        {
-            
-
-            if (!(stunImmuneTimer > 0.01f))
-            {
-                stunnedTimer = StunDuration(deltaSpeed);
-                if (isCharging) { StopCharging(); }
-
-                GameObject effect = Instantiate(collisionEffect, this.transform); //, Quaternion.identity, null);
-                GameObject.Destroy(effect, 5.0f);
-
-                sfxSource.PlayOneShot(crashSound);
-            }
-        }
+        UpdateCurves();
+        CheckCrash();
+        CheckDrift();
 
         if (isCharging)
         {
@@ -227,6 +198,65 @@ public class Player : MonoBehaviour
 
         lastFrameSpeed = rigidBody.velocity.magnitude;
 
+    }
+
+    private void UpdateCurves()
+    {
+        float playerSpeed = rigidBody.velocity.magnitude;
+        float clampedSpeed = Mathf.Clamp(playerSpeed / 20.0f, 0.0f, 1.0f);
+        playerAnimator.SetFloat("Speed", clampedSpeed);
+        targetFOV = speedFOVCurve.Evaluate(clampedSpeed);
+
+        float deltaFOV = targetFOV - followCam.m_Lens.FieldOfView;
+        followCam.m_Lens.FieldOfView += deltaFOV / 7.5f;
+
+        targetVolume = engineVolumeCurve.Evaluate(clampedSpeed);
+        targetPitch = enginePitchCurve.Evaluate(clampedSpeed);
+
+        float deltaVolume = targetVolume - engineSource.volume;
+        engineSource.volume += deltaVolume / 5.0f;
+
+        float deltaPitch = targetPitch - engineSource.pitch;
+        engineSource.pitch += deltaPitch / 5.0f;
+
+        
+    }
+
+    private void CheckCrash()
+    {
+        float deltaSpeed = lastFrameSpeed - rigidBody.velocity.magnitude;
+
+        if (deltaSpeed > 10.0f)
+        {
+            if (!(stunImmuneTimer > 0.01f))
+            {
+                stunnedTimer = StunDuration(deltaSpeed);
+                if (isCharging) { StopCharging(); }
+
+                GameObject effect = Instantiate(collisionEffect, this.transform); //, Quaternion.identity, null);
+                GameObject.Destroy(effect, 5.0f);
+
+                sfxSource.PlayOneShot(crashSound, stunnedTimer / 1.5f);
+            }
+        }
+    }
+
+    private void CheckDrift()
+    {
+        if (rigidBody.velocity.magnitude < 5.0f) 
+        {
+            driftSource.volume = 0.0f;
+            return;
+        }
+
+        Vector3 velocityDir = rigidBody.velocity.normalized;
+        velocityDir.y = 0.0f;
+
+        Vector3 facingDir = transform.forward.normalized;
+        facingDir.y = 0.0f;
+
+        float dotProduct = Vector3.Dot(velocityDir, facingDir);
+        driftSource.volume = driftVolumeCurve.Evaluate(Mathf.Clamp(dotProduct, 0.0f, 1.0f));        
     }
 
     private void StartCharging()
