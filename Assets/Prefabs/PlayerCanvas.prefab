@@ -532,6 +532,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4610880482854128245}
+  - component: {fileID: 5087480180905087654}
   m_Layer: 5
   m_Name: ChargeBar
   m_TagString: Untagged
@@ -560,6 +561,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 81}
   m_SizeDelta: {x: 845.2, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5087480180905087654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4610880482854128244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a268bf029a85df45a93c0f53e1180b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemTag: 2
 --- !u!1 &4610880483508475990
 GameObject:
   m_ObjectHideFlags: 0
@@ -1349,7 +1363,7 @@ GameObject:
   - component: {fileID: 7404814341742018480}
   - component: {fileID: 7404814341742018487}
   m_Layer: 5
-  m_Name: Player1Canvas
+  m_Name: PlayerCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

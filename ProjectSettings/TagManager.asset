@@ -6,6 +6,7 @@ TagManager:
   tags:
   - LapsCounter
   - WinnerText
+  - Leaderboard
   layers:
   - Default
   - TransparentFX

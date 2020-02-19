@@ -7,6 +7,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1723979474830573968, guid: 1dac8eaf4cb77eb49892e374fffbee1a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -86
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610880484305281988, guid: 1dac8eaf4cb77eb49892e374fffbee1a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -653
+      objectReference: {fileID: 0}
     - target: {fileID: 7404814341742018482, guid: 1dac8eaf4cb77eb49892e374fffbee1a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -115,7 +125,7 @@ PrefabInstance:
     - target: {fileID: 7404814341742018486, guid: 1dac8eaf4cb77eb49892e374fffbee1a,
         type: 3}
       propertyPath: m_Name
-      value: PlayerCanvas
+      value: Player2Canvas
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1dac8eaf4cb77eb49892e374fffbee1a, type: 3}

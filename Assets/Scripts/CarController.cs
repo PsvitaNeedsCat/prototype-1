@@ -320,8 +320,12 @@ public class CarController : MonoBehaviour
         StartCoroutine(RespawnSetKinematic());
         StartCoroutine(RespawnSetIsRespawning());
 
-        transform.DOMove(lastGroundedFrames[0], fallRespawnTime);
-        transform.DOLocalRotate(Vector3.zero, fallRespawnTime);
+        RespawnCheckpoint respawnCheckpoint = GetComponent<Player>().lastRespawnCheckpoint;
+        float yaw = respawnCheckpoint.transform.rotation.eulerAngles.y;
+
+        transform.DOMove(respawnCheckpoint.transform.position, fallRespawnTime);
+        // transform.DOLocalRotate(new Vector3(0.0f, yaw, 0.0f), fallRespawnTime);
+        transform.DOLocalRotateQuaternion(Quaternion.Euler(0.0f, yaw, 0.0f), fallRespawnTime);
 
         return fallRespawnTime;
     }
