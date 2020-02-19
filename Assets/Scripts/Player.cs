@@ -160,7 +160,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        playerAnimator.SetFloat("Speed", rigidBody.velocity.magnitude);
+        playerAnimator.SetFloat("Speed", Mathf.Clamp(rigidBody.velocity.magnitude / 20.0f, 0.0f, 1.0f));
 
         // If not stun immune
         if (!(stunImmuneTimer > 0.01f))
