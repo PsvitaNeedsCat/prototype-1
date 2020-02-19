@@ -19,7 +19,7 @@ public class ButtonHandler : MonoBehaviour
     public void Play()
     {
         // Load game scene
-        SceneManager.LoadScene("CallumNew");
+        SceneManager.LoadScene("TimScene");
     }
 
     public void Quit()

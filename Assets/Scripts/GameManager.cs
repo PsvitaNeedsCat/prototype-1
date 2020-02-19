@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public int numLaps = 3;
 
     public GameObject[] countdownObjects;
+    public AudioSource countdownSource;
+    public GameObject gameMusic;
 
     [HideInInspector] public int numCheckpoints;
     public GameState gameState = GameState.preRace;
@@ -87,6 +89,8 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.countdown;
 
+        StartCoroutine(StartCountdownSound());
+
         for (int i = 0; i < countdownObjects.Length; i++)
         {
             countdownObjects[i].SetActive(true);
@@ -97,11 +101,20 @@ public class GameManager : MonoBehaviour
         StartCoroutine(StartRace());
     }
 
+    private IEnumerator StartCountdownSound()
+    {
+        yield return new WaitForSeconds(0.5f);
+        countdownSource.Play();
+
+    }
+
     private IEnumerator StartRace()
     {
         gameState = GameState.inRace;
 
         SetPlayersInputControl(true);
+
+        gameMusic.SetActive(true);
 
         yield return new WaitForSeconds(1.0f);
 
