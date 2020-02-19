@@ -169,7 +169,7 @@ public class Player : MonoBehaviour
         playerAnimator.SetFloat("Speed", clampedSpeed);
         targetFOV = speedFOVCurve.Evaluate(clampedSpeed);
         float deltaFOV = targetFOV - followCam.m_Lens.FieldOfView;
-        followCam.m_Lens.FieldOfView += deltaFOV / 10.0f;
+        followCam.m_Lens.FieldOfView += deltaFOV / 5.0f;
 
         // If not stun immune
         if (!(stunImmuneTimer > 0.01f))
