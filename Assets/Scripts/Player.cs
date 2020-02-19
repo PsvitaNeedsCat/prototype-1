@@ -33,7 +33,6 @@ public class Player : MonoBehaviour
     [SerializeField] [Range(0.1f, 10.0f)] private float turningSensitivity = 1.0f;
 
     [SerializeField] int playerNumber = 1;
-    
 
     public AnimationCurve chargeUpCurve; // Base charge up curve
     public AnimationCurve bonusChargeCurve; // Curve representing how much bonus power you get from charging longer
@@ -44,10 +43,8 @@ public class Player : MonoBehaviour
     private bool chargingUp = true; // Indicates direction of charging - after being fully charged, the bar will deplete
     private float accelAmount = 0.0f;
     private float steeringInput = 0.0f;
+
     private float cooldownTimer = 0.0f;
-    private float stunnedTimer = 0.0f;
-    private float stunImmuneTimer = 0.0f;
-    private float lastFrameSpeed;
 
     private InputMaster controls;
     private Rigidbody rigidBody;
@@ -56,8 +53,6 @@ public class Player : MonoBehaviour
     private int lapNum = 1;
     private int lastCheckpointPassed = 0;
     private int numCheckpoints;
-    [HideInInspector] public RespawnCheckpoint lastRespawnCheckpoint;
-    private bool finished = false;
 
     public bool IsRespawning
     {
@@ -186,18 +181,18 @@ public class Player : MonoBehaviour
             carController.Move(steeringInput, accelAmount);
         }
 
-        lastFrameSpeed = rigidBody.velocity.magnitude;
     }
 
     private void StartCharging()
     {
         if (cooldownTimer > 0.001f) { return; }
         if (!carController.IsGrounded) { return; }
-        if (stunnedTimer > 0.01f && stunImmuneTimer < 0.01f) { return; }
 
         carController.StopAllWheels();
         carController.WheelCollidersFriction(false);
         carController.CanSteer = false;
+        // rigidBody.velocity = Vector3.zero;
+        // rigidBody.isKinematic = true;
         isCharging = true;
         chargingUp = true;
         ChargeAmount = 0.0f;
@@ -215,19 +210,11 @@ public class Player : MonoBehaviour
         carController.CanSteer = true;
         carController.WheelCollidersFriction(true);
         cooldownTimer = chargeCooldown * chargeAmount;
-        stunImmuneTimer = 0.1f;
 
         float longChargeBonus = Mathf.Clamp(bonusChargeCurve.Evaluate(normalisedTimeCharged), 0.0f, 999.0f);
         carController.ApplyForwardImpulse(releaseImpulseAmount * (chargeAmount + longChargeBonus));
 
         ChargeAmount = 0.0f;
-
-        GameObject.Find("Split Screen Manager").GetComponent<SplitScreenManager>().AddStroke(playerNumber);
-    }
-
-    private void StrokesCounterUpdate()
-    {
-
     }
 
     void PressHorn()
@@ -242,12 +229,6 @@ public class Player : MonoBehaviour
 
     private void ChargingUpdate()
     {
-        stunnedTimer = Mathf.Clamp(stunnedTimer - Time.deltaTime, 0.0f, 5.0f);
-        stunImmuneTimer = Mathf.Clamp(stunImmuneTimer - Time.deltaTime, 0.0f, 5.0f);
-
-        if (stunnedTimer > 0.01f && stunImmuneTimer < 0.01f) { stunnedIndicator.SetActive(true); }
-        else { stunnedIndicator.SetActive(false); }
-
         cooldownTimer = Mathf.Clamp(cooldownTimer - Time.deltaTime, 0.0f, chargeCooldown);
 
         if (!isCharging) { return; }
@@ -299,10 +280,7 @@ public class Player : MonoBehaviour
 
     private void Steer(float horInput)
     {
-        if (stunnedTimer > 0.01f && stunImmuneTimer < 0.01f) { horInput = 0.0f; return; }
-
-        // Inside the deadzone
-        steeringInput = (Mathf.Abs(horInput) <= 0.5f) ? 0.0f : steeringInput = horInput;
+        steeringInput = horInput;
     }
 
     public float Respawn()
@@ -312,38 +290,30 @@ public class Player : MonoBehaviour
 
     public void PassedCheckpoint(int checkpointNum)
     {
-        if (!finished)
+        // Check if in order
+        if (checkpointNum == lastCheckpointPassed + 1)
         {
-            // Check if in order
-            if (checkpointNum == lastCheckpointPassed + 1)
+            // Check if lap complete
+            if (checkpointNum == numCheckpoints)
             {
-                // Check if lap complete
-                if (checkpointNum == numCheckpoints)
+                if (CurrentLapNumber == GameManager.Instance.numLaps)
                 {
-                    if (CurrentLapNumber == GameManager.Instance.numLaps)
-                    {
-                        DisableControls();
-                        finished = true;
-                        GameManager.Instance.PlayerFinished(playerNumber);
-                        return;
-                    }
-
-                    CurrentLapNumber++;
-                    lastCheckpointPassed = 0;
-                }
-                else
-                {
-                    lastCheckpointPassed = checkpointNum;
+                    GameManager.Instance.raceComplete = true;
+                    GameManager.Instance.winner = playerNumber;
+                    return;
                 }
 
+                CurrentLapNumber++;
+                lastCheckpointPassed = 0;
             }
+            else
+            {
+                lastCheckpointPassed = checkpointNum;
+            }
+
         }
     }
 
-    public void PassedRespawnCheckpoint(RespawnCheckpoint checkpoint)
-    {
-        lastRespawnCheckpoint = checkpoint;
-    }
 
     public void SetInputControl(bool canInput)
     {
@@ -370,43 +340,5 @@ public class Player : MonoBehaviour
     public void ApplyForce(Vector3 force)
     {
         carController.ApplyForce(force);
-    }
-
-    float StunDuration(float deltaSpeed)
-    {
-        if (deltaSpeed < 10.0f)
-        {
-            return 0.0f;
-        }
-
-        if (deltaSpeed > 30.0f)
-        {
-            return 30.0f;
-        }
-
-        float quotient = (deltaSpeed - 10.0f) / 20.0f;
-
-        return (0.5f + (1.5f * quotient));
-    }
-
-    private void DisableControls()
-    {
-        switch (playerNumber)
-        {
-            case 1:
-                {
-                    controls.Player1.Disable();
-                    break;
-                }
-
-            case 2:
-                {
-                    controls.Player2.Disable();
-                    break;
-                }
-
-            default:
-                break;
-        }
     }
 }

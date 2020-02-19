@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using TMPro;
-
 public class SplitScreenManager : MonoBehaviour
 {
     // Refs to objects
@@ -42,11 +40,10 @@ public class SplitScreenManager : MonoBehaviour
             playerCameras[0].GetComponent<Camera>().rect = new Rect(new Vector2(currentP1Rect.x, 0.5f), currentP1Rect.size);
             // Set player 2 canvas to active
             playerCanvas[1].SetActive(true);
-
-            // Move canvas stuff
-            for (int index = 0; index < playerCanvas[0].transform.childCount; index++)
+            // Set player 1's charge bar height
+            for (int i = 0; i < playerCanvas[0].transform.childCount; i++)
             {
-                switch (playerCanvas[0].transform.GetChild(index).GetComponent<CanvasItem>().itemTag)
+                if (playerCanvas[0].transform.GetChild(i).tag != "LapsCounter")
                 {
                     case CanvasItem.CanvasItemTag.CHARGEBAR:
                         {
@@ -64,21 +61,15 @@ public class SplitScreenManager : MonoBehaviour
                         break;
                 }
             }
-        }
-    }
 
-    public void AddStroke(int playerNumber)
-    {
-        playerNumber -= 1;
-
-        GameManager.Instance.playerStrokeCounters[playerNumber] += 1;
-        
-        for (int i = 0; i < playerCanvas[playerNumber].transform.childCount; i++)
-        {
-            // Get strokes counter
-            if (playerCanvas[playerNumber].transform.GetChild(i).GetComponent<CanvasItem>().itemTag == CanvasItem.CanvasItemTag.STROKES)
+            // Move player 2 laps counter
+            for (int i = 0; i < playerCanvas[1].transform.childCount; i++)
             {
-                playerCanvas[playerNumber].transform.GetChild(i).GetComponent<TextMeshProUGUI>().text = "Strokes: " + GameManager.Instance.playerStrokeCounters[playerNumber];
+                if (playerCanvas[1].transform.GetChild(i).tag == "LapsCounter")
+                {
+                    Vector3 curPos = playerCanvas[1].transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition;
+                    playerCanvas[1].transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector3(curPos.x, player2LapsCounterHeight, curPos.z);
+                }
             }
         }
     }
