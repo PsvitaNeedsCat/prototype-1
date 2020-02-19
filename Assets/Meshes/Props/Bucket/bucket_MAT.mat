@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: basket_MAT
+  m_Name: bucket_MAT
   m_Shader: {fileID: 4800000, guid: b0288402d50a1ed4691771d59fc59129, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -40,7 +40,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 63069df8bf76bd84fbde7f4155d65154, type: 3}
+        m_Texture: {fileID: 2800000, guid: a90014248bbad5b4186c2922974a8fe2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -64,9 +64,9 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Gloss: 10
+    - _Gloss: 20
     - _GlossMapScale: 1
-    - _GlossSmoothness: 1
+    - _GlossSmoothness: 0.5
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
@@ -84,8 +84,8 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.8679245, g: 0.63864154, b: 0.36436453, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GlossColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GlossColor: {r: 0.6650944, g: 1, b: 0.6905906, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ShadowColor: {r: 0.5566038, g: 0.3971188, b: 0.30193132, a: 1}
+    - _ShadowColor: {r: 0.754717, g: 0.35955858, b: 0.37929678, a: 1}
