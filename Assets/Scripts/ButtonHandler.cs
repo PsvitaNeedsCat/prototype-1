@@ -13,13 +13,13 @@ public class ButtonHandler : MonoBehaviour
 
     private void Awake()
     {
-        dontDestroy = GameObject.Find("DontDestroyObj").GetComponent<DontDestroyScript>();
+        dontDestroy = GameObject.FindObjectOfType<DontDestroyScript>();
     }
 
     public void Play()
     {
         // Load game scene
-        SceneManager.LoadScene("TestDriveNewer");
+        SceneManager.LoadScene("CallumNew");
     }
 
     public void Quit()

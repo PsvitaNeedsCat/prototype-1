@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestDriveNewer.unity
     guid: d1c3adc6f28959d4aaf4903c81996111
+  - enabled: 1
+    path: Assets/Scenes/CallumNew.unity
+    guid: eb2dd8e8e2dc5944cbeb367425506205
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: bfa80a62eeebc9b42aa3be585e5f0473,
       type: 2}

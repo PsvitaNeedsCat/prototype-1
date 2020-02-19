@@ -51,6 +51,8 @@ public class Player : MonoBehaviour
     public AnimationCurve engineVolumeCurve; // Curve representing engine noise pitch change based on speed
     public AnimationCurve driftVolumeCurve; // Curve representing drift noise volume change based on drift angle
 
+    [HideInInspector] public uint strokes = 0;
+
     private float chargeAmount = 0.0f; // How full the charge bar is
     private float normalisedTimeCharged = 0.0f; // Amount of time spent charging
     private bool isCharging = false;
@@ -73,6 +75,7 @@ public class Player : MonoBehaviour
     private int lapNum = 1;
     private int lastCheckpointPassed = 0;
     private int numCheckpoints;
+    private bool finished = false;
     [HideInInspector] public RespawnCheckpoint lastRespawnCheckpoint;
 
     public bool IsRespawning
@@ -298,6 +301,8 @@ public class Player : MonoBehaviour
 
         ChargeAmount = 0.0f;
 
+        strokes += 1;
+
         squashObject.transform.DOKill();
         squashObject.transform.DOScaleZ(1.0f, 0.75f).SetEase(Ease.OutElastic);
         squashObject.transform.DOScaleX(1.0f, 0.75f).SetEase(Ease.OutElastic);
@@ -387,6 +392,8 @@ public class Player : MonoBehaviour
 
     public void PassedCheckpoint(int checkpointNum)
     {
+        if (finished) return;
+
         // Check if in order
         if (checkpointNum == lastCheckpointPassed + 1)
         {
@@ -395,8 +402,9 @@ public class Player : MonoBehaviour
             {
                 if (CurrentLapNumber == GameManager.Instance.numLaps)
                 {
-                    GameManager.Instance.raceComplete = true;
-                    GameManager.Instance.winner = playerNumber;
+                    GameManager.Instance.PlayerFinished(playerNumber);
+                    SetInputControl(false);
+                    finished = true;
                     return;
                 }
 
@@ -415,10 +423,42 @@ public class Player : MonoBehaviour
     {
         if (canInput)
         {
-            controls.Enable();
+            switch (playerNumber)
+            {
+                case 1:
+                    {
+                        controls.Player1.Enable();
+                        break;
+                    }
+                case 2:
+                    {
+                        controls.Player2.Enable();
+                        break;
+                    }
+
+                default:
+                    break;
+            }
         }
         else
         {
+            switch (playerNumber)
+            {
+                case 1:
+                    {
+                        controls.Player1.Disable();
+                        break;
+                    }
+                case 2:
+                    {
+                        controls.Player2.Disable();
+                        break;
+                    }
+
+                default:
+                    break;
+            }
+
             controls.Disable();
 
             if (isCharging)
