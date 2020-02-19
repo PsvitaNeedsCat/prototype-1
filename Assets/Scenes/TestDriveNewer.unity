@@ -161,17 +161,17 @@ PrefabInstance:
     - target: {fileID: 8530771888521673908, guid: bbfe9912c25f47f4fa5a4b8136afbef3,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.09905288
+      value: -0.09905286
       objectReference: {fileID: 0}
     - target: {fileID: 8530771888521673908, guid: bbfe9912c25f47f4fa5a4b8136afbef3,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.39644948
+      value: 0.39644945
       objectReference: {fileID: 0}
     - target: {fileID: 8530771888521673908, guid: bbfe9912c25f47f4fa5a4b8136afbef3,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.04320076
+      value: -0.043200746
       objectReference: {fileID: 0}
     - target: {fileID: 8530771888521673908, guid: bbfe9912c25f47f4fa5a4b8136afbef3,
         type: 3}
@@ -23214,22 +23214,22 @@ PrefabInstance:
     - target: {fileID: 3530409111675059601, guid: f414aca5413c04147a397a3492dc3b70,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.1325425
+      value: -0.045614347
       objectReference: {fileID: 0}
     - target: {fileID: 3530409111675059601, guid: f414aca5413c04147a397a3492dc3b70,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.29656616
+      value: -0.021466501
       objectReference: {fileID: 0}
     - target: {fileID: 3530409111675059601, guid: f414aca5413c04147a397a3492dc3b70,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.041601762
+      value: -0.0009804276
       objectReference: {fileID: 0}
     - target: {fileID: 3530409111675059601, guid: f414aca5413c04147a397a3492dc3b70,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9448547
+      value: 0.998728
       objectReference: {fileID: 0}
     - target: {fileID: 3530409111675059601, guid: f414aca5413c04147a397a3492dc3b70,
         type: 3}
@@ -23661,17 +23661,17 @@ PrefabInstance:
     - target: {fileID: 8337571983756930463, guid: 133d288a16a90534ba935b4bae2cb04f,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.099053025
+      value: -0.09905305
       objectReference: {fileID: 0}
     - target: {fileID: 8337571983756930463, guid: 133d288a16a90534ba935b4bae2cb04f,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.39644644
+      value: 0.39644647
       objectReference: {fileID: 0}
     - target: {fileID: 8337571983756930463, guid: 133d288a16a90534ba935b4bae2cb04f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.043200415
+      value: -0.04320043
       objectReference: {fileID: 0}
     - target: {fileID: 8337571983756930463, guid: 133d288a16a90534ba935b4bae2cb04f,
         type: 3}
@@ -23941,6 +23941,11 @@ PrefabInstance:
       propertyPath: totalLapsText
       value: 
       objectReference: {fileID: 955042466}
+    - target: {fileID: 4756753716999000856, guid: 1b728b2df0db633428e0c710ef6ae76b,
+        type: 3}
+      propertyPath: followCam
+      value: 
+      objectReference: {fileID: 1039441894}
     - target: {fileID: 5085110036169168175, guid: 1b728b2df0db633428e0c710ef6ae76b,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -45487,6 +45492,18 @@ MonoBehaviour:
   m_OriginalMeshObject: {fileID: 6330056352932025627, guid: 3fcfe734ae8bc3642a36de37a1a107c5,
     type: 3}
   m_Mode: 0
+--- !u!114 &1039441894 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8337571983756930462, guid: 133d288a16a90534ba935b4bae2cb04f,
+    type: 3}
+  m_PrefabInstance: {fileID: 603521369}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1059205243
 GameObject:
   m_ObjectHideFlags: 0
@@ -50510,6 +50527,11 @@ PrefabInstance:
       propertyPath: playerNumber
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2904367051379321809, guid: c8b002a23fb2c5441b2051354db4eb18,
+        type: 3}
+      propertyPath: followCam
+      value: 
+      objectReference: {fileID: 1546093961}
     - target: {fileID: 8661541331030147064, guid: c8b002a23fb2c5441b2051354db4eb18,
         type: 3}
       propertyPath: m_Name
@@ -61128,6 +61150,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1510664053}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1546093961 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8530771888521673907, guid: bbfe9912c25f47f4fa5a4b8136afbef3,
+    type: 3}
+  m_PrefabInstance: {fileID: 2625039}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1554783550
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61982,10 +62016,11 @@ MonoBehaviour:
   - {fileID: 22569842}
   numCheckpoints: 0
   gameState: 0
-  preRaceDuration: 6
-  raceCountdownDuration: 3
+  preRaceDuration: 0.1
+  raceCountdownDuration: 0.1
   postRaceDuration: 5
   raceComplete: 0
+  winner: 1
   playerOrder: 0000000000000000
   playerStrokeCounters: 0000000000000000
 --- !u!4 &1692569431

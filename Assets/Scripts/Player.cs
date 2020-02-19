@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using Cinemachine;
 
 [RequireComponent(typeof(CarController))]
 public class Player : MonoBehaviour
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currentLapText;
     [SerializeField] private TextMeshProUGUI totalLapsText;
     [SerializeField] private Animator playerAnimator;
+    [SerializeField] private CinemachineVirtualCamera followCam;
     public GameObject stunnedIndicator; //Temp
 
     [Header("Player Settings")]
@@ -37,6 +39,7 @@ public class Player : MonoBehaviour
 
     public AnimationCurve chargeUpCurve; // Base charge up curve
     public AnimationCurve bonusChargeCurve; // Curve representing how much bonus power you get from charging longer
+    public AnimationCurve speedFOVCurve; // Curve representing camera FOV change based on speed
 
     private float chargeAmount = 0.0f; // How full the charge bar is
     private float normalisedTimeCharged = 0.0f; // Amount of time spent charging
@@ -48,6 +51,7 @@ public class Player : MonoBehaviour
     private float stunnedTimer = 0.0f;
     private float stunImmuneTimer = 0.0f;
     private float lastFrameSpeed;
+    private float targetFOV = 60.0f;
 
     private InputMaster controls;
     private Rigidbody rigidBody;
@@ -160,7 +164,12 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        playerAnimator.SetFloat("Speed", Mathf.Clamp(rigidBody.velocity.magnitude / 20.0f, 0.0f, 1.0f));
+        float playerSpeed = rigidBody.velocity.magnitude;
+        float clampedSpeed = Mathf.Clamp(playerSpeed / 20.0f, 0.0f, 1.0f);
+        playerAnimator.SetFloat("Speed", clampedSpeed);
+        targetFOV = speedFOVCurve.Evaluate(clampedSpeed);
+        float deltaFOV = targetFOV - followCam.m_Lens.FieldOfView;
+        followCam.m_Lens.FieldOfView += deltaFOV / 10.0f;
 
         // If not stun immune
         if (!(stunImmuneTimer > 0.01f))

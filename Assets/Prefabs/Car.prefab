@@ -5440,6 +5440,7 @@ MonoBehaviour:
   currentLapText: {fileID: 0}
   totalLapsText: {fileID: 0}
   playerAnimator: {fileID: 6066476525965792815}
+  followCam: {fileID: 0}
   stunnedIndicator: {fileID: 244885267741212924}
   chargeTime: 2
   releaseImpulseAmount: 20000
@@ -5518,6 +5519,30 @@ MonoBehaviour:
       tangentMode: 0
       weightedMode: 0
       inWeight: 1
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  speedFOVCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 60
+      inSlope: -15
+      outSlope: -15
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 45
+      inSlope: -15
+      outSlope: -15
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
