@@ -12,5 +12,5 @@ EditorBuildSettings:
     path: Assets/Scenes/TestDriveNewer.unity
     guid: d1c3adc6f28959d4aaf4903c81996111
   m_configObjects:
-    com.unity.input.settings: {fileID: 11400000, guid: 1acf8662de438734b8b49424e54fed12,
+    com.unity.input.settings: {fileID: 11400000, guid: bfa80a62eeebc9b42aa3be585e5f0473,
       type: 2}

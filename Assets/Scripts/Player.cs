@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private GameObject collisionEffect;
     [SerializeField] private GameObject squashObject; // Object to be squashed and stretched during charging
+    [SerializeField] private AudioClip crashSound;
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioSource engineSource;
 
     // public GameObject stunnedIndicator; // Temp
 
@@ -43,6 +46,8 @@ public class Player : MonoBehaviour
     public AnimationCurve chargeUpCurve; // Base charge up curve
     public AnimationCurve bonusChargeCurve; // Curve representing how much bonus power you get from charging longer
     public AnimationCurve speedFOVCurve; // Curve representing camera FOV change based on speed
+    public AnimationCurve enginePitchCurve; // Curve representing engine noise pitch change based on speed
+    public AnimationCurve engineVolumeCurve; // Curve representing engine noise pitch change based on speed
 
     private float chargeAmount = 0.0f; // How full the charge bar is
     private float normalisedTimeCharged = 0.0f; // Amount of time spent charging
@@ -51,6 +56,8 @@ public class Player : MonoBehaviour
     private float accelAmount = 0.0f;
     private float steeringInput = 0.0f;
     private float targetFOV = 60.0f;
+    private float targetVolume = 0.0f;
+    private float targetPitch = 1.0f;
 
     private float cooldownTimer = 0.0f;
     private float stunnedTimer = 0.0f;
@@ -96,6 +103,7 @@ public class Player : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
         carController = GetComponent<CarController>();
         hornScript = GetComponent<HornScript>();
+
         ChargeAmount = 0.0f;
         controls = new InputMaster();
 
@@ -180,6 +188,15 @@ public class Player : MonoBehaviour
         float deltaFOV = targetFOV - followCam.m_Lens.FieldOfView;
         followCam.m_Lens.FieldOfView += deltaFOV / 7.5f;
 
+        targetVolume = engineVolumeCurve.Evaluate(clampedSpeed);
+        targetPitch = enginePitchCurve.Evaluate(clampedSpeed);
+        
+        float deltaVolume = targetVolume - engineSource.volume;
+        engineSource.volume += deltaVolume / 5.0f;
+
+        float deltaPitch = targetPitch - engineSource.pitch;
+        engineSource.pitch += deltaPitch / 5.0f;
+
         float deltaSpeed = lastFrameSpeed - rigidBody.velocity.magnitude;
 
         if (deltaSpeed > 10.0f)
@@ -193,6 +210,8 @@ public class Player : MonoBehaviour
 
                 GameObject effect = Instantiate(collisionEffect, this.transform); //, Quaternion.identity, null);
                 GameObject.Destroy(effect, 5.0f);
+
+                sfxSource.PlayOneShot(crashSound);
             }
         }
 
