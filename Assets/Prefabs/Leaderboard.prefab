@@ -1009,7 +1009,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 1
-  place: 2
   strokes: {fileID: 5621271991148456259}
   totalScore: {fileID: 5621271991108202693}
 --- !u!1 &5621271990148465449
@@ -1180,11 +1179,11 @@ GameObject:
   - component: {fileID: 5621271990246661422}
   m_Layer: 5
   m_Name: Leaderboard
-  m_TagString: Untagged
+  m_TagString: Leaderboard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5621271990246661422
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2225,7 +2224,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 1
-  place: 1
   strokes: {fileID: 5621271990148465451}
   totalScore: {fileID: 5621271990352078170}
 --- !u!1 &5621271991082765886
@@ -2896,7 +2894,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 2
-  place: 1
   strokes: {fileID: 5621271990746092498}
   totalScore: {fileID: 5621271991295462625}
 --- !u!1 &5621271991371901292
@@ -2952,7 +2949,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 2
-  place: 2
   strokes: {fileID: 5621271989990250799}
   totalScore: {fileID: 5621271991512646783}
 --- !u!1 &5621271991396569621
