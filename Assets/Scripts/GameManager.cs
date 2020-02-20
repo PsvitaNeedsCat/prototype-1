@@ -4,6 +4,7 @@ using UnityEngine;
 
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public enum GameState
 {
@@ -150,25 +151,24 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator EndRace()
     {
-        // Single player
-        //if (GameObject.Find("DontDestroyObj").GetComponent<DontDestroyScript>().playerCount == 1)
-        //{
-        //    GameObject.FindGameObjectWithTag("WinnerText").GetComponent<TextMeshProUGUI>().text = "Victory!";
-        //}
-        //// Mulitplayer
-        //else
-        //{
-        //    ActivateLeaderboard();
-        //}
         ActivateLeaderboard();
 
         gameState = GameState.postRace;
 
         SetPlayersInputControl(false);
 
-        yield return new WaitForSeconds(postRaceDuration);
+        Keyboard kb = InputSystem.GetDevice<Keyboard>();
+        while (!kb.escapeKey.wasPressedThisFrame)
+        {
+            yield return null;
+        }
 
-        RestartScene();
+        GameObject.FindObjectOfType<DontDestroyScript>().Reset();
+        SceneManager.LoadScene("MenuScreen");
+
+        //yield return new WaitForSeconds(postRaceDuration);
+
+        //RestartScene();
     }
 
     private void RestartScene()

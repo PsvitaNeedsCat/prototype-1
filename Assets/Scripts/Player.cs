@@ -194,8 +194,8 @@ public class Player : MonoBehaviour
         if (!finished && started) timer += Time.fixedDeltaTime;
 
         // Debug
-        if (!finished && Input.GetKey(KeyCode.J) && playerNumber == 1) { finished = true; Debug.Log("Player 1 finished"); GameManager.Instance.PlayerFinished(1); }
-        else if (!finished && Input.GetKey(KeyCode.K) && playerNumber == 2) { finished = true; Debug.Log("Player 2 finished"); GameManager.Instance.PlayerFinished(2); }
+        //if (!finished && Input.GetKey(KeyCode.J) && playerNumber == 1) { finished = true; Debug.Log("Player 1 finished"); GameManager.Instance.PlayerFinished(1); }
+        //else if (!finished && Input.GetKey(KeyCode.K) && playerNumber == 2) { finished = true; Debug.Log("Player 2 finished"); GameManager.Instance.PlayerFinished(2); }
 
         UpdateCurves();
         CheckCrash();

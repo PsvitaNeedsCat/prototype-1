@@ -14,4 +14,11 @@ public class DontDestroyScript : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
     }
+
+    public void Reset()
+    {
+        playerCount = 1;
+        p1SelectedHorn = HornScript.Sounds.SQUEAK;
+        p2SelectedHorn = HornScript.Sounds.SQUEAK;
+    }
 }
