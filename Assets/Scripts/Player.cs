@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource engineSource;
     [SerializeField] private AudioSource driftSource;
     [SerializeField] private AudioSource chargeSource;
+    public GameObject[] wheelSparks;
+
 
     [Header("Player Settings")]
 
@@ -248,6 +250,12 @@ public class Player : MonoBehaviour
         if (rigidBody.velocity.magnitude < 5.0f) 
         {
             driftSource.volume = 0.0f;
+
+            for (int i = 0; i < wheelSparks.Length; i++)
+            {
+                wheelSparks[i].transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+            }
+
             return;
         }
 
@@ -258,7 +266,12 @@ public class Player : MonoBehaviour
         facingDir.y = 0.0f;
 
         float dotProduct = Mathf.Abs(Vector3.Dot(velocityDir, facingDir));
-        driftSource.volume = driftVolumeCurve.Evaluate(Mathf.Clamp(dotProduct, 0.0f, 1.0f));        
+        driftSource.volume = driftVolumeCurve.Evaluate(Mathf.Clamp(dotProduct, 0.0f, 1.0f));
+
+        for (int i = 0; i < wheelSparks.Length; i++)
+        {
+            wheelSparks[i].transform.localScale = new Vector3((1.0f - dotProduct) * 2.0f, (1.0f - dotProduct) * 2.0f, (1.0f - dotProduct) * 2.0f);
+        }
     }
 
     private void StartCharging()
@@ -332,7 +345,6 @@ public class Player : MonoBehaviour
         chargeBarObj.transform.DOKill();
         chargeBarObj.transform.DOScale(1.25f, 0.2f).SetEase(Ease.InOutElastic).OnComplete(() => chargeBarObj.transform.DOScale(1.0f, 0.2f).SetEase(Ease.InOutElastic));
         //chargeBarObj.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 5.0f), 0.1f).SetEase(Ease.InOutElastic).OnComplete(() => chargeBarObj.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 0.0f), 0.1f).SetEase(Ease.InOutElastic));
-        Debug.Log("Bonus boost");
     }
 
     void PressHorn()

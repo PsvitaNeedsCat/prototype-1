@@ -99,9 +99,34 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 6ba0b173f840cda468c59f6a66bc38dc, type: 2}
     - target: {fileID: 7311931163419750519, guid: 2e5af39986b7b954cb735e75515acdd2,
         type: 3}
+      propertyPath: wheelSparks.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7311931163419750519, guid: 2e5af39986b7b954cb735e75515acdd2,
+        type: 3}
       propertyPath: playerNumber
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7311931163419750519, guid: 2e5af39986b7b954cb735e75515acdd2,
+        type: 3}
+      propertyPath: wheelSparks.Array.data[0]
+      value: 
+      objectReference: {fileID: 1092111872282749797}
+    - target: {fileID: 7311931163419750519, guid: 2e5af39986b7b954cb735e75515acdd2,
+        type: 3}
+      propertyPath: wheelSparks.Array.data[1]
+      value: 
+      objectReference: {fileID: 5962172791303628560}
+    - target: {fileID: 7311931163419750519, guid: 2e5af39986b7b954cb735e75515acdd2,
+        type: 3}
+      propertyPath: wheelSparks.Array.data[2]
+      value: 
+      objectReference: {fileID: 503013822534480268}
+    - target: {fileID: 7311931163419750519, guid: 2e5af39986b7b954cb735e75515acdd2,
+        type: 3}
+      propertyPath: wheelSparks.Array.data[3]
+      value: 
+      objectReference: {fileID: 5004795463088963862}
     - target: {fileID: 7885170131922196071, guid: 2e5af39986b7b954cb735e75515acdd2,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -119,3 +144,27 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7729235528d2e7f43904757011c08050, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e5af39986b7b954cb735e75515acdd2, type: 3}
+--- !u!1 &1092111872282749797 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4760486367032012995, guid: 2e5af39986b7b954cb735e75515acdd2,
+    type: 3}
+  m_PrefabInstance: {fileID: 5564004748374186918}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5962172791303628560 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2272827175915289782, guid: 2e5af39986b7b954cb735e75515acdd2,
+    type: 3}
+  m_PrefabInstance: {fileID: 5564004748374186918}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &503013822534480268 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5461811636273244714, guid: 2e5af39986b7b954cb735e75515acdd2,
+    type: 3}
+  m_PrefabInstance: {fileID: 5564004748374186918}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5004795463088963862 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 595541831132486320, guid: 2e5af39986b7b954cb735e75515acdd2,
+    type: 3}
+  m_PrefabInstance: {fileID: 5564004748374186918}
+  m_PrefabAsset: {fileID: 0}

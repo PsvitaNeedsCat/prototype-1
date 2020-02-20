@@ -70,6 +70,8 @@ public class CarController : MonoBehaviour
     private bool canSteer = true;
     private float notGroundedTime = 0.0f;
 
+    private Quaternion targetMeshRotation;
+
     private WheelColliderFrictionInfo[] wheelColliderFrictionInfos;
 
     public bool IsRespawning
@@ -115,7 +117,7 @@ public class CarController : MonoBehaviour
 
         if (!canSteer) { steering = 0.0f; }
 
-        carMesh.transform.localRotation = Quaternion.Euler(0.0f, steering * meshTurnAngle, 0.0f);
+        carMesh.transform.localRotation = Quaternion.Euler(0.0f, steering * meshTurnAngle, -steering * meshTurnAngle / 2.0f);
 
         // Set steering on the front wheels (wheels 0 and 1 must be front wheels)
         steerAngle = steering * maxSteerAngle;
