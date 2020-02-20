@@ -11,7 +11,8 @@ using DG.Tweening;
 public class Player : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Image chargeBar;
+    [SerializeField] private GameObject chargeBarObj;
+    [SerializeField] private Image chargeBarFilled;
     [SerializeField] private Image chargeBarBG;
     [SerializeField] private TextMeshProUGUI currentLapText;
     [SerializeField] private TextMeshProUGUI totalLapsText;
@@ -94,7 +95,7 @@ public class Player : MonoBehaviour
         set
         {
             chargeAmount = value;
-            chargeBar.fillAmount = chargeAmount;
+            chargeBarFilled.fillAmount = chargeAmount;
         }
     }
 
@@ -286,6 +287,9 @@ public class Player : MonoBehaviour
         squashObject.transform.DOScaleZ(1.25f, chargeTime).SetEase(Ease.OutElastic);
         squashObject.transform.DOScaleX(0.85f, chargeTime).SetEase(Ease.OutElastic);
 
+        chargeBarObj.transform.DOKill();
+        chargeBarObj.transform.DOScale(1.1f, chargeTime);
+
         chargeSource.Stop();
         chargeSource.PlayOneShot(chargeUp);
     }
@@ -304,14 +308,6 @@ public class Player : MonoBehaviour
 
         stunImmuneTimer = 0.1f;
 
-        Debug.Log(normalisedTimeCharged);
-        if (normalisedTimeCharged > 0.9f)
-        {
-            sfxSource2.Stop();
-            sfxSource2.PlayOneShot(bonusBoost);
-            Debug.Log("Bonus boost");
-        }
-
         float longChargeBonus = Mathf.Clamp(bonusChargeCurve.Evaluate(normalisedTimeCharged), 0.0f, 999.0f);
         carController.ApplyForwardImpulse(releaseImpulseAmount * (chargeAmount + longChargeBonus));
 
@@ -323,8 +319,27 @@ public class Player : MonoBehaviour
         squashObject.transform.DOScaleZ(1.0f, 0.75f).SetEase(Ease.OutElastic);
         squashObject.transform.DOScaleX(1.0f, 0.75f).SetEase(Ease.OutElastic);
 
+        chargeBarObj.transform.DOKill();
+        chargeBarObj.transform.DOScale(1.0f, 0.25f);
+
+        if (normalisedTimeCharged > 0.7f)
+        {
+            BonusBoost();
+        }
+
         chargeSource.Stop();
         sfxSource.PlayOneShot(chargeRelease);
+    }
+
+    private void BonusBoost()
+    {
+        sfxSource2.Stop();
+        sfxSource2.PlayOneShot(bonusBoost);
+
+        chargeBarObj.transform.DOKill();
+        chargeBarObj.transform.DOScale(1.25f, 0.2f).SetEase(Ease.InOutElastic).OnComplete(() => chargeBarObj.transform.DOScale(1.0f, 0.2f).SetEase(Ease.InOutElastic));
+        //chargeBarObj.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 5.0f), 0.1f).SetEase(Ease.InOutElastic).OnComplete(() => chargeBarObj.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 0.0f), 0.1f).SetEase(Ease.InOutElastic));
+        Debug.Log("Bonus boost");
     }
 
     void PressHorn()
@@ -362,6 +377,9 @@ public class Player : MonoBehaviour
                 chargingUp = false;
                 chargeSource.Stop();
                 chargeSource.PlayOneShot(chargeDown);
+
+                chargeBarObj.transform.DOKill();
+                chargeBarObj.transform.DOScale(1.0f, chargeTime);
             }
         }
         else
@@ -375,6 +393,9 @@ public class Player : MonoBehaviour
                 chargingUp = true;
                 chargeSource.Stop();
                 chargeSource.PlayOneShot(chargeUp);
+
+                chargeBarObj.transform.DOKill();
+                chargeBarObj.transform.DOScale(1.1f, chargeTime);
             }
         }
     }
@@ -383,12 +404,12 @@ public class Player : MonoBehaviour
     {
         if (cooldownTimer > 0.001f)
         {
-            chargeBar.transform.localScale = Vector3.zero;
+            chargeBarFilled.transform.localScale = Vector3.zero;
             chargeBarBG.transform.localScale = Vector3.zero;
         }
         else
         {
-            chargeBar.transform.localScale = Vector3.one;
+            chargeBarFilled.transform.localScale = Vector3.one;
             chargeBarBG.transform.localScale = Vector3.one;
         }
     }
