@@ -57,6 +57,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        FindObjectOfType<SplitScreenManager>().ActivatePlayerTwo();
+
         Player[] allPlayers = GameObject.FindObjectsOfType<Player>();
         for (int i = 0; i < allPlayers.Length; i++)
         {
@@ -64,7 +66,6 @@ public class GameManager : MonoBehaviour
         }
 
         SetPlayersInputControl(false);
-
         StartCoroutine(StartPreRace());
     }
 
@@ -98,6 +99,8 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartCountdown()
     {
         gameState = GameState.countdown;
+
+        FindObjectOfType<SplitScreenManager>().SplitScreens();
 
         StartCoroutine(StartCountdownSound());
 

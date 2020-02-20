@@ -241,7 +241,7 @@ public class Player : MonoBehaviour
                 GameObject effect = Instantiate(collisionEffect, this.transform); //, Quaternion.identity, null);
                 GameObject.Destroy(effect, 5.0f);
 
-                sfxSource.PlayOneShot(crashSound, stunnedTimer / 1.5f);
+                sfxSource.PlayOneShot(crashSound, stunnedTimer * 2.0f);
             }
         }
     }

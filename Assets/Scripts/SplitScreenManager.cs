@@ -18,6 +18,11 @@ public class SplitScreenManager : MonoBehaviour
 
     private void Awake()
     {
+        
+    }
+
+    public void SplitScreens()
+    {
         // Get player count. Default to 1
         uint playerCount = 1;
         if (GameObject.FindObjectOfType<DontDestroyScript>())
@@ -31,8 +36,6 @@ public class SplitScreenManager : MonoBehaviour
         // 2 Players
         if (playerCount == 2)
         {
-            // Set Player 2 to active
-            players[1].SetActive(true);
             // Set player 2 camera to active
             playerCameras[1].SetActive(true);
             // Set player 1 camera's viewport
@@ -61,6 +64,14 @@ public class SplitScreenManager : MonoBehaviour
                     chargeBar.GetComponent<RectTransform>().localPosition = newPos;
                 }
             }
+        }
+    }
+
+    public void ActivatePlayerTwo()
+    {
+        if (GameObject.FindObjectOfType<DontDestroyScript>().playerCount == 2)
+        {
+            players[1].SetActive(true);
         }
     }
 }
