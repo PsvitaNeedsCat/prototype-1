@@ -58,6 +58,11 @@ public class CarController : MonoBehaviour
     [SerializeField] private float meshTurnAngle = 25.0f;
     [SerializeField] private float notGroundedRespawnTime = 3.0f;
 
+    public AnimationCurve wheelieCurve;
+
+    private float wheelieTimer = 0.0f;
+    private float wheelieAmount = 0.0f;
+
     private bool isRespawning = false;
     private float steerAngle = 0.0f;
     private float oldRotation;
@@ -107,6 +112,11 @@ public class CarController : MonoBehaviour
         currentTorque = totalTorque - (tractionControl * totalTorque);
     }
 
+    private void Update()
+    {
+        wheelieTimer = Mathf.Clamp(wheelieTimer - Time.deltaTime, 0.0f, 1.0f);
+    }
+
     public void Move(float steering, float accel)
     {
         UpdateWheelMeshes();
@@ -117,7 +127,8 @@ public class CarController : MonoBehaviour
 
         if (!canSteer) { steering = 0.0f; }
 
-        carMesh.transform.localRotation = Quaternion.Euler(0.0f, steering * meshTurnAngle, -steering * meshTurnAngle / 2.0f);
+        float xRot = wheelieCurve.Evaluate((1.0f - wheelieTimer)) * wheelieAmount;
+        carMesh.transform.localRotation = Quaternion.Euler(xRot, steering * meshTurnAngle, -steering * meshTurnAngle / 2.0f);
 
         // Set steering on the front wheels (wheels 0 and 1 must be front wheels)
         steerAngle = steering * maxSteerAngle;
@@ -130,6 +141,12 @@ public class CarController : MonoBehaviour
         AddDownForce();
         TractionControl();
 
+    }
+
+    public void OnReleaseCharge(float chargeAmount)
+    {
+        wheelieAmount = chargeAmount;
+        wheelieTimer = 1.0f;
     }
 
     public void ApplyForwardImpulse(float forceSize)

@@ -76,11 +76,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void SetPlayersBoostAllowed(bool boostAllowed)
+    {
+        foreach (Player player in players)
+        {
+            player.boostingAllowed = boostAllowed;
+        }
+    }
+
     private IEnumerator StartPreRace()
     {
         gameState = GameState.preRace;
 
         yield return new WaitForSeconds(preRaceDuration);
+
+        SetPlayersInputControl(true);
 
         StartCoroutine(StartCountdown());
     }
@@ -111,7 +121,7 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.inRace;
 
-        SetPlayersInputControl(true);
+        SetPlayersBoostAllowed(true);
 
         gameMusic.SetActive(true);
 

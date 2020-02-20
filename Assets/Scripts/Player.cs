@@ -85,6 +85,7 @@ public class Player : MonoBehaviour
     private int numCheckpoints;
     private bool finished = false;
     [HideInInspector] public RespawnCheckpoint lastRespawnCheckpoint;
+    public bool boostingAllowed = false;
 
     public bool IsRespawning
     {
@@ -290,8 +291,8 @@ public class Player : MonoBehaviour
         normalisedTimeCharged = 0.0f;
 
         squashObject.transform.DOKill();
-        squashObject.transform.DOScaleZ(1.25f, chargeTime).SetEase(Ease.OutElastic);
-        squashObject.transform.DOScaleX(0.85f, chargeTime).SetEase(Ease.OutElastic);
+        squashObject.transform.DOScaleZ(1.25f, chargeTime).SetEase(Ease.InOutSine);
+        squashObject.transform.DOScaleX(0.85f, chargeTime).SetEase(Ease.InOutSine);
 
         chargeBarObj.transform.DOKill();
         chargeBarObj.transform.DOScale(1.1f, chargeTime);
@@ -303,6 +304,12 @@ public class Player : MonoBehaviour
     private void StopCharging()
     {
         if (!isCharging) { return; }
+        if (!boostingAllowed) 
+        {
+            isCharging = false;
+            ChargeAmount = 0.0f;
+            return;
+        }
 
         isCharging = false;
         rigidBody.isKinematic = false;
@@ -311,6 +318,8 @@ public class Player : MonoBehaviour
         carController.CanSteer = true;
         carController.WheelCollidersFriction(true);
         cooldownTimer = chargeCooldown * chargeAmount;
+
+        carController.OnReleaseCharge(chargeAmount);
 
         stunImmuneTimer = 0.1f;
 
@@ -322,8 +331,8 @@ public class Player : MonoBehaviour
         strokes += 1;
 
         squashObject.transform.DOKill();
-        squashObject.transform.DOScaleZ(1.0f, 0.75f).SetEase(Ease.OutElastic);
-        squashObject.transform.DOScaleX(1.0f, 0.75f).SetEase(Ease.OutElastic);
+        squashObject.transform.DOScaleZ(1.0f, 0.75f).SetEase(Ease.InOutSine);
+        squashObject.transform.DOScaleX(1.0f, 0.75f).SetEase(Ease.InOutSine);
 
         chargeBarObj.transform.DOKill();
         chargeBarObj.transform.DOScale(1.0f, 0.25f);
@@ -385,6 +394,10 @@ public class Player : MonoBehaviour
 
                 chargeBarObj.transform.DOKill();
                 chargeBarObj.transform.DOScale(1.0f, chargeTime);
+
+                squashObject.transform.DOKill();
+                squashObject.transform.DOScaleZ(1.0f, chargeTime).SetEase(Ease.InOutSine);
+                squashObject.transform.DOScaleX(1.0f, chargeTime).SetEase(Ease.InOutSine);
             }
         }
         else
@@ -401,6 +414,10 @@ public class Player : MonoBehaviour
 
                 chargeBarObj.transform.DOKill();
                 chargeBarObj.transform.DOScale(1.1f, chargeTime);
+
+                squashObject.transform.DOKill();
+                squashObject.transform.DOScaleZ(1.25f, chargeTime).SetEase(Ease.InOutSine);
+                squashObject.transform.DOScaleX(0.85f, chargeTime).SetEase(Ease.InOutSine);
             }
         }
     }
@@ -454,7 +471,8 @@ public class Player : MonoBehaviour
                 if (CurrentLapNumber == GameManager.Instance.numLaps)
                 {
                     GameManager.Instance.PlayerFinished(playerNumber);
-                    SetInputControl(false);
+                    // SetInputControl(false);
+                    boostingAllowed = false;
                     finished = true;
                     return;
                 }
