@@ -839,7 +839,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6607e99e355d9242a59c26b35a354be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chargeBar: {fileID: 0}
+  chargeBarObj: {fileID: 0}
+  chargeBarFilled: {fileID: 0}
   chargeBarBG: {fileID: 0}
   currentLapText: {fileID: 0}
   totalLapsText: {fileID: 0}
@@ -944,18 +945,18 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 60
-      inSlope: -15
-      outSlope: -15
+      value: 45
+      inSlope: 20
+      outSlope: 20
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 45
-      inSlope: -15
-      outSlope: -15
+      value: 65
+      inSlope: 20
+      outSlope: 20
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334

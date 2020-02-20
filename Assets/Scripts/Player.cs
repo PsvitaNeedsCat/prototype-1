@@ -179,11 +179,6 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Respawn();
-        }
-
         ChargeBarUpdate();
         AccelerationUpdate();
         ChargingUpdate();
@@ -217,7 +212,7 @@ public class Player : MonoBehaviour
         targetFOV = speedFOVCurve.Evaluate(clampedSpeed);
 
         float deltaFOV = targetFOV - followCam.m_Lens.FieldOfView;
-        followCam.m_Lens.FieldOfView += deltaFOV / 7.5f;
+        followCam.m_Lens.FieldOfView += deltaFOV / 6.5f;
 
         targetVolume = engineVolumeCurve.Evaluate(clampedSpeed);
         targetPitch = enginePitchCurve.Evaluate(clampedSpeed);
@@ -227,8 +222,6 @@ public class Player : MonoBehaviour
 
         float deltaPitch = targetPitch - engineSource.pitch;
         engineSource.pitch += deltaPitch / 5.0f;
-
-        
     }
 
     private void CheckCrash()
@@ -427,12 +420,14 @@ public class Player : MonoBehaviour
         steeringInput = (Mathf.Abs(horInput) <= 0.5f) ? 0.0f : steeringInput = horInput;
     }
 
-    public float Respawn()
-    {
-        float respawnTime = carController.RespawnCar();
-        stunImmuneTimer = respawnTime;
-        return respawnTime;
-    }
+    //public float Respawn()
+    //{
+    //    if (IsRespawning) { return ; }
+
+    //    float respawnTime = carController.RespawnCar();
+    //    stunImmuneTimer = respawnTime;
+    //    return respawnTime;
+    //}
 
     public void PassedCheckpoint(int checkpointNum)
     {

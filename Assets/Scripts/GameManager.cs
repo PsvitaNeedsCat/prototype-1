@@ -133,15 +133,16 @@ public class GameManager : MonoBehaviour
     private IEnumerator EndRace()
     {
         // Single player
-        if (GameObject.Find("DontDestroyObj").GetComponent<DontDestroyScript>().playerCount == 1)
-        {
-            GameObject.FindGameObjectWithTag("WinnerText").GetComponent<TextMeshProUGUI>().text = "Victory!";
-        }
-        // Mulitplayer
-        else
-        {
-            ActivateLeaderboard();
-        }
+        //if (GameObject.Find("DontDestroyObj").GetComponent<DontDestroyScript>().playerCount == 1)
+        //{
+        //    GameObject.FindGameObjectWithTag("WinnerText").GetComponent<TextMeshProUGUI>().text = "Victory!";
+        //}
+        //// Mulitplayer
+        //else
+        //{
+        //    ActivateLeaderboard();
+        //}
+        ActivateLeaderboard();
 
         gameState = GameState.postRace;
 
@@ -176,61 +177,72 @@ public class GameManager : MonoBehaviour
         // Activate leaderboard object which gets the backgrounds
         leaderboard.SetActive(true);
 
-        // Get players for strokes
-        Player[] players = new Player[2] { GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>(), GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>() };
-
-        int[] scores = new int[dontDestroy.playerCount];
-        // Change positions
-        for (int i = 0; i < dontDestroy.playerCount; i++)
+        if (dontDestroy.playerCount == 1)
         {
-            // Starts with first place
-            switch (playerPositions[i])
-            {
-                // Player 1 is in this position
-                case 1:
-                    {
-                        scores[0] = (int)(((i + 1) * 5) + players[0].strokes);
-                        break;
-                    }
-                // Player 2 is in this position
-                case 2:
-                    {
-                        scores[1] = (int)(((i + 1) * 5) + players[1].strokes);
-                        break;
-                    }
+            Player soloPlayer = GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>();
+            int score = (int)(5 + players[0].strokes);
+            playerInfo[0].gameObject.SetActive(true);
+        }
+        else
+        {
+            // Get players for strokes
+            Player[] players = new Player[2] { GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>(), GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>() };
 
-                default:
-                    break;
+            int[] scores = new int[dontDestroy.playerCount];
+            // Change positions
+            for (int i = 0; i < dontDestroy.playerCount; i++)
+            {
+                // Starts with first place
+                switch (playerPositions[i])
+                {
+                    // Player 1 is in this position
+                    case 1:
+                        {
+                            scores[0] = (int)(((i + 1) * 5) + players[0].strokes);
+                            break;
+                        }
+                    // Player 2 is in this position
+                    case 2:
+                        {
+                            scores[1] = (int)(((i + 1) * 5) + players[1].strokes);
+                            break;
+                        }
+
+                    default:
+                        break;
+                }
+            }
+
+            int[] newPositions = playerPositions;
+
+            // Player 1 has higher score
+            if (scores[0] < scores[1]) { newPositions[0] = 1; newPositions[1] = 2; }
+            else if (scores[1] < scores[0]) { newPositions[0] = 2; newPositions[1] = 1; }
+
+            // Check each position
+            for (int place = 0; place < dontDestroy.playerCount; place++)
+            {
+                int modifier = place * 2;
+
+                switch (newPositions[place])
+                {
+                    case 1:
+                        {
+                            playerInfo[0 + modifier].gameObject.SetActive(true);
+                            break;
+                        }
+                    case 2:
+                        {
+                            playerInfo[1 + modifier].gameObject.SetActive(true);
+                            break;
+                        }
+
+                    default:
+                        break;
+                }
             }
         }
 
-        int[] newPositions = playerPositions;
-
-        // Player 1 has higher score
-        if (scores[0] < scores[1]) { newPositions[0] = 1; newPositions[1] = 2; }
-        else if (scores[1] < scores[0]) { newPositions[0] = 2; newPositions[1] = 1; }
-
-        // Check each position
-        for (int place = 0; place < dontDestroy.playerCount; place++)
-        {
-            int modifier = place * 2;
-
-            switch (newPositions[place])
-            {
-                case 1:
-                    {
-                        playerInfo[0 + modifier].gameObject.SetActive(true);
-                        break;
-                    }
-                case 2:
-                    {
-                        playerInfo[1 + modifier].gameObject.SetActive(true);
-                        break;
-                    }
-
-                default:
-                    break;
-            }
-        }
+        
     }
 }
