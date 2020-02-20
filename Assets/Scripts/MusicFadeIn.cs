@@ -8,6 +8,8 @@ public class MusicFadeIn : MonoBehaviour
 {
     private AudioSource musicSource;
     public float overSeconds = 2.0f;
+    public float finalVolume = 1.0f;
+
     private void Awake()
     {
         musicSource = GetComponent<AudioSource>();
@@ -16,6 +18,6 @@ public class MusicFadeIn : MonoBehaviour
 
     private void Update()
     {
-        if (musicSource.volume < 1.0f) { musicSource.volume += Time.deltaTime / overSeconds; }
+        if (musicSource.volume < finalVolume) { musicSource.volume += Time.deltaTime / overSeconds; }
     }
 }

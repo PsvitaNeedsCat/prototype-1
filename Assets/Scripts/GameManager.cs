@@ -105,7 +105,6 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         countdownSource.Play();
-
     }
 
     private IEnumerator StartRace()

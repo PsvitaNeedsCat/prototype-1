@@ -20,11 +20,16 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject collisionEffect;
     [SerializeField] private GameObject squashObject; // Object to be squashed and stretched during charging
     [SerializeField] private AudioClip crashSound;
+    [SerializeField] private AudioClip chargeUp;
+    [SerializeField] private AudioClip chargeDown;
+    [SerializeField] private AudioClip chargeRelease;
+    [SerializeField] private AudioClip bonusBoost;
+
     [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioSource sfxSource2;
     [SerializeField] private AudioSource engineSource;
     [SerializeField] private AudioSource driftSource;
-
-    // public GameObject stunnedIndicator; // Temp
+    [SerializeField] private AudioSource chargeSource;
 
     [Header("Player Settings")]
 
@@ -258,7 +263,7 @@ public class Player : MonoBehaviour
         Vector3 facingDir = transform.forward.normalized;
         facingDir.y = 0.0f;
 
-        float dotProduct = Vector3.Dot(velocityDir, facingDir);
+        float dotProduct = Mathf.Abs(Vector3.Dot(velocityDir, facingDir));
         driftSource.volume = driftVolumeCurve.Evaluate(Mathf.Clamp(dotProduct, 0.0f, 1.0f));        
     }
 
@@ -280,6 +285,9 @@ public class Player : MonoBehaviour
         squashObject.transform.DOKill();
         squashObject.transform.DOScaleZ(1.25f, chargeTime).SetEase(Ease.OutElastic);
         squashObject.transform.DOScaleX(0.85f, chargeTime).SetEase(Ease.OutElastic);
+
+        chargeSource.Stop();
+        chargeSource.PlayOneShot(chargeUp);
     }
 
     private void StopCharging()
@@ -296,6 +304,14 @@ public class Player : MonoBehaviour
 
         stunImmuneTimer = 0.1f;
 
+        Debug.Log(normalisedTimeCharged);
+        if (normalisedTimeCharged > 0.9f)
+        {
+            sfxSource2.Stop();
+            sfxSource2.PlayOneShot(bonusBoost);
+            Debug.Log("Bonus boost");
+        }
+
         float longChargeBonus = Mathf.Clamp(bonusChargeCurve.Evaluate(normalisedTimeCharged), 0.0f, 999.0f);
         carController.ApplyForwardImpulse(releaseImpulseAmount * (chargeAmount + longChargeBonus));
 
@@ -306,6 +322,9 @@ public class Player : MonoBehaviour
         squashObject.transform.DOKill();
         squashObject.transform.DOScaleZ(1.0f, 0.75f).SetEase(Ease.OutElastic);
         squashObject.transform.DOScaleX(1.0f, 0.75f).SetEase(Ease.OutElastic);
+
+        chargeSource.Stop();
+        sfxSource.PlayOneShot(chargeRelease);
     }
 
     void PressHorn()
@@ -341,6 +360,8 @@ public class Player : MonoBehaviour
             if (normalisedTimeCharged > 0.999f)
             {
                 chargingUp = false;
+                chargeSource.Stop();
+                chargeSource.PlayOneShot(chargeDown);
             }
         }
         else
@@ -352,6 +373,8 @@ public class Player : MonoBehaviour
             if (normalisedTimeCharged < 0.001f)
             {
                 chargingUp = true;
+                chargeSource.Stop();
+                chargeSource.PlayOneShot(chargeUp);
             }
         }
     }
