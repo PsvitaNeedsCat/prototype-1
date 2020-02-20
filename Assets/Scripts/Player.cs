@@ -60,6 +60,7 @@ public class Player : MonoBehaviour
     public AnimationCurve driftVolumeCurve; // Curve representing drift noise volume change based on drift angle
 
     [HideInInspector] public uint strokes = 0;
+    [HideInInspector] public float timer = 0.0f;
 
     private float chargeAmount = 0.0f; // How full the charge bar is
     private float normalisedTimeCharged = 0.0f; // Amount of time spent charging
@@ -84,6 +85,7 @@ public class Player : MonoBehaviour
     private int lastCheckpointPassed = 0;
     private int numCheckpoints;
     private bool finished = false;
+    private bool started = false;
     [HideInInspector] public RespawnCheckpoint lastRespawnCheckpoint;
 
     public bool IsRespawning
@@ -188,6 +190,12 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!finished && started) timer += Time.fixedDeltaTime;
+
+        // Debug
+        if (!finished && Input.GetKey(KeyCode.J) && playerNumber == 1) { finished = true; Debug.Log("Player 1 finished"); GameManager.Instance.PlayerFinished(1); }
+        else if (!finished && Input.GetKey(KeyCode.K) && playerNumber == 2) { finished = true; Debug.Log("Player 2 finished"); GameManager.Instance.PlayerFinished(2); }
+
         UpdateCurves();
         CheckCrash();
         CheckDrift();
@@ -549,5 +557,10 @@ public class Player : MonoBehaviour
     public void PassedRespawnCheckpoint(RespawnCheckpoint checkpoint)
     {
         lastRespawnCheckpoint = checkpoint;
+    }
+
+    public void StartTiming()
+    {
+        started = true;
     }
 }
