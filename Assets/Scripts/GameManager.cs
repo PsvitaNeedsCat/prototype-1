@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int winner = 1;
     [HideInInspector] public int playersFinished = 0;
     [SerializeField] GameObject leaderboard;
-    [SerializeField] Leaderboard[] playerInfo;
 
     private List<Player> players = new List<Player>();
     private DontDestroyScript dontDestroy;
@@ -110,6 +109,12 @@ public class GameManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(raceCountdownDuration);
+
+        // Start timing
+        foreach (Player _player in players)
+        {
+            _player.StartTiming();
+        }
 
         StartCoroutine(StartRace());
     }
@@ -193,60 +198,25 @@ public class GameManager : MonoBehaviour
         if (dontDestroy.playerCount == 1)
         {
             Player soloPlayer = GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>();
-            int score = (int)(5 + players[0].strokes);
-            playerInfo[0].gameObject.SetActive(true);
+            leaderboard.GetComponent<LeaderboardActivation>().Activate(1, 1);
         }
         else
         {
-            // Get players for strokes
-            Player[] players = new Player[2] { GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>(), GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>() };
-
-            int[] scores = new int[dontDestroy.playerCount];
-            // Change positions
-            for (int i = 0; i < dontDestroy.playerCount; i++)
-            {
-                // Starts with first place
-                switch (playerPositions[i])
-                {
-                    // Player 1 is in this position
-                    case 1:
-                        {
-                            scores[0] = (int)(((i + 1) * 5) + players[0].strokes);
-                            break;
-                        }
-                    // Player 2 is in this position
-                    case 2:
-                        {
-                            scores[1] = (int)(((i + 1) * 5) + players[1].strokes);
-                            break;
-                        }
-
-                    default:
-                        break;
-                }
-            }
-
-            int[] newPositions = playerPositions;
-
-            // Player 1 has higher score
-            if (scores[0] < scores[1]) { newPositions[0] = 1; newPositions[1] = 2; }
-            else if (scores[1] < scores[0]) { newPositions[0] = 2; newPositions[1] = 1; }
-
             // Check each position
             for (int place = 0; place < dontDestroy.playerCount; place++)
             {
                 int modifier = place * 2;
 
-                switch (newPositions[place])
+                switch (playerPositions[place])
                 {
                     case 1:
                         {
-                            playerInfo[0 + modifier].gameObject.SetActive(true);
+                            leaderboard.GetComponent<LeaderboardActivation>().Activate(place + 1, 1);
                             break;
                         }
                     case 2:
                         {
-                            playerInfo[1 + modifier].gameObject.SetActive(true);
+                            leaderboard.GetComponent<LeaderboardActivation>().Activate(place + 1, 2);
                             break;
                         }
 
@@ -255,7 +225,5 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-
-        
     }
 }

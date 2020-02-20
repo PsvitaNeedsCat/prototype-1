@@ -32,9 +32,6 @@ public class ButtonHandler : MonoBehaviour
         // Toggle player count integer
         dontDestroy.playerCount = (dontDestroy.playerCount >= dontDestroy.maxNumPlayers) ? 1 : dontDestroy.playerCount + 1;
 
-        // Change button's text in menu
-        this.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Players: " + dontDestroy.playerCount;
-
         // Turn player 2 horn button on/off
         if (dontDestroy.playerCount >= 2) playerHornGroups[1].SetActive(true);
         else playerHornGroups[1].SetActive(false);
