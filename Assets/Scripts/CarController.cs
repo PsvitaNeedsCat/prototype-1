@@ -237,7 +237,6 @@ public class CarController : MonoBehaviour
                 if (notGroundedTime > notGroundedRespawnTime)
                 {
                     RespawnCar();
-                    Debug.Log("Respawning car");
                 }
                 return;
             } // If wheels aren't on the ground, don't help with steering
@@ -334,8 +333,12 @@ public class CarController : MonoBehaviour
         }
     }
 
-    public float RespawnCar()
+    public void RespawnCar()
     {
+        if (isRespawning) { return; }
+
+        Debug.Log("Respawning car");
+
         StartCoroutine(RespawnSetKinematic());
         StartCoroutine(RespawnSetIsRespawning());
 
@@ -345,7 +348,7 @@ public class CarController : MonoBehaviour
         transform.DOMove(respawnCheckpoint.transform.position, fallRespawnTime);
         transform.DOLocalRotateQuaternion(Quaternion.Euler(0.0f, yaw, 0.0f), fallRespawnTime);
 
-        return fallRespawnTime;
+        return;
     }
 
     private IEnumerator RespawnSetKinematic()
@@ -355,6 +358,7 @@ public class CarController : MonoBehaviour
         yield return new WaitForSeconds(fallRespawnTime);
 
         rigidBody.isKinematic = false;
+        notGroundedTime = 0.0f;
     }
 
     private IEnumerator RespawnSetIsRespawning()
