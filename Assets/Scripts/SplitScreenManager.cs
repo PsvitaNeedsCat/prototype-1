@@ -10,7 +10,8 @@ public class SplitScreenManager : MonoBehaviour
     [SerializeField] GameObject[] players;
 
     // Height for charge bar to snap to if in split screen
-    private const float chargeBarHeight = 612.0f; //84.0f;
+    private const float chargeBarHeight = 300.0f;
+    private const float chargeBarScale = 0.5f;
     // Viewport rect Y value if in split screen
     private const float rectYVal = 0.5f;
     private const float player2LapsCounterHeight = -653.0f;
@@ -42,9 +43,22 @@ public class SplitScreenManager : MonoBehaviour
             // Set player 1's charge bar height
             for (int i = 0; i < playerCanvas[0].transform.childCount; i++)
             {
-                if (playerCanvas[0].transform.GetChild(i).tag != "LapsCounter")
+                if (playerCanvas[0].transform.GetChild(i).tag == "ChargeBar")
                 {
-                    playerCanvas[0].transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector3(0.0f, chargeBarHeight, 0.0f);
+                    // Get game object
+                    GameObject chargeBar = playerCanvas[0].transform.GetChild(i).gameObject;
+
+                    // Change scale
+                    Vector3 newScale = chargeBar.GetComponent<RectTransform>().localScale;
+                    newScale.y = chargeBarScale;
+                    // Change position
+                    Vector3 newPos = chargeBar.GetComponent<RectTransform>().localPosition;
+                    newPos.y = chargeBarHeight;
+
+                    // Set scale
+                    chargeBar.GetComponent<RectTransform>().localScale = newScale;
+                    // Set height
+                    chargeBar.GetComponent<RectTransform>().localPosition = newPos;
                 }
             }
         }
