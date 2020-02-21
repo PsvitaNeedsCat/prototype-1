@@ -357,7 +357,7 @@ public class Player : MonoBehaviour
     private void BonusBoost()
     {
         sfxSource2.Stop();
-        sfxSource2.PlayOneShot(bonusBoost);
+        sfxSource2.PlayOneShot(bonusBoost, 0.6f);
 
         chargeBarObj.transform.DOKill();
         chargeBarObj.transform.DOScale(1.25f, 0.2f).SetEase(Ease.InOutElastic).OnComplete(() => chargeBarObj.transform.DOScale(1.0f, 0.2f).SetEase(Ease.InOutElastic));

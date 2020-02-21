@@ -5,7 +5,7 @@ using UnityEngine;
 public class HornScript : MonoBehaviour
 {
     public AudioClip[] hornSounds;
-    AudioSource m_audioSource;
+    public AudioSource m_audioSource;
 
     public enum Sounds
     { 
@@ -19,7 +19,7 @@ public class HornScript : MonoBehaviour
     private void Awake()
     {
         // Set audio source
-        m_audioSource = GetComponent<AudioSource>();
+        // m_audioSource = GetComponent<AudioSource>();
 
         // Set audio clip
         m_audioSource.clip = hornSounds[(int)hornIndex];
