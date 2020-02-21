@@ -152,6 +152,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator EndRace()
     {
         ActivateLeaderboard();
+        GameObject.FindObjectOfType<SplitScreenManager>().SetHUD(false);
 
         gameState = GameState.postRace;
 

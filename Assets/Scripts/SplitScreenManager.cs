@@ -74,4 +74,12 @@ public class SplitScreenManager : MonoBehaviour
             players[1].SetActive(true);
         }
     }
+
+    public void SetHUD(bool active)
+    {
+        for (int i = 0; i < playerCanvas.Length; i++)
+        {
+            playerCanvas[i].SetActive(active);
+        }
+    }
 }
