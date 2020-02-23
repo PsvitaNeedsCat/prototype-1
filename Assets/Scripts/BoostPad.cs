@@ -6,6 +6,12 @@ public class BoostPad : MonoBehaviour
 {
     public float boostForce = 100.0f;
     public Vector3 boostDir = Vector3.forward;
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,6 +21,7 @@ public class BoostPad : MonoBehaviour
         {
             // player.ApplyImpulse(boostForce * (transform.rotation * boostDir.normalized));
             player.ApplyForce(boostForce * (transform.rotation * boostDir.normalized));
+            audioSource.Play();
         }
     }
 

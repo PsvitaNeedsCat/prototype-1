@@ -351,7 +351,7 @@ public class Player : MonoBehaviour
         }
 
         chargeSource.Stop();
-        sfxSource.PlayOneShot(chargeRelease);
+        sfxSource.PlayOneShot(chargeRelease, 1.0f);
     }
 
     private void BonusBoost()
