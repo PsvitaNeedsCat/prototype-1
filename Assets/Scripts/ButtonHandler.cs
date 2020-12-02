@@ -4,16 +4,22 @@ using UnityEngine;
 
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ButtonHandler : MonoBehaviour
 {
     DontDestroyScript dontDestroy;
 
+    EventSystem m_eventSystem;
+    [SerializeField] private GameObject m_playButton;
+
     [SerializeField] GameObject[] playerHornGroups;
 
     private void Awake()
     {
-        dontDestroy = GameObject.FindObjectOfType<DontDestroyScript>();
+        dontDestroy = FindObjectOfType<DontDestroyScript>();
+        m_eventSystem = FindObjectOfType<EventSystem>();
     }
 
     public void Play()
@@ -33,52 +39,33 @@ public class ButtonHandler : MonoBehaviour
         dontDestroy.playerCount = (dontDestroy.playerCount >= dontDestroy.maxNumPlayers) ? 1 : dontDestroy.playerCount + 1;
 
         // Turn player 2 horn button on/off
-        if (dontDestroy.playerCount >= 2) playerHornGroups[1].SetActive(true);
-        else playerHornGroups[1].SetActive(false);
+        if (dontDestroy.playerCount >= 2)
+        {
+            playerHornGroups[1].SetActive(true);
+        }
+        else
+        {
+            playerHornGroups[1].SetActive(false);
+        }
+
+        m_eventSystem.SetSelectedGameObject(m_playButton);
     }
 
     public void ChangePlayerHorn(int _playerNum)
     {
-        switch (_playerNum)
-        {
-            case 1:
-                {
-                    // Go to next horn sound
-                    dontDestroy.p1SelectedHorn = (HornScript.Sounds)((int)dontDestroy.p1SelectedHorn + 1);
+        int index = _playerNum - 1;
 
-                    // If at the end of the list, reset
-                    if ((int)dontDestroy.p1SelectedHorn >= (int)HornScript.Sounds.COUNT) dontDestroy.p1SelectedHorn = (HornScript.Sounds)0;
+        // Go to next horn sound
+        dontDestroy.horns[index] = (HornScript.Sounds)((int)dontDestroy.horns[index] + 1);
 
-                    // Change button's text
-                    transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = dontDestroy.p1SelectedHorn.ToString();
+        // If at the end of the list, reset
+        if ((int)dontDestroy.horns[index] >= (int)HornScript.Sounds.COUNT) dontDestroy.horns[index] = (HornScript.Sounds)0;
 
-                    // Play the sound
-                    GetComponent<HornScript>().NextHorn();
-                    GetComponent<HornScript>().PlayHorn();
+        // Change button's text
+        transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = dontDestroy.horns[index].ToString();
 
-                    break;
-                }
-
-            case 2:
-                {
-                    // Go to next horn sound
-                    dontDestroy.p2SelectedHorn = (HornScript.Sounds)((int)dontDestroy.p2SelectedHorn + 1);
-
-                    // If at the end of the list, reset
-                    if ((int)dontDestroy.p2SelectedHorn >= (int)HornScript.Sounds.COUNT) dontDestroy.p2SelectedHorn = (HornScript.Sounds)0;
-
-                    // Change button's text
-                    transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = dontDestroy.p2SelectedHorn.ToString();
-
-                    // Play the sound
-                    GetComponent<HornScript>().NextHorn();
-                    GetComponent<HornScript>().PlayHorn();
-
-                    break;
-                }
-
-            default:
-                break;
-        }
+        // Play the sound
+        GetComponent<HornScript>().NextHorn();
+        GetComponent<HornScript>().PlayHorn();
     }
 }
