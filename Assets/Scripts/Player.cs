@@ -122,58 +122,50 @@ public class Player : MonoBehaviour
 
         ChargeAmount = 0.0f;
         controls = new InputMaster();
-
-        // Made a switch for future proofing
-        switch (playerNumber)
-        {
-            case 1:
-            {
-                    controls.Player1.Enable();
-
-                    controls.Player1.ChargePress.performed += _ => StartCharging();
-                    controls.Player1.ChargeRelease.performed += _ => StopCharging();
-
-                    controls.Player1.HornPress.performed += _ => PressHorn();
-                    controls.Player1.HornRelease.performed += _ => ReleaseHorn();
-
-                    controls.Player1.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
-
-                    // Set up devices (Gamepad and keyboard if gamepad is plugged in, else just a keyboard
-                    controls.devices = (Gamepad.all.Count >= 1) ? new[] { Gamepad.all[0], Keyboard.all[0] } : controls.devices = new[] { Keyboard.all[0] };
-
-                    // Give correct horn
-                    if (GameObject.Find("DontDestroyObj"))
-                        hornScript.ChangeHorn(GameObject.Find("DontDestroyObj").GetComponent<DontDestroyScript>().p1SelectedHorn);
-
-                    break;
-            }
-
-            case 2:
-            {
-                    controls.Player2.Enable();
-
-                    controls.Player2.ChargePress.performed += _ => StartCharging();
-                    controls.Player2.ChargeRelease.performed += _ => StopCharging();
-
-                    controls.Player2.HornPress.performed += _ => PressHorn();
-                    controls.Player2.HornRelease.performed += _ => ReleaseHorn();
-
-                    controls.Player2.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
-
-                    // Set up devices (Gamepad and keyboard if gamepad is plugged in, else just a keyboard
-                    controls.devices = (Gamepad.all.Count >= 2) ? new[] { Gamepad.all[1], Keyboard.all[0] } : controls.devices = new[] { Keyboard.all[0] };
-
-                    // Give player the correct horn sound
-                    if (GameObject.Find("DontDestroyObj"))
-                        hornScript.ChangeHorn(GameObject.Find("DontDestroyObj").GetComponent<DontDestroyScript>().p2SelectedHorn);
-
-                    break;
-            }
-
-            default:
-                break;
-        }
         
+        if (playerNumber == 1)
+        {
+            controls.Player1.Enable();
+
+            controls.Player1.ChargePress.performed += _ => StartCharging();
+            controls.Player1.ChargePress.canceled += _ => StopCharging();
+
+            controls.Player1.HornPress.performed += _ => PressHorn();
+            controls.Player1.HornPress.canceled += _ => ReleaseHorn();
+
+            controls.Player1.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
+            controls.Player1.Turning.canceled += ctx => Steer(ctx.ReadValue<float>());
+        }
+        else // 2
+        {
+            controls.Player2.Enable();
+
+            controls.Player2.ChargePress.performed += _ => StartCharging();
+            controls.Player2.ChargePress.canceled += _ => StopCharging();
+
+            controls.Player2.HornPress.performed += _ => PressHorn();
+            controls.Player2.HornPress.canceled += _ => ReleaseHorn();
+
+            controls.Player2.Turning.performed += ctx => Steer(ctx.ReadValue<float>());
+            controls.Player2.Turning.canceled += ctx => Steer(ctx.ReadValue<float>());
+        }
+
+        // Set controller
+        if (Gamepad.all.Count >= playerNumber)
+        {
+            controls.devices = new[] { Gamepad.all[playerNumber - 1], Keyboard.all[0] };
+        }
+        else
+        {
+            controls.devices = new[] { Keyboard.all[0] };
+        }
+
+        // Set horn
+        DontDestroyScript dontDestroy = FindObjectOfType<DontDestroyScript>();
+        if (dontDestroy)
+        {
+            hornScript.ChangeHorn(dontDestroy.horns[playerNumber - 1]);
+        }        
     }
 
     private void Start()
@@ -285,6 +277,7 @@ public class Player : MonoBehaviour
 
     private void StartCharging()
     {
+        if (isCharging) { return; }
         if (cooldownTimer > 0.001f) { return; }
         if (!carController.IsGrounded) { return; }
         if (stunnedTimer > 0.01f && stunImmuneTimer < 0.01f) { return; }
@@ -333,7 +326,7 @@ public class Player : MonoBehaviour
 
         float longChargeBonus = Mathf.Clamp(bonusChargeCurve.Evaluate(normalisedTimeCharged), 0.0f, 999.0f);
         carController.ApplyForwardImpulse(releaseImpulseAmount * (chargeAmount + longChargeBonus));
-
+        
         ChargeAmount = 0.0f;
 
         strokes += 1;
@@ -500,40 +493,24 @@ public class Player : MonoBehaviour
     {
         if (canInput)
         {
-            switch (playerNumber)
+            if (playerNumber == 1)
             {
-                case 1:
-                    {
-                        controls.Player1.Enable();
-                        break;
-                    }
-                case 2:
-                    {
-                        controls.Player2.Enable();
-                        break;
-                    }
-
-                default:
-                    break;
+                controls.Player1.Enable();
+            }
+            else
+            {
+                controls.Player2.Enable();
             }
         }
         else
         {
-            switch (playerNumber)
+            if (playerNumber == 1)
             {
-                case 1:
-                    {
-                        controls.Player1.Disable();
-                        break;
-                    }
-                case 2:
-                    {
-                        controls.Player2.Disable();
-                        break;
-                    }
-
-                default:
-                    break;
+                controls.Player1.Disable();
+            }
+            else
+            {
+                controls.Player2.Disable();
             }
 
             controls.Disable();

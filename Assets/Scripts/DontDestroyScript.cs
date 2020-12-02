@@ -7,18 +7,21 @@ public class DontDestroyScript : MonoBehaviour
     public uint playerCount = 1;
     public uint maxNumPlayers = 2;
 
-    public HornScript.Sounds p1SelectedHorn = HornScript.Sounds.SQUEAK;
-    public HornScript.Sounds p2SelectedHorn = HornScript.Sounds.SQUEAK;
+    public HornScript.Sounds[] horns = new HornScript.Sounds[2]
+    {
+        HornScript.Sounds.SQUEAK,
+        HornScript.Sounds.SQUEAK,
+    };
 
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     public void Reset()
     {
         playerCount = 1;
-        p1SelectedHorn = HornScript.Sounds.SQUEAK;
-        p2SelectedHorn = HornScript.Sounds.SQUEAK;
+        horns[0] = HornScript.Sounds.SQUEAK;
+        horns[1] = HornScript.Sounds.SQUEAK;
     }
 }
