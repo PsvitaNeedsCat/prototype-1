@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Water_MAT
-  m_Shader: {fileID: 4800000, guid: 843a4425299db7946a5a4b0b06cd3be0, type: 3}
+  m_Shader: {fileID: 4800000, guid: 508873b8dbd069b46ba5f793cc1d53f9, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -27,13 +27,37 @@ Material:
         m_Texture: {fileID: 2800000, guid: bdc6f7021ad1ca749895327399281ede, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DistortionGuide:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 63069df8bf76bd84fbde7f4155d65154, type: 3}
+        m_Texture: {fileID: 2800000, guid: faff4180214960148b3f2884105b50f5, type: 3}
+        m_Scale: {x: 5, y: 5}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 2800000, guid: 42d6d85356b6994448d9afab38de4574, type: 3}
         m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseFilter:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 2800000, guid: bdc6f7021ad1ca749895327399281ede, type: 3}
+        m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _ScrollTex:
         m_Texture: {fileID: 2800000, guid: faff4180214960148b3f2884105b50f5, type: 3}
@@ -52,9 +76,16 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Alpha: 0.04
+    - _Alpha: 0.5
     - _AlphaOne: 0.048
     - _AlphaTwo: 0.16
+    - _BGDist: 0.01
+    - _BGScale: 1
+    - _Dist: 0.025
+    - _DistSpeed: 1
+    - _DistStrength: 1
+    - _DistortAmount: 1.07
+    - _DistortionAmount: 0
     - _Gloss: 10
     - _GlossSmoothness: 1
     - _NormalStrength: 1

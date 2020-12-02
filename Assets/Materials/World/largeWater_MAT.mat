@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: largeWater_MAT
+  m_Shader: {fileID: 4800000, guid: 508873b8dbd069b46ba5f793cc1d53f9, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseTex:
+        m_Texture: {fileID: 2800000, guid: 63069df8bf76bd84fbde7f4155d65154, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: bdc6f7021ad1ca749895327399281ede, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: faff4180214960148b3f2884105b50f5, type: 3}
+        m_Scale: {x: 100, y: 100}
+        m_Offset: {x: 0, y: 0}
+    - _ScrollTex:
+        m_Texture: {fileID: 2800000, guid: faff4180214960148b3f2884105b50f5, type: 3}
+        m_Scale: {x: 10, y: 10}
+        m_Offset: {x: 0, y: 0}
+    - _ScrollTexOne:
+        m_Texture: {fileID: 2800000, guid: 0af6de3e1b428444593be4d5743ed63a, type: 3}
+        m_Scale: {x: 6, y: 6}
+        m_Offset: {x: 0, y: 0}
+    - _ScrollTexTwo:
+        m_Texture: {fileID: 2800000, guid: 029bc5437c7e29645b7f7d620d08a703, type: 3}
+        m_Scale: {x: 6, y: 6}
+        m_Offset: {x: 0, y: 0}
+    - _SpecMap:
+        m_Texture: {fileID: 2800000, guid: 63069df8bf76bd84fbde7f4155d65154, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0.04
+    - _AlphaOne: 0.048
+    - _AlphaTwo: 0.16
+    - _Gloss: 10
+    - _GlossSmoothness: 1
+    - _NormalStrength: 1
+    - _RimPower: 0
+    - _RimSmoothing: 0.5
+    - _ShadowSmooth: 0.5
+    - _ShadowThresh: 0.17
+    - _Speed: 50
+    - _SpeedX: 0.2
+    - _SpeedXOne: 0.05
+    - _SpeedXTwo: -0.05
+    - _SpeedY: 0.2
+    - _SpeedYOne: 0.05
+    - _SpeedYTwo: 0.05
+    - _Strength: 1
+    m_Colors:
+    - _BaseColor: {r: 0, g: 0.697165, b: 1, a: 0.21960784}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GlossColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}

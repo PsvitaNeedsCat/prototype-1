@@ -21,6 +21,8 @@ Shader "Unlit/Wind Shader"
 		}
 		LOD 200
 
+			ZWrite Off
+
 		Pass
 		{
 

@@ -37,6 +37,8 @@ Shader "Unlit/ToonShading Cutout"
 			Tags { "Queue" = "Transparent" "RenderType" = "Opaque" }
 			LOD 200								//Level of Detail = 200
 
+		ZWrite Off
+
 			CGPROGRAM
 			#include "ToonCommon.cginc"
 			#pragma surface surf Toon fullforwardshadows alpha

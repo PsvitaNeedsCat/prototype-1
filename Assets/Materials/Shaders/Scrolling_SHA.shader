@@ -20,6 +20,7 @@ Shader "Unlit/Scrolling Texture"
 			"CanUseSpriteAtlas" = "True"
 		}
         Blend SrcAlpha OneMinusSrcAlpha
+            ZWrite Off
 
         Pass
         {
