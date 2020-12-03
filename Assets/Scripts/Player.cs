@@ -153,11 +153,11 @@ public class Player : MonoBehaviour
         // Set controller
         if (Gamepad.all.Count >= playerNumber)
         {
-            controls.devices = new[] { Gamepad.all[playerNumber - 1], Keyboard.all[0] };
+            controls.devices = new[] { Gamepad.all[playerNumber - 1], InputSystem.devices[0] };
         }
         else
         {
-            controls.devices = new[] { Keyboard.all[0] };
+            controls.devices = new[] { InputSystem.devices[0] };
         }
 
         // Set horn
